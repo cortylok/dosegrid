@@ -15,6 +15,15 @@ function fmtRemaining(ms) {
   const mm = m % 60;
   return h > 0 ? `${h}h ${mm}m` : `${mm}m`;
 }
+function fmtLastTaken(ts) {
+  if (!ts) return 'Last taken: never';
+  const d = new Date(ts);
+  const today = new Date();
+  const sameDay = d.toDateString() === today.toDateString();
+  return sameDay
+    ? `Last taken: ${fmtTime(ts)}`
+    : `Last taken: ${d.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })}`;
+}
 
 export function renderGrid() {
   const meds = loadMeds().sort((a, b) => a.order - b.order);
@@ -34,7 +43,8 @@ export function renderGrid() {
       : 'Daily max';
     tile.innerHTML =
       `<div><h2>${med.name}</h2>` +
-      `<div class="dose-label">${med.strength ? med.strength + ' · ' : ''}${med.intervalHours}h · max ${med.maxDailyUnits} tabs/day</div></div>` +
+      `<div class="dose-label">${med.strength ? med.strength + ' · ' : ''}${med.intervalHours}h · max ${med.maxDailyUnits} tabs/day</div>` +
+      `<div class="dose-label">${fmtLastTaken(s.lastDoseTime)}</div></div>` +
       `<div class="status ${s.state}"><span class="dot"></span><span>${statusText}</span></div>`;
     attachTileHandlers(tile, med);
     grid.appendChild(tile);
