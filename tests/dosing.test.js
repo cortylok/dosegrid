@@ -1,7 +1,7 @@
 // tests/dosing.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { unitsToday, nextDoseTime } from '../js/dosing.js';
+import { unitsToday, nextDoseTime, computeStatus } from '../js/dosing.js';
 
 const midday = new Date('2026-06-14T12:00:00').getTime();
 const earlyToday = new Date('2026-06-14T08:00:00').getTime();
@@ -33,4 +33,36 @@ test('nextDoseTime adds intervalHours to last dose for the med', () => {
 
 test('nextDoseTime returns null when med has no doses', () => {
   assert.equal(nextDoseTime([], 'a', 6), null);
+});
+
+const med = { id: 'a', intervalHours: 6, maxDailyUnits: 4 };
+const now = new Date('2026-06-14T12:00:00').getTime();
+
+test('computeStatus READY when no doses', () => {
+  const s = computeStatus(med, [], now);
+  assert.equal(s.state, 'ready');
+});
+
+test('computeStatus DAILY_MAX when units today >= max', () => {
+  const doses = [
+    { medId: 'a', timestamp: new Date('2026-06-14T07:00:00').getTime(), units: 2 },
+    { medId: 'a', timestamp: new Date('2026-06-14T09:00:00').getTime(), units: 2 },
+  ];
+  const s = computeStatus(med, doses, now);
+  assert.equal(s.state, 'daily_max');
+  assert.equal(s.unitsToday, 4);
+});
+
+test('computeStatus WAIT when interval not elapsed and under max', () => {
+  const doses = [{ medId: 'a', timestamp: new Date('2026-06-14T10:00:00').getTime(), units: 1 }];
+  const s = computeStatus(med, doses, now);
+  assert.equal(s.state, 'wait');
+  assert.equal(s.nextDoseTime, new Date('2026-06-14T16:00:00').getTime());
+  assert.ok(s.msRemaining > 0);
+});
+
+test('computeStatus READY when interval elapsed and under max', () => {
+  const doses = [{ medId: 'a', timestamp: new Date('2026-06-14T04:00:00').getTime(), units: 1 }];
+  const s = computeStatus(med, doses, now);
+  assert.equal(s.state, 'ready');
 });

@@ -22,3 +22,18 @@ export function nextDoseTime(doses, medId, intervalHours) {
   const last = lastDose(doses, medId);
   return last ? last.timestamp + intervalHours * 3600 * 1000 : null;
 }
+
+export function computeStatus(med, doses, now) {
+  const units = unitsToday(doses, med.id, now);
+  const next = nextDoseTime(doses, med.id, med.intervalHours);
+  const last = lastDose(doses, med.id);
+  const base = { unitsToday: units, nextDoseTime: next, lastDoseTime: last ? last.timestamp : null };
+
+  if (units >= med.maxDailyUnits) {
+    return { ...base, state: 'daily_max', msRemaining: 0 };
+  }
+  if (next && now < next) {
+    return { ...base, state: 'wait', msRemaining: next - now };
+  }
+  return { ...base, state: 'ready', msRemaining: 0 };
+}
