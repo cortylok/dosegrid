@@ -9,39 +9,68 @@
     "generic": "Abiraterone",
     "brands": [
       "Zytiga"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Acamprosate",
     "brands": [
       "Campral"
-    ]
+    ],
+    "strengths": [
+      333
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Acarbose",
     "brands": [
       "Precose",
       "Glucobay"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Acebutolol",
     "brands": [
       "Sectral"
-    ]
+    ],
+    "strengths": [
+      200,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Acetazolamide",
     "brands": [
       "Diamox"
-    ]
+    ],
+    "strengths": [
+      250
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Aciclovir",
     "brands": [
       "Zovirax",
       "Acyclovir"
-    ]
+    ],
+    "strengths": [
+      200,
+      400,
+      800
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Aclidinium",
@@ -75,19 +104,34 @@
     "generic": "Albendazole",
     "brands": [
       "Albenza"
-    ]
+    ],
+    "strengths": [
+      200,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Alendronate",
     "brands": [
       "Fosamax"
-    ]
+    ],
+    "strengths": [
+      10,
+      70
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Alfuzosin",
     "brands": [
       "Uroxatral"
-    ]
+    ],
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Alirocumab",
@@ -102,25 +146,49 @@
       "Aloprim",
       "Allopurinol Riboside",
       "Allopurinol Sodium"
-    ]
+    ],
+    "strengths": [
+      100,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Almotriptan",
     "brands": [
       "Axert"
-    ]
+    ],
+    "strengths": [
+      12.5
+    ],
+    "unit": "mg",
+    "maxPerDay": 25
   },
   {
     "generic": "Alogliptin",
     "brands": [
       "Nesina"
-    ]
+    ],
+    "strengths": [
+      6.25,
+      12.5,
+      25
+    ],
+    "unit": "mg",
+    "maxPerDay": 25
   },
   {
     "generic": "Alprazolam",
     "brands": [
       "Xanax"
-    ]
+    ],
+    "strengths": [
+      0.25,
+      0.5,
+      1,
+      2
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Aluminium Hydroxide",
@@ -136,7 +204,11 @@
     "brands": [
       "Symmetrel",
       "Gocovri"
-    ]
+    ],
+    "strengths": [
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ambrisentan",
@@ -168,27 +240,48 @@
     "generic": "Amiloride",
     "brands": [
       "Midamor"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Amiodarone",
     "brands": [
       "Cordarone",
       "Pacerone"
-    ]
+    ],
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Amitriptyline",
     "brands": [
       "Elavil"
-    ]
+    ],
+    "strengths": [
+      10,
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Amlodipine",
     "brands": [
       "Norvasc",
       "Amlo"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Amlodipine; Benazepril",
@@ -216,7 +309,13 @@
       "Cilamox",
       "Alphamox",
       "Trimox"
-    ]
+    ],
+    "strengths": [
+      250,
+      500,
+      1000
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Amoxicillin; Clavulanate",
@@ -252,7 +351,12 @@
     "generic": "Anastrozole",
     "brands": [
       "Arimidex"
-    ]
+    ],
+    "strengths": [
+      1
+    ],
+    "unit": "mg",
+    "maxPerDay": 1
   },
   {
     "generic": "Anidulafungin",
@@ -264,31 +368,65 @@
     "generic": "Apixaban",
     "brands": [
       "Eliquis"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Apremilast",
     "brands": [
       "Otezla"
-    ]
+    ],
+    "strengths": [
+      10,
+      20,
+      30
+    ],
+    "unit": "mg",
+    "maxPerDay": 60
   },
   {
     "generic": "Aprepitant",
     "brands": [
       "Emend"
-    ]
+    ],
+    "strengths": [
+      40,
+      80,
+      125
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Aripiprazole",
     "brands": [
       "Abilify"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      15,
+      20,
+      30
+    ],
+    "unit": "mg",
+    "maxPerDay": 30
   },
   {
     "generic": "Armodafinil",
     "brands": [
       "Nuvigil"
-    ]
+    ],
+    "strengths": [
+      50,
+      150,
+      250
+    ],
+    "unit": "mg",
+    "maxPerDay": 250
   },
   {
     "generic": "Artemether; Lumefantrine",
@@ -300,13 +438,25 @@
     "generic": "Ascorbic Acid",
     "brands": [
       "Vitamin C"
-    ]
+    ],
+    "strengths": [
+      250,
+      500,
+      1000
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Asenapine",
     "brands": [
       "Saphris"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Aspirin",
@@ -319,20 +469,42 @@
       "Bayer",
       "Ecotrin",
       "Bufferin"
-    ]
+    ],
+    "strengths": [
+      100,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Atenolol",
     "brands": [
       "Tenormin",
       "Noten"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 100
   },
   {
     "generic": "Atomoxetine",
     "brands": [
       "Strattera"
-    ]
+    ],
+    "strengths": [
+      10,
+      18,
+      25,
+      40,
+      60,
+      80,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Atorvastatin",
@@ -340,7 +512,15 @@
       "Lipitor",
       "Torvastat",
       "Atorvachol"
-    ]
+    ],
+    "strengths": [
+      10,
+      20,
+      40,
+      80
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Atovaquone; Proguanil",
@@ -358,13 +538,25 @@
     "generic": "Avanafil",
     "brands": [
       "Stendra"
-    ]
+    ],
+    "strengths": [
+      50,
+      100,
+      200
+    ],
+    "unit": "mg",
+    "maxPerDay": 200
   },
   {
     "generic": "Azathioprine",
     "brands": [
       "Imuran"
-    ]
+    ],
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Azelastine",
@@ -377,7 +569,14 @@
     "generic": "Azilsartan",
     "brands": [
       "Edarbi"
-    ]
+    ],
+    "strengths": [
+      20,
+      40,
+      80
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Azithromycin",
@@ -385,7 +584,12 @@
       "Zithromax",
       "Zmax",
       "Z-Pak"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Aztreonam",
@@ -402,7 +606,12 @@
     "brands": [
       "Lioresal",
       "Gablofen"
-    ]
+    ],
+    "strengths": [
+      10,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Baloxavir",
@@ -414,7 +623,13 @@
     "generic": "Baricitinib",
     "brands": [
       "Olumiant"
-    ]
+    ],
+    "strengths": [
+      2,
+      4
+    ],
+    "unit": "mg",
+    "maxPerDay": 4
   },
   {
     "generic": "Beclometasone",
@@ -428,7 +643,15 @@
     "generic": "Benazepril",
     "brands": [
       "Lotensin"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Benzocaine",
@@ -461,7 +684,11 @@
     "generic": "Bicalutamide",
     "brands": [
       "Casodex"
-    ]
+    ],
+    "strengths": [
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Bictegravir; Emtricitabine; Tenofovir",
@@ -480,13 +707,22 @@
     "generic": "Biotin",
     "brands": [
       "Vitamin B7"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Bisacodyl",
     "brands": [
       "Dulcolax"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Bismuth Subsalicylate",
@@ -499,7 +735,15 @@
     "generic": "Bisoprolol",
     "brands": [
       "Zebeta"
-    ]
+    ],
+    "strengths": [
+      1.25,
+      2.5,
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Bosentan",
@@ -511,7 +755,17 @@
     "generic": "Brexpiprazole",
     "brands": [
       "Rexulti"
-    ]
+    ],
+    "strengths": [
+      0.25,
+      0.5,
+      1,
+      2,
+      3,
+      4
+    ],
+    "unit": "mg",
+    "maxPerDay": 4
   },
   {
     "generic": "Brimonidine",
@@ -530,20 +784,37 @@
     "generic": "Brivaracetam",
     "brands": [
       "Briviact"
-    ]
+    ],
+    "strengths": [
+      10,
+      25,
+      50,
+      75,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 200
   },
   {
     "generic": "Bromocriptine",
     "brands": [
       "Parlodel",
       "Cycloset"
-    ]
+    ],
+    "strengths": [
+      2.5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Brompheniramine",
     "brands": [
       "Dimetapp"
-    ]
+    ],
+    "strengths": [
+      4
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Budesonide",
@@ -564,7 +835,11 @@
     "generic": "Bumetanide",
     "brands": [
       "Bumex"
-    ]
+    ],
+    "strengths": [
+      1
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Bupivacaine",
@@ -582,14 +857,25 @@
       "Temgesic",
       "Belbuca",
       "Butrans"
-    ]
+    ],
+    "strengths": [
+      2,
+      8
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Bupropion",
     "brands": [
       "Wellbutrin",
       "Zyban"
-    ]
+    ],
+    "strengths": [
+      150,
+      300
+    ],
+    "unit": "mg",
+    "maxPerDay": 450
   },
   {
     "generic": "Bupropion; Naltrexone",
@@ -601,7 +887,13 @@
     "generic": "Buspirone",
     "brands": [
       "BuSpar"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      15
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Butalbital",
@@ -614,7 +906,11 @@
     "generic": "Cabergoline",
     "brands": [
       "Dostinex"
-    ]
+    ],
+    "strengths": [
+      0.5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Calcipotriol",
@@ -637,14 +933,25 @@
     "brands": [
       "Rocaltrol",
       "Vectical"
-    ]
+    ],
+    "strengths": [
+      0.25
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Calcium Carbonate",
     "brands": [
       "Tums",
       "Caltrate"
-    ]
+    ],
+    "strengths": [
+      500,
+      600,
+      1250,
+      1500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Calcium Citrate",
@@ -656,14 +963,28 @@
     "generic": "Canagliflozin",
     "brands": [
       "Invokana"
-    ]
+    ],
+    "strengths": [
+      100,
+      300
+    ],
+    "unit": "mg",
+    "maxPerDay": 300
   },
   {
     "generic": "Candesartan",
     "brands": [
       "Atacand",
       "Candle"
-    ]
+    ],
+    "strengths": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "unit": "mg",
+    "maxPerDay": 32
   },
   {
     "generic": "Cannabidiol",
@@ -675,20 +996,37 @@
     "generic": "Capecitabine",
     "brands": [
       "Xeloda"
-    ]
+    ],
+    "strengths": [
+      150,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Captopril",
     "brands": [
       "Capoten"
-    ]
+    ],
+    "strengths": [
+      12.5,
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Carbamazepine",
     "brands": [
       "Tegretol",
       "Carbatrol"
-    ]
+    ],
+    "strengths": [
+      100,
+      200,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Carbidopa; Levodopa",
@@ -701,19 +1039,39 @@
     "generic": "Cariprazine",
     "brands": [
       "Vraylar"
-    ]
+    ],
+    "strengths": [
+      1.5,
+      3,
+      4.5,
+      6
+    ],
+    "unit": "mg",
+    "maxPerDay": 6
   },
   {
     "generic": "Carisoprodol",
     "brands": [
       "Soma"
-    ]
+    ],
+    "strengths": [
+      250,
+      350
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Carvedilol",
     "brands": [
       "Coreg"
-    ]
+    ],
+    "strengths": [
+      3.125,
+      6.25,
+      12.5,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Caspofungin",
@@ -726,13 +1084,24 @@
     "brands": [
       "Ceclor",
       "Distaclor"
-    ]
+    ],
+    "strengths": [
+      250,
+      375,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cefadroxil",
     "brands": [
       "Duricef"
-    ]
+    ],
+    "strengths": [
+      500,
+      1000
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cefalexin",
@@ -741,7 +1110,12 @@
       "Ialex",
       "Rilexine",
       "Cephalexin"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cefazolin",
@@ -754,7 +1128,11 @@
     "generic": "Cefdinir",
     "brands": [
       "Omnicef"
-    ]
+    ],
+    "strengths": [
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cefepime",
@@ -766,7 +1144,12 @@
     "generic": "Cefixime",
     "brands": [
       "Suprax"
-    ]
+    ],
+    "strengths": [
+      200,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cefotaxime",
@@ -778,13 +1161,23 @@
     "generic": "Cefpodoxime",
     "brands": [
       "Vantin"
-    ]
+    ],
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cefprozil",
     "brands": [
       "Cefzil"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ceftaroline",
@@ -810,13 +1203,24 @@
     "brands": [
       "Ceftin",
       "Zinacef"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Celecoxib",
     "brands": [
       "Celebrex"
-    ]
+    ],
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg",
+    "maxPerDay": 400
   },
   {
     "generic": "Certolizumab",
@@ -831,7 +1235,12 @@
       "Zilarex",
       "Alzene",
       "Reactine"
-    ]
+    ],
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Chloramphenicol",
@@ -843,38 +1252,69 @@
     "generic": "Chlordiazepoxide",
     "brands": [
       "Librium"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Chloroquine",
     "brands": [
       "Aralen"
-    ]
+    ],
+    "strengths": [
+      155,
+      250
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Chlorpheniramine",
     "brands": [
       "Chlor-Trimeton",
       "Piriton"
-    ]
+    ],
+    "strengths": [
+      4
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Chlorpromazine",
     "brands": [
       "Thorazine"
-    ]
+    ],
+    "strengths": [
+      25,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Chlorthalidone",
     "brands": [
       "Thalitone"
-    ]
+    ],
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Chlorzoxazone",
     "brands": [
       "Parafon Forte"
-    ]
+    ],
+    "strengths": [
+      250,
+      375,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cholestyramine",
@@ -905,32 +1345,62 @@
       "Cyclosporin",
       "Restasis",
       "Sandimmune"
-    ]
+    ],
+    "strengths": [
+      10,
+      25,
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cilostazol",
     "brands": [
       "Pletal"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cimetidine",
     "brands": [
       "Tagamet"
-    ]
+    ],
+    "strengths": [
+      200,
+      400,
+      800
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cinacalcet",
     "brands": [
       "Sensipar"
-    ]
+    ],
+    "strengths": [
+      30,
+      60,
+      90
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ciprofloxacin",
     "brands": [
       "Ciproxin",
       "Cipro"
-    ]
+    ],
+    "strengths": [
+      250,
+      500,
+      750
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Citalopram",
@@ -938,25 +1408,46 @@
       "Cipramil",
       "Celexa",
       "Talam"
-    ]
+    ],
+    "strengths": [
+      10,
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Clarithromycin",
     "brands": [
       "Biaxin"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Clemastine",
     "brands": [
       "Tavist"
-    ]
+    ],
+    "strengths": [
+      1
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Clindamycin",
     "brands": [
       "Cleocin"
-    ]
+    ],
+    "strengths": [
+      150,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Clobetasol",
@@ -970,27 +1461,47 @@
     "brands": [
       "Clomid",
       "Serophene"
-    ]
+    ],
+    "strengths": [
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Clomipramine",
     "brands": [
       "Anafranil"
-    ]
+    ],
+    "strengths": [
+      10,
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Clonazepam",
     "brands": [
       "Klonopin",
       "Rivotril"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      2
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Clonidine",
     "brands": [
       "Catapres",
       "Kapvay"
-    ]
+    ],
+    "strengths": [
+      100,
+      150
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Clopidogrel",
@@ -998,13 +1509,24 @@
       "Plavix",
       "Iscover",
       "Coplavix"
-    ]
+    ],
+    "strengths": [
+      75
+    ],
+    "unit": "mg",
+    "maxPerDay": 75
   },
   {
     "generic": "Clorazepate",
     "brands": [
       "Tranxene"
-    ]
+    ],
+    "strengths": [
+      3.75,
+      7.5,
+      15
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Clotrimazole",
@@ -1018,14 +1540,23 @@
     "brands": [
       "Clozaril",
       "Versacloz"
-    ]
+    ],
+    "strengths": [
+      25,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Codeine",
     "brands": [
       "Codral",
       "Tylenol 3"
-    ]
+    ],
+    "strengths": [
+      30
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Codeine; Guaifenesin",
@@ -1042,7 +1573,11 @@
     "brands": [
       "Colcrys",
       "Mitigare"
-    ]
+    ],
+    "strengths": [
+      500
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Colecalciferol",
@@ -1051,13 +1586,21 @@
       "Caltrate",
       "Cholecalciferol",
       "Vitamin D3"
-    ]
+    ],
+    "strengths": [
+      1000
+    ],
+    "unit": "IU"
   },
   {
     "generic": "Colesevelam",
     "brands": [
       "Welchol"
-    ]
+    ],
+    "strengths": [
+      625
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Colistin",
@@ -1074,7 +1617,11 @@
   },
   {
     "generic": "Cortisone",
-    "brands": []
+    "brands": [],
+    "strengths": [
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Crisaborole",
@@ -1086,26 +1633,48 @@
     "generic": "Cyanocobalamin",
     "brands": [
       "Vitamin B12"
-    ]
+    ],
+    "strengths": [
+      100,
+      250,
+      500,
+      1000
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Cyclobenzaprine",
     "brands": [
       "Flexeril",
       "Amrix"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Cyproheptadine",
     "brands": [
       "Periactin"
-    ]
+    ],
+    "strengths": [
+      4
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dabigatran",
     "brands": [
       "Pradaxa"
-    ]
+    ],
+    "strengths": [
+      75,
+      110,
+      150
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dalteparin",
@@ -1117,20 +1686,37 @@
     "generic": "Dantrolene",
     "brands": [
       "Dantrium"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dapagliflozin",
     "brands": [
       "Forxiga",
       "Farxiga"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Dapsone",
     "brands": [
       "Aczone"
-    ]
+    ],
+    "strengths": [
+      25,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Daptomycin",
@@ -1142,19 +1728,34 @@
     "generic": "Darifenacin",
     "brands": [
       "Enablex"
-    ]
+    ],
+    "strengths": [
+      7.5,
+      15
+    ],
+    "unit": "mg",
+    "maxPerDay": 15
   },
   {
     "generic": "Delafloxacin",
     "brands": [
       "Baxdela"
-    ]
+    ],
+    "strengths": [
+      450
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Demeclocycline",
     "brands": [
       "Declomycin"
-    ]
+    ],
+    "strengths": [
+      150,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Denosumab",
@@ -1167,14 +1768,27 @@
     "generic": "Desipramine",
     "brands": [
       "Norpramin"
-    ]
+    ],
+    "strengths": [
+      10,
+      25,
+      50,
+      75,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Desloratadine",
     "brands": [
       "Aerius",
       "Clarinex"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg",
+    "maxPerDay": 5
   },
   {
     "generic": "Desmopressin",
@@ -1195,19 +1809,36 @@
     "brands": [
       "Pristiq",
       "Khedezla"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 200
   },
   {
     "generic": "Deutetrabenazine",
     "brands": [
       "Austedo"
-    ]
+    ],
+    "strengths": [
+      6,
+      9,
+      12
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dexamethasone",
     "brands": [
       "Decadron"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      4
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dexamfetamine",
@@ -1216,19 +1847,40 @@
       "Dextroamphetamine",
       "Dexedrine",
       "Zenzedi"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dexlansoprazole",
     "brands": [
       "Dexilant"
-    ]
+    ],
+    "strengths": [
+      30,
+      60
+    ],
+    "unit": "mg",
+    "maxPerDay": 60
   },
   {
     "generic": "Dexmethylphenidate",
     "brands": [
       "Focalin"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dextromethorphan",
@@ -1243,7 +1895,12 @@
       "Valium",
       "Ducene",
       "Antenex"
-    ]
+    ],
+    "strengths": [
+      2,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Diclofenac",
@@ -1251,13 +1908,23 @@
       "Voltaren",
       "Cataflam",
       "Cambia"
-    ]
+    ],
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dicloxacillin",
     "brands": [
       "Dynapen"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dicycloverine",
@@ -1265,33 +1932,63 @@
       "Merbentyl",
       "Dicyclomine",
       "Bentyl"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Diflunisal",
     "brands": [
       "Dolobid"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Digoxin",
     "brands": [
       "Lanoxin"
-    ]
+    ],
+    "strengths": [
+      62.5,
+      125,
+      250
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Diltiazem",
     "brands": [
       "Cardizem",
       "Tiazac"
-    ]
+    ],
+    "strengths": [
+      60,
+      90,
+      120,
+      180,
+      240,
+      300,
+      360
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dimenhydrinate",
     "brands": [
       "Dramamine",
       "Gravol"
-    ]
+    ],
+    "strengths": [
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dimethyl Fumarate",
@@ -1305,26 +2002,47 @@
       "Benadryl",
       "Nytol",
       "Unisom"
-    ]
+    ],
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dipyridamole",
     "brands": [
       "Persantine"
-    ]
+    ],
+    "strengths": [
+      25,
+      75,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Disulfiram",
     "brands": [
       "Antabuse"
-    ]
+    ],
+    "strengths": [
+      200,
+      250
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Docusate",
     "brands": [
       "Colace",
       "Surfak"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dofetilide",
@@ -1336,7 +2054,12 @@
     "generic": "Dolasetron",
     "brands": [
       "Anzemet"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Dolutegravir",
@@ -1348,7 +2071,13 @@
     "generic": "Donepezil",
     "brands": [
       "Aricept"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Dorzolamide",
@@ -1366,14 +2095,28 @@
     "generic": "Doxazosin",
     "brands": [
       "Cardura"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Doxepin",
     "brands": [
       "Silenor",
       "Sinequan"
-    ]
+    ],
+    "strengths": [
+      10,
+      25,
+      50,
+      75
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Doxycycline",
@@ -1381,14 +2124,23 @@
       "Doryx",
       "Vibramycin",
       "Doxylin"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Doxylamine",
     "brands": [
       "Unisom",
       "Sleep-Aid"
-    ]
+    ],
+    "strengths": [
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Doxylamine; Pyridoxine",
@@ -1406,7 +2158,12 @@
     "generic": "Dronedarone",
     "brands": [
       "Multaq"
-    ]
+    ],
+    "strengths": [
+      400
+    ],
+    "unit": "mg",
+    "maxPerDay": 800
   },
   {
     "generic": "Drospirenone; Ethinylestradiol",
@@ -1426,7 +2183,13 @@
     "brands": [
       "Cymbalta",
       "Andepra"
-    ]
+    ],
+    "strengths": [
+      30,
+      60
+    ],
+    "unit": "mg",
+    "maxPerDay": 120
   },
   {
     "generic": "Dupilumab",
@@ -1438,14 +2201,25 @@
     "generic": "Dutasteride",
     "brands": [
       "Avodart"
-    ]
+    ],
+    "strengths": [
+      0.5
+    ],
+    "unit": "mg",
+    "maxPerDay": 0.5
   },
   {
     "generic": "Edoxaban",
     "brands": [
       "Savaysa",
       "Lixiana"
-    ]
+    ],
+    "strengths": [
+      15,
+      30,
+      60
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Efavirenz",
@@ -1463,13 +2237,25 @@
     "generic": "Eletriptan",
     "brands": [
       "Relpax"
-    ]
+    ],
+    "strengths": [
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Empagliflozin",
     "brands": [
       "Jardiance"
-    ]
+    ],
+    "strengths": [
+      10,
+      25
+    ],
+    "unit": "mg",
+    "maxPerDay": 25
   },
   {
     "generic": "Emtricitabine; Tenofovir",
@@ -1482,7 +2268,14 @@
     "generic": "Enalapril",
     "brands": [
       "Vasotec"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Enoxaparin",
@@ -1495,25 +2288,45 @@
     "generic": "Entacapone",
     "brands": [
       "Comtan"
-    ]
+    ],
+    "strengths": [
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Entecavir",
     "brands": [
       "Baraclude"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Enzalutamide",
     "brands": [
       "Xtandi"
-    ]
+    ],
+    "strengths": [
+      40,
+      80
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Eplerenone",
     "brands": [
       "Inspra"
-    ]
+    ],
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg",
+    "maxPerDay": 50
   },
   {
     "generic": "Epoprostenol",
@@ -1526,7 +2339,13 @@
     "generic": "Eprosartan",
     "brands": [
       "Teveten"
-    ]
+    ],
+    "strengths": [
+      400,
+      600
+    ],
+    "unit": "mg",
+    "maxPerDay": 800
   },
   {
     "generic": "Erenumab",
@@ -1539,13 +2358,23 @@
     "brands": [
       "Vitamin D2",
       "Drisdol"
-    ]
+    ],
+    "strengths": [
+      1000
+    ],
+    "unit": "IU"
   },
   {
     "generic": "Erlotinib",
     "brands": [
       "Tarceva"
-    ]
+    ],
+    "strengths": [
+      25,
+      100,
+      150
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ertapenem",
@@ -1557,14 +2386,26 @@
     "generic": "Ertugliflozin",
     "brands": [
       "Steglatro"
-    ]
+    ],
+    "strengths": [
+      5,
+      15
+    ],
+    "unit": "mg",
+    "maxPerDay": 15
   },
   {
     "generic": "Erythromycin",
     "brands": [
       "Ery-Tab",
       "E-Mycin"
-    ]
+    ],
+    "strengths": [
+      250,
+      400,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Escitalopram",
@@ -1573,7 +2414,13 @@
       "Esipram",
       "Loxalate",
       "Cipralex"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Esketamine",
@@ -1586,7 +2433,13 @@
     "brands": [
       "Nexium",
       "Esoz"
-    ]
+    ],
+    "strengths": [
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Estradiol",
@@ -1600,7 +2453,14 @@
     "generic": "Eszopiclone",
     "brands": [
       "Lunesta"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      3
+    ],
+    "unit": "mg",
+    "maxPerDay": 3
   },
   {
     "generic": "Etanercept",
@@ -1612,7 +2472,12 @@
     "generic": "Ethambutol",
     "brands": [
       "Myambutol"
-    ]
+    ],
+    "strengths": [
+      100,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ethinylestradiol; Etonogestrel",
@@ -1644,13 +2509,24 @@
     "generic": "Ethosuximide",
     "brands": [
       "Zarontin"
-    ]
+    ],
+    "strengths": [
+      250
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Etodolac",
     "brands": [
       "Lodine"
-    ]
+    ],
+    "strengths": [
+      200,
+      300,
+      400,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Etonogestrel",
@@ -1663,7 +2539,14 @@
     "brands": [
       "Afinitor",
       "Zortress"
-    ]
+    ],
+    "strengths": [
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Evolocumab",
@@ -1675,7 +2558,12 @@
     "generic": "Exemestane",
     "brands": [
       "Aromasin"
-    ]
+    ],
+    "strengths": [
+      25
+    ],
+    "unit": "mg",
+    "maxPerDay": 25
   },
   {
     "generic": "Exenatide",
@@ -1688,38 +2576,75 @@
     "generic": "Ezetimibe",
     "brands": [
       "Zetia"
-    ]
+    ],
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Famciclovir",
     "brands": [
       "Famvir"
-    ]
+    ],
+    "strengths": [
+      125,
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Famotidine",
     "brands": [
       "Pepcid"
-    ]
+    ],
+    "strengths": [
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Febuxostat",
     "brands": [
       "Uloric"
-    ]
+    ],
+    "strengths": [
+      40,
+      80
+    ],
+    "unit": "mg",
+    "maxPerDay": 120
   },
   {
     "generic": "Felodipine",
     "brands": [
       "Plendil"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Fenofibrate",
     "brands": [
       "Tricor",
       "Lipofen"
-    ]
+    ],
+    "strengths": [
+      48,
+      145,
+      160,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fentanyl",
@@ -1734,20 +2659,34 @@
     "generic": "Ferrous Gluconate",
     "brands": [
       "Fergon"
-    ]
+    ],
+    "strengths": [
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ferrous Sulfate",
     "brands": [
       "Feosol",
       "Slow Fe"
-    ]
+    ],
+    "strengths": [
+      325
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fesoterodine",
     "brands": [
       "Toviaz"
-    ]
+    ],
+    "strengths": [
+      4,
+      8
+    ],
+    "unit": "mg",
+    "maxPerDay": 8
   },
   {
     "generic": "Fexofenadine",
@@ -1755,26 +2694,48 @@
       "Telfast",
       "Fexotabs",
       "Allegra"
-    ]
+    ],
+    "strengths": [
+      30,
+      60,
+      120,
+      180
+    ],
+    "unit": "mg",
+    "maxPerDay": 180
   },
   {
     "generic": "Fidaxomicin",
     "brands": [
       "Dificid"
-    ]
+    ],
+    "strengths": [
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Finasteride",
     "brands": [
       "Proscar",
       "Propecia"
-    ]
+    ],
+    "strengths": [
+      1,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fingolimod",
     "brands": [
       "Gilenya"
-    ]
+    ],
+    "strengths": [
+      0.5
+    ],
+    "unit": "mg",
+    "maxPerDay": 0.5
   },
   {
     "generic": "Fish Oil",
@@ -1784,19 +2745,35 @@
     "generic": "Flecainide",
     "brands": [
       "Tambocor"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fluconazole",
     "brands": [
       "Diflucan"
-    ]
+    ],
+    "strengths": [
+      50,
+      100,
+      150,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fludrocortisone",
     "brands": [
       "Florinef"
-    ]
+    ],
+    "strengths": [
+      0.1
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fluoxetine",
@@ -1805,19 +2782,35 @@
       "Lovan",
       "Zactin",
       "Sarafem"
-    ]
+    ],
+    "strengths": [
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Fluphenazine",
     "brands": [
       "Prolixin"
-    ]
+    ],
+    "strengths": [
+      1,
+      2.5,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Flurbiprofen",
     "brands": [
       "Ansaid"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fluticasone",
@@ -1850,19 +2843,38 @@
     "generic": "Fluvastatin",
     "brands": [
       "Lescol"
-    ]
+    ],
+    "strengths": [
+      20,
+      40,
+      80
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Fluvoxamine",
     "brands": [
       "Luvox"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 300
   },
   {
     "generic": "Folic Acid",
     "brands": [
       "Folvite"
-    ]
+    ],
+    "strengths": [
+      0.4,
+      0.5,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fondaparinux",
@@ -1881,13 +2893,23 @@
     "generic": "Fosfomycin",
     "brands": [
       "Monurol"
-    ]
+    ],
+    "strengths": [
+      3000
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Fosinopril",
     "brands": [
       "Monopril"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Fremanezumab",
@@ -1899,7 +2921,12 @@
     "generic": "Frovatriptan",
     "brands": [
       "Frova"
-    ]
+    ],
+    "strengths": [
+      2.5
+    ],
+    "unit": "mg",
+    "maxPerDay": 7.5
   },
   {
     "generic": "Furosemide",
@@ -1908,7 +2935,13 @@
       "Frusemide",
       "Frusid",
       "Frusehexal"
-    ]
+    ],
+    "strengths": [
+      20,
+      40,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Gabapentin",
@@ -1916,13 +2949,28 @@
       "Neurontin",
       "Gabaran",
       "Gralise"
-    ]
+    ],
+    "strengths": [
+      100,
+      300,
+      400,
+      600,
+      800
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Galantamine",
     "brands": [
       "Razadyne"
-    ]
+    ],
+    "strengths": [
+      8,
+      16,
+      24
+    ],
+    "unit": "mg",
+    "maxPerDay": 24
   },
   {
     "generic": "Galcanezumab",
@@ -1940,19 +2988,33 @@
     "generic": "Gefitinib",
     "brands": [
       "Iressa"
-    ]
+    ],
+    "strengths": [
+      250
+    ],
+    "unit": "mg",
+    "maxPerDay": 250
   },
   {
     "generic": "Gemfibrozil",
     "brands": [
       "Lopid"
-    ]
+    ],
+    "strengths": [
+      600
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Gemifloxacin",
     "brands": [
       "Factive"
-    ]
+    ],
+    "strengths": [
+      320
+    ],
+    "unit": "mg",
+    "maxPerDay": 320
   },
   {
     "generic": "Gentamicin",
@@ -1981,19 +3043,37 @@
       "DiaBeta",
       "Micronase",
       "Glynase"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Glimepiride",
     "brands": [
       "Amaryl"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "unit": "mg",
+    "maxPerDay": 8
   },
   {
     "generic": "Glipizide",
     "brands": [
       "Glucotrol"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Glucagon",
@@ -2035,13 +3115,26 @@
     "brands": [
       "Kytril",
       "Sancuso"
-    ]
+    ],
+    "strengths": [
+      1,
+      2
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Griseofulvin",
     "brands": [
       "Gris-PEG"
-    ]
+    ],
+    "strengths": [
+      125,
+      165,
+      250,
+      330,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Guaifenesin",
@@ -2055,13 +3148,29 @@
     "brands": [
       "Intuniv",
       "Tenex"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "unit": "mg",
+    "maxPerDay": 7
   },
   {
     "generic": "Haloperidol",
     "brands": [
       "Haldol"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1.5,
+      5,
+      10,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Heparin",
@@ -2071,14 +3180,25 @@
     "generic": "Hydralazine",
     "brands": [
       "Apresoline"
-    ]
+    ],
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Hydrochlorothiazide",
     "brands": [
       "Microzide",
       "HydroDiuril"
-    ]
+    ],
+    "strengths": [
+      12.5,
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Hydrochlorothiazide; Lisinopril",
@@ -2113,21 +3233,39 @@
       "Norco",
       "Lortab",
       "Zohydro"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Hydrocortisone",
     "brands": [
       "Cortef",
       "Cortaid"
-    ]
+    ],
+    "strengths": [
+      4,
+      5,
+      10,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Hydromorphone",
     "brands": [
       "Dilaudid",
       "Exalgo"
-    ]
+    ],
+    "strengths": [
+      2,
+      4,
+      8
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Hydroquinone",
@@ -2140,7 +3278,11 @@
     "brands": [
       "Plaquenil",
       "Hydroxychloroquine Sulfate"
-    ]
+    ],
+    "strengths": [
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Hydroxyzine",
@@ -2148,7 +3290,13 @@
       "Hydroxyzine Pamoate",
       "Atarax",
       "Vistaril"
-    ]
+    ],
+    "strengths": [
+      10,
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Hyoscyamine",
@@ -2161,13 +3309,24 @@
     "generic": "Ibandronate",
     "brands": [
       "Boniva"
-    ]
+    ],
+    "strengths": [
+      150
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ibrutinib",
     "brands": [
       "Imbruvica"
-    ]
+    ],
+    "strengths": [
+      140,
+      280,
+      420,
+      560
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ibuprofen",
@@ -2176,7 +3335,13 @@
       "Brufen",
       "Advil",
       "Motrin"
-    ]
+    ],
+    "strengths": [
+      200,
+      400
+    ],
+    "unit": "mg",
+    "maxPerDay": 2400
   },
   {
     "generic": "Icosapent Ethyl",
@@ -2188,13 +3353,29 @@
     "generic": "Iloperidone",
     "brands": [
       "Fanapt"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "unit": "mg",
+    "maxPerDay": 24
   },
   {
     "generic": "Imatinib",
     "brands": [
       "Gleevec"
-    ]
+    ],
+    "strengths": [
+      100,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Imipenem; Cilastatin",
@@ -2206,7 +3387,12 @@
     "generic": "Imipramine",
     "brands": [
       "Tofranil"
-    ]
+    ],
+    "strengths": [
+      10,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Imiquimod",
@@ -2219,14 +3405,25 @@
     "generic": "Indapamide",
     "brands": [
       "Lozol"
-    ]
+    ],
+    "strengths": [
+      1.5,
+      2.5
+    ],
+    "unit": "mg",
+    "maxPerDay": 2.5
   },
   {
     "generic": "Indomethacin",
     "brands": [
       "Indocin",
       "Tivorbex"
-    ]
+    ],
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Infliximab",
@@ -2294,7 +3491,14 @@
     "brands": [
       "Avapro",
       "Karvea"
-    ]
+    ],
+    "strengths": [
+      75,
+      150,
+      300
+    ],
+    "unit": "mg",
+    "maxPerDay": 300
   },
   {
     "generic": "Isavuconazole",
@@ -2306,20 +3510,35 @@
     "generic": "Isoniazid",
     "brands": [
       "INH"
-    ]
+    ],
+    "strengths": [
+      100,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Isosorbide Dinitrate",
     "brands": [
       "Isordil"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Isosorbide Mononitrate",
     "brands": [
       "Imdur",
       "Monoket"
-    ]
+    ],
+    "strengths": [
+      60
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Isotretinoin",
@@ -2332,27 +3551,45 @@
     "generic": "Isradipine",
     "brands": [
       "DynaCirc"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Itraconazole",
     "brands": [
       "Sporanox",
       "Onmel"
-    ]
+    ],
+    "strengths": [
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ivabradine",
     "brands": [
       "Corlanor"
-    ]
+    ],
+    "strengths": [
+      5,
+      7.5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ivermectin",
     "brands": [
       "Stromectol",
       "Sklice"
-    ]
+    ],
+    "strengths": [
+      3
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ixekizumab",
@@ -2364,14 +3601,23 @@
     "generic": "Ketoconazole",
     "brands": [
       "Nizoral"
-    ]
+    ],
+    "strengths": [
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ketoprofen",
     "brands": [
       "Orudis",
       "Oruvail"
-    ]
+    ],
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ketorolac",
@@ -2398,13 +3644,26 @@
     "brands": [
       "Trandate",
       "Normodyne"
-    ]
+    ],
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Lacosamide",
     "brands": [
       "Vimpat"
-    ]
+    ],
+    "strengths": [
+      50,
+      100,
+      150,
+      200
+    ],
+    "unit": "mg",
+    "maxPerDay": 400
   },
   {
     "generic": "Lactobacillus Acidophilus",
@@ -2424,19 +3683,38 @@
     "brands": [
       "Lamictal",
       "Lamidus"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Lansoprazole",
     "brands": [
       "Prevacid"
-    ]
+    ],
+    "strengths": [
+      15,
+      30
+    ],
+    "unit": "mg",
+    "maxPerDay": 30
   },
   {
     "generic": "Lanthanum",
     "brands": [
       "Fosrenol"
-    ]
+    ],
+    "strengths": [
+      500,
+      750,
+      1000
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Latanoprost",
@@ -2454,25 +3732,51 @@
     "generic": "Leflunomide",
     "brands": [
       "Arava"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Lemborexant",
     "brands": [
       "Dayvigo"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Lenalidomide",
     "brands": [
       "Revlimid"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5,
+      10,
+      15,
+      20,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Letrozole",
     "brands": [
       "Femara"
-    ]
+    ],
+    "strengths": [
+      2.5
+    ],
+    "unit": "mg",
+    "maxPerDay": 2.5
   },
   {
     "generic": "Leuprolide",
@@ -2484,31 +3788,62 @@
     "generic": "Levetiracetam",
     "brands": [
       "Keppra"
-    ]
+    ],
+    "strengths": [
+      250,
+      500,
+      750,
+      1000
+    ],
+    "unit": "mg",
+    "maxPerDay": 3000
   },
   {
     "generic": "Levocarnitine",
     "brands": [
       "Carnitor"
-    ]
+    ],
+    "strengths": [
+      330
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Levocetirizine",
     "brands": [
       "Xyzal"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg",
+    "maxPerDay": 5
   },
   {
     "generic": "Levofloxacin",
     "brands": [
       "Levaquin"
-    ]
+    ],
+    "strengths": [
+      250,
+      500,
+      750
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Levomilnacipran",
     "brands": [
       "Fetzima"
-    ]
+    ],
+    "strengths": [
+      20,
+      40,
+      80,
+      120
+    ],
+    "unit": "mg",
+    "maxPerDay": 120
   },
   {
     "generic": "Levonorgestrel",
@@ -2533,7 +3868,17 @@
       "Synthroid",
       "Levoxyl",
       "Euthyrox"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      75,
+      100,
+      125,
+      150,
+      200
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Lifitegrast",
@@ -2553,31 +3898,55 @@
     "generic": "Linaclotide",
     "brands": [
       "Linzess"
-    ]
+    ],
+    "strengths": [
+      72,
+      145,
+      290
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Linagliptin",
     "brands": [
       "Tradjenta"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg",
+    "maxPerDay": 5
   },
   {
     "generic": "Lincomycin",
     "brands": [
       "Lincocin"
-    ]
+    ],
+    "strengths": [
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Linezolid",
     "brands": [
       "Zyvox"
-    ]
+    ],
+    "strengths": [
+      600
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Liothyronine",
     "brands": [
       "Cytomel"
-    ]
+    ],
+    "strengths": [
+      5,
+      20
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Liraglutide",
@@ -2591,27 +3960,53 @@
     "brands": [
       "Vyvanse",
       "Elvanse"
-    ]
+    ],
+    "strengths": [
+      20,
+      30,
+      40,
+      50,
+      60,
+      70
+    ],
+    "unit": "mg",
+    "maxPerDay": 70
   },
   {
     "generic": "Lisinopril",
     "brands": [
       "Prinivil",
       "Zestril"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Lithium",
     "brands": [
       "Lithobid",
       "Eskalith"
-    ]
+    ],
+    "strengths": [
+      250,
+      450
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Loperamide",
     "brands": [
       "Imodium"
-    ]
+    ],
+    "strengths": [
+      2
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Lopinavir; Ritonavir",
@@ -2626,38 +4021,77 @@
       "Lorano",
       "Claritin",
       "Alavert"
-    ]
+    ],
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Lorazepam",
     "brands": [
       "Ativan"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1,
+      2.5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Losartan",
     "brands": [
       "Cozaar"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 100
   },
   {
     "generic": "Lovastatin",
     "brands": [
       "Mevacor",
       "Altoprev"
-    ]
+    ],
+    "strengths": [
+      10,
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Lubiprostone",
     "brands": [
       "Amitiza"
-    ]
+    ],
+    "strengths": [
+      8,
+      24
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Lurasidone",
     "brands": [
       "Latuda"
-    ]
+    ],
+    "strengths": [
+      20,
+      40,
+      60,
+      80,
+      120
+    ],
+    "unit": "mg",
+    "maxPerDay": 160
   },
   {
     "generic": "Macitentan",
@@ -2687,7 +4121,13 @@
     "generic": "Magnesium Oxide",
     "brands": [
       "Mag-Ox"
-    ]
+    ],
+    "strengths": [
+      250,
+      400,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Magnesium Sulfate",
@@ -2706,13 +4146,22 @@
     "brands": [
       "Vermox",
       "Emverm"
-    ]
+    ],
+    "strengths": [
+      100,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Mebeverine",
     "brands": [
       "Colofac"
-    ]
+    ],
+    "strengths": [
+      135
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Meclizine",
@@ -2720,7 +4169,11 @@
       "Antivert",
       "Bonine",
       "Dramamine"
-    ]
+    ],
+    "strengths": [
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Medroxyprogesterone",
@@ -2734,7 +4187,12 @@
     "brands": [
       "Ponstel",
       "Ponstan"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Mefloquine",
@@ -2744,19 +4202,35 @@
   },
   {
     "generic": "Melatonin",
-    "brands": []
+    "brands": [],
+    "strengths": [
+      2
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Meloxicam",
     "brands": [
       "Mobic"
-    ]
+    ],
+    "strengths": [
+      7.5,
+      15
+    ],
+    "unit": "mg",
+    "maxPerDay": 15
   },
   {
     "generic": "Memantine",
     "brands": [
       "Namenda"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Mepivacaine",
@@ -2781,7 +4255,14 @@
       "Mesalamine",
       "Asacol",
       "Lialda"
-    ]
+    ],
+    "strengths": [
+      400,
+      500,
+      800,
+      1200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Metamizole",
@@ -2794,7 +4275,12 @@
     "generic": "Metaxalone",
     "brands": [
       "Skelaxin"
-    ]
+    ],
+    "strengths": [
+      400,
+      800
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Metformin",
@@ -2805,26 +4291,49 @@
       "Glucohexal",
       "Fortamet",
       "Glumetza"
-    ]
+    ],
+    "strengths": [
+      500,
+      850,
+      1000
+    ],
+    "unit": "mg",
+    "maxPerDay": 3000
   },
   {
     "generic": "Methadone",
     "brands": [
       "Dolophine",
       "Methadose"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Methimazole",
     "brands": [
       "Tapazole"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Methocarbamol",
     "brands": [
       "Robaxin"
-    ]
+    ],
+    "strengths": [
+      500,
+      750
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Methotrexate",
@@ -2832,13 +4341,24 @@
       "Trexall",
       "Otrexup",
       "Rasuvo"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Methyldopa",
     "brands": [
       "Aldomet"
-    ]
+    ],
+    "strengths": [
+      125,
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Methylphenidate",
@@ -2847,26 +4367,51 @@
       "Concerta",
       "Aspen Methylphenidate",
       "Daytrana"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      18,
+      20,
+      27,
+      36,
+      54
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Methylprednisolone",
     "brands": [
       "Medrol",
       "Solu-Medrol"
-    ]
+    ],
+    "strengths": [
+      4,
+      16
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Metoclopramide",
     "brands": [
       "Reglan"
-    ]
+    ],
+    "strengths": [
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Metolazone",
     "brands": [
       "Zaroxolyn"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Metoprolol",
@@ -2877,20 +4422,37 @@
       "Metohexal",
       "Lopressor",
       "Toprol XL"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 400
   },
   {
     "generic": "Metronidazole",
     "brands": [
       "Flagyl",
       "Metrogyl"
-    ]
+    ],
+    "strengths": [
+      200,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Mexiletine",
     "brands": [
       "Mexitil"
-    ]
+    ],
+    "strengths": [
+      50,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Micafungin",
@@ -2916,33 +4478,63 @@
     "brands": [
       "Midodrine Hydrochloride",
       "ProAmatine"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Milnacipran",
     "brands": [
       "Savella"
-    ]
+    ],
+    "strengths": [
+      12.5,
+      25,
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 200
   },
   {
     "generic": "Minocycline",
     "brands": [
       "Minocin",
       "Solodyn"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Minoxidil",
     "brands": [
       "Rogaine",
       "Loniten"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Mirabegron",
     "brands": [
       "Myrbetriq"
-    ]
+    ],
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg",
+    "maxPerDay": 50
   },
   {
     "generic": "Mirtazapine",
@@ -2950,7 +4542,14 @@
       "Avanza",
       "Remeron",
       "Mirtazon"
-    ]
+    ],
+    "strengths": [
+      15,
+      30,
+      45
+    ],
+    "unit": "mg",
+    "maxPerDay": 45
   },
   {
     "generic": "Misoprostol",
@@ -2962,19 +4561,35 @@
     "generic": "Modafinil",
     "brands": [
       "Provigil"
-    ]
+    ],
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg",
+    "maxPerDay": 400
   },
   {
     "generic": "Moexipril",
     "brands": [
       "Univasc"
-    ]
+    ],
+    "strengths": [
+      7.5,
+      15
+    ],
+    "unit": "mg",
+    "maxPerDay": 30
   },
   {
     "generic": "Molnupiravir",
     "brands": [
       "Lagevrio"
-    ]
+    ],
+    "strengths": [
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Mometasone",
@@ -2990,7 +4605,14 @@
     "brands": [
       "Singulair",
       "Lukair"
-    ]
+    ],
+    "strengths": [
+      4,
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Morphine",
@@ -3002,13 +4624,27 @@
       "Kadian",
       "Roxanol",
       "Avinza"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      15,
+      30,
+      60,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Moxifloxacin",
     "brands": [
       "Avelox"
-    ]
+    ],
+    "strengths": [
+      400
+    ],
+    "unit": "mg",
+    "maxPerDay": 400
   },
   {
     "generic": "Mupirocin",
@@ -3021,19 +4657,34 @@
     "brands": [
       "CellCept",
       "Myfortic"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nabumetone",
     "brands": [
       "Relafen"
-    ]
+    ],
+    "strengths": [
+      500,
+      750
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nadolol",
     "brands": [
       "Corgard"
-    ]
+    ],
+    "strengths": [
+      40,
+      80
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nafcillin",
@@ -3053,7 +4704,12 @@
     "brands": [
       "Vivitrol",
       "ReVia"
-    ]
+    ],
+    "strengths": [
+      50
+    ],
+    "unit": "mg",
+    "maxPerDay": 50
   },
   {
     "generic": "Naproxen",
@@ -3061,13 +4717,24 @@
       "Aleve",
       "Naprosyn",
       "Anaprox"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg",
+    "maxPerDay": 1250
   },
   {
     "generic": "Naratriptan",
     "brands": [
       "Amerge"
-    ]
+    ],
+    "strengths": [
+      2.5
+    ],
+    "unit": "mg",
+    "maxPerDay": 5
   },
   {
     "generic": "Natalizumab",
@@ -3079,13 +4746,26 @@
     "generic": "Nateglinide",
     "brands": [
       "Starlix"
-    ]
+    ],
+    "strengths": [
+      60,
+      120
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nebivolol",
     "brands": [
       "Bystolic"
-    ]
+    ],
+    "strengths": [
+      1.25,
+      2.5,
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Nefazodone",
@@ -3103,19 +4783,34 @@
     "generic": "Niacin",
     "brands": [
       "Niaspan"
-    ]
+    ],
+    "strengths": [
+      500,
+      750,
+      1000
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Niacinamide",
     "brands": [
       "Vitamin B3"
-    ]
+    ],
+    "strengths": [
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nicardipine",
     "brands": [
       "Cardene"
-    ]
+    ],
+    "strengths": [
+      20,
+      30
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nicotine",
@@ -3129,7 +4824,13 @@
     "brands": [
       "Procardia",
       "Adalat"
-    ]
+    ],
+    "strengths": [
+      20,
+      30,
+      60
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nimodipine",
@@ -3147,20 +4848,37 @@
     "generic": "Nisoldipine",
     "brands": [
       "Sular"
-    ]
+    ],
+    "strengths": [
+      8.5,
+      17,
+      25.5,
+      34
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nitrofurantoin",
     "brands": [
       "Macrobid",
       "Macrodantin"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nizatidine",
     "brands": [
       "Axid"
-    ]
+    ],
+    "strengths": [
+      150,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Norethindrone",
@@ -3173,19 +4891,32 @@
     "generic": "Norfloxacin",
     "brands": [
       "Noroxin"
-    ]
+    ],
+    "strengths": [
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nortriptyline",
     "brands": [
       "Pamelor"
-    ]
+    ],
+    "strengths": [
+      10,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Nystatin",
     "brands": [
       "Mycostatin"
-    ]
+    ],
+    "strengths": [
+      500000
+    ],
+    "unit": "units"
   },
   {
     "generic": "Ocrelizumab",
@@ -3204,20 +4935,42 @@
     "brands": [
       "Floxin",
       "Ocuflox"
-    ]
+    ],
+    "strengths": [
+      200,
+      300,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Olanzapine",
     "brands": [
       "Zyprexa",
       "Zypine"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5,
+      7.5,
+      10,
+      15,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Olmesartan",
     "brands": [
       "Benicar"
-    ]
+    ],
+    "strengths": [
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Olopatadine",
@@ -3240,38 +4993,70 @@
       "Acimax",
       "Probitor",
       "Prilosec"
-    ]
+    ],
+    "strengths": [
+      10,
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Ondansetron",
     "brands": [
       "Zofran"
-    ]
+    ],
+    "strengths": [
+      4,
+      8
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Orlistat",
     "brands": [
       "Xenical",
       "Alli"
-    ]
+    ],
+    "strengths": [
+      60,
+      120
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Orphenadrine",
     "brands": [
       "Norflex"
-    ]
+    ],
+    "strengths": [
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Oseltamivir",
     "brands": [
       "Tamiflu"
-    ]
+    ],
+    "strengths": [
+      30,
+      45,
+      75
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Osimertinib",
     "brands": [
       "Tagrisso"
-    ]
+    ],
+    "strengths": [
+      40,
+      80
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Oxacillin",
@@ -3283,7 +5068,11 @@
     "generic": "Oxaprozin",
     "brands": [
       "Daypro"
-    ]
+    ],
+    "strengths": [
+      600
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Oxazepam",
@@ -3292,19 +5081,35 @@
       "Murelax",
       "Alepam",
       "Serax"
-    ]
+    ],
+    "strengths": [
+      15,
+      30
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Oxcarbazepine",
     "brands": [
       "Trileptal"
-    ]
+    ],
+    "strengths": [
+      150,
+      300,
+      600
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Oxybutynin",
     "brands": [
       "Ditropan"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Oxycodone",
@@ -3315,7 +5120,17 @@
       "Targin",
       "Roxicodone",
       "Percocet"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      15,
+      20,
+      30,
+      40,
+      80
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Oxymetazoline",
@@ -3327,19 +5142,37 @@
     "generic": "Oxymorphone",
     "brands": [
       "Opana"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Palbociclib",
     "brands": [
       "Ibrance"
-    ]
+    ],
+    "strengths": [
+      75,
+      100,
+      125
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Paliperidone",
     "brands": [
       "Invega"
-    ]
+    ],
+    "strengths": [
+      3,
+      6,
+      9
+    ],
+    "unit": "mg",
+    "maxPerDay": 12
   },
   {
     "generic": "Palonosetron",
@@ -3365,7 +5198,13 @@
       "Somac",
       "Protonix",
       "Pantoloc"
-    ]
+    ],
+    "strengths": [
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Paracetamol",
@@ -3379,14 +5218,25 @@
       "Tylenol",
       "Calpol",
       "Mapap"
-    ]
+    ],
+    "strengths": [
+      500,
+      665
+    ],
+    "unit": "mg",
+    "maxPerDay": 4000
   },
   {
     "generic": "Paroxetine",
     "brands": [
       "Paxil",
       "Pexeva"
-    ]
+    ],
+    "strengths": [
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 60
   },
   {
     "generic": "Pegloticase",
@@ -3406,13 +5256,28 @@
     "brands": [
       "Veetids",
       "Pen-Vee K"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Perampanel",
     "brands": [
       "Fycompa"
-    ]
+    ],
+    "strengths": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "unit": "mg",
+    "maxPerDay": 12
   },
   {
     "generic": "Perindopril",
@@ -3420,7 +5285,13 @@
       "Coversyl",
       "Perindo",
       "Aceon"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Permethrin",
@@ -3433,14 +5304,25 @@
     "generic": "Perphenazine",
     "brands": [
       "Trilafon"
-    ]
+    ],
+    "strengths": [
+      2,
+      4,
+      8,
+      16
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pethidine",
     "brands": [
       "Meperidine",
       "Demerol"
-    ]
+    ],
+    "strengths": [
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Phenazone",
@@ -3453,27 +5335,46 @@
     "brands": [
       "Pyridium",
       "Azo"
-    ]
+    ],
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Phenelzine",
     "brands": [
       "Nardil"
-    ]
+    ],
+    "strengths": [
+      15
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Phenobarbitone",
     "brands": [
       "Phenobarbital",
       "Luminal"
-    ]
+    ],
+    "strengths": [
+      30
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Phentermine",
     "brands": [
       "Adipex-P",
       "Lomaira"
-    ]
+    ],
+    "strengths": [
+      15,
+      30,
+      40
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Phentermine; Topiramate",
@@ -3486,19 +5387,34 @@
     "brands": [
       "Sudafed PE",
       "Neo-Synephrine"
-    ]
+    ],
+    "strengths": [
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Phenytoin",
     "brands": [
       "Dilantin"
-    ]
+    ],
+    "strengths": [
+      30,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pimavanserin",
     "brands": [
       "Nuplazid"
-    ]
+    ],
+    "strengths": [
+      10,
+      34
+    ],
+    "unit": "mg",
+    "maxPerDay": 34
   },
   {
     "generic": "Pimecrolimus",
@@ -3510,19 +5426,36 @@
     "generic": "Pimozide",
     "brands": [
       "Orap"
-    ]
+    ],
+    "strengths": [
+      1,
+      4
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pindolol",
     "brands": [
       "Visken"
-    ]
+    ],
+    "strengths": [
+      5,
+      15
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pioglitazone",
     "brands": [
       "Actos"
-    ]
+    ],
+    "strengths": [
+      15,
+      30,
+      45
+    ],
+    "unit": "mg",
+    "maxPerDay": 45
   },
   {
     "generic": "Piperacillin; Tazobactam",
@@ -3534,13 +5467,26 @@
     "generic": "Piroxicam",
     "brands": [
       "Feldene"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Pitavastatin",
     "brands": [
       "Livalo"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      4
+    ],
+    "unit": "mg",
+    "maxPerDay": 4
   },
   {
     "generic": "Polymyxin B",
@@ -3550,20 +5496,37 @@
     "generic": "Posaconazole",
     "brands": [
       "Noxafil"
-    ]
+    ],
+    "strengths": [
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Potassium Chloride",
     "brands": [
       "Klor-Con",
       "K-Dur"
-    ]
+    ],
+    "strengths": [
+      600,
+      750
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pramipexole",
     "brands": [
       "Mirapex"
-    ]
+    ],
+    "strengths": [
+      0.125,
+      0.25,
+      0.5,
+      1,
+      1.5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pramlintide",
@@ -3575,26 +5538,49 @@
     "generic": "Prasugrel",
     "brands": [
       "Effient"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pravastatin",
     "brands": [
       "Pravachol",
       "Cholstat"
-    ]
+    ],
+    "strengths": [
+      10,
+      20,
+      40,
+      80
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Praziquantel",
     "brands": [
       "Biltricide"
-    ]
+    ],
+    "strengths": [
+      600
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Prazosin",
     "brands": [
       "Minipress"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Prednisolone",
@@ -3605,7 +5591,13 @@
       "Predsol",
       "Orapred",
       "Prelone"
-    ]
+    ],
+    "strengths": [
+      1,
+      5,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Prednisone",
@@ -3614,14 +5606,32 @@
       "Sone",
       "Deltasone",
       "Rayos"
-    ]
+    ],
+    "strengths": [
+      1,
+      2.5,
+      5,
+      10,
+      20,
+      25,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pregabalin",
     "brands": [
       "Lyrica",
       "Lyzalon"
-    ]
+    ],
+    "strengths": [
+      25,
+      75,
+      150,
+      300
+    ],
+    "unit": "mg",
+    "maxPerDay": 600
   },
   {
     "generic": "Prilocaine",
@@ -3631,19 +5641,32 @@
   },
   {
     "generic": "Primaquine",
-    "brands": []
+    "brands": [],
+    "strengths": [
+      7.5,
+      15
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Primidone",
     "brands": [
       "Mysoline"
-    ]
+    ],
+    "strengths": [
+      250
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Probenecid",
     "brands": [
       "Benemid"
-    ]
+    ],
+    "strengths": [
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Probiotic",
@@ -3662,7 +5685,11 @@
     "generic": "Prochlorperazine",
     "brands": [
       "Compazine"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Progesterone",
@@ -3674,31 +5701,56 @@
     "generic": "Promethazine",
     "brands": [
       "Phenergan"
-    ]
+    ],
+    "strengths": [
+      10,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Propafenone",
     "brands": [
       "Rythmol"
-    ]
+    ],
+    "strengths": [
+      150,
+      225,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Propranolol",
     "brands": [
       "Inderal"
-    ]
+    ],
+    "strengths": [
+      10,
+      40
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Propylthiouracil",
     "brands": [
       "PTU"
-    ]
+    ],
+    "strengths": [
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pseudoephedrine",
     "brands": [
       "Sudafed"
-    ]
+    ],
+    "strengths": [
+      30,
+      60
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Psyllium",
@@ -3713,17 +5765,32 @@
       "Pyrantel Pamoate",
       "Pyrantel Embonate",
       "Pin-X"
-    ]
+    ],
+    "strengths": [
+      125,
+      250
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pyrazinamide",
-    "brands": []
+    "brands": [],
+    "strengths": [
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Pyridoxine",
     "brands": [
       "Vitamin B6"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Quetiapine",
@@ -3731,26 +5798,53 @@
       "Seroquel",
       "Quetia",
       "Syquet"
-    ]
+    ],
+    "strengths": [
+      25,
+      100,
+      150,
+      200,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Quinapril",
     "brands": [
       "Accupril"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Rabeprazole",
     "brands": [
       "Pariet",
       "Aciphex"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Raloxifene",
     "brands": [
       "Evista"
-    ]
+    ],
+    "strengths": [
+      60
+    ],
+    "unit": "mg",
+    "maxPerDay": 60
   },
   {
     "generic": "Raltegravir",
@@ -3762,7 +5856,12 @@
     "generic": "Ramelteon",
     "brands": [
       "Rozerem"
-    ]
+    ],
+    "strengths": [
+      8
+    ],
+    "unit": "mg",
+    "maxPerDay": 8
   },
   {
     "generic": "Ramipril",
@@ -3770,13 +5869,27 @@
       "Tritace",
       "Ramace",
       "Altace"
-    ]
+    ],
+    "strengths": [
+      1.25,
+      2.5,
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Ranitidine",
     "brands": [
       "Zantac"
-    ]
+    ],
+    "strengths": [
+      150,
+      300
+    ],
+    "unit": "mg",
+    "maxPerDay": 300
   },
   {
     "generic": "Ranitidine Bismuth Citrate",
@@ -3789,13 +5902,25 @@
     "generic": "Ranolazine",
     "brands": [
       "Ranexa"
-    ]
+    ],
+    "strengths": [
+      500,
+      1000
+    ],
+    "unit": "mg",
+    "maxPerDay": 2000
   },
   {
     "generic": "Rasagiline",
     "brands": [
       "Azilect"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1
+    ],
+    "unit": "mg",
+    "maxPerDay": 1
   },
   {
     "generic": "Remdesivir",
@@ -3807,7 +5932,14 @@
     "generic": "Repaglinide",
     "brands": [
       "Prandin"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1,
+      2
+    ],
+    "unit": "mg",
+    "maxPerDay": 16
   },
   {
     "generic": "Ribavirin",
@@ -3820,13 +5952,21 @@
     "generic": "Riboflavin",
     "brands": [
       "Vitamin B2"
-    ]
+    ],
+    "strengths": [
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Rifabutin",
     "brands": [
       "Mycobutin"
-    ]
+    ],
+    "strengths": [
+      150
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Rifampicin",
@@ -3835,7 +5975,12 @@
       "Rimycin",
       "Rifampin",
       "Rimactane"
-    ]
+    ],
+    "strengths": [
+      150,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Rifapentine",
@@ -3847,19 +5992,34 @@
     "generic": "Rifaximin",
     "brands": [
       "Xifaxan"
-    ]
+    ],
+    "strengths": [
+      200,
+      550
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Riluzole",
     "brands": [
       "Rilutek"
-    ]
+    ],
+    "strengths": [
+      50
+    ],
+    "unit": "mg",
+    "maxPerDay": 100
   },
   {
     "generic": "Rimegepant",
     "brands": [
       "Nurtec"
-    ]
+    ],
+    "strengths": [
+      75
+    ],
+    "unit": "mg",
+    "maxPerDay": 75
   },
   {
     "generic": "Riociguat",
@@ -3871,14 +6031,28 @@
     "generic": "Risedronate",
     "brands": [
       "Actonel"
-    ]
+    ],
+    "strengths": [
+      5,
+      35,
+      150
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Risperidone",
     "brands": [
       "Risperdal",
       "Rispa"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1,
+      2,
+      3,
+      4
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ritonavir",
@@ -3896,25 +6070,50 @@
     "generic": "Rivaroxaban",
     "brands": [
       "Xarelto"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      10,
+      15,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Rivastigmine",
     "brands": [
       "Exelon"
-    ]
+    ],
+    "strengths": [
+      1.5,
+      3,
+      4.5,
+      6
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Rizatriptan",
     "brands": [
       "Maxalt"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 30
   },
   {
     "generic": "Roflumilast",
     "brands": [
       "Daliresp"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mcg"
   },
   {
     "generic": "Romosozumab",
@@ -3926,7 +6125,15 @@
     "generic": "Ropinirole",
     "brands": [
       "Requip"
-    ]
+    ],
+    "strengths": [
+      0.25,
+      0.5,
+      1,
+      2,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ropivacaine",
@@ -3938,14 +6145,29 @@
     "generic": "Rosiglitazone",
     "brands": [
       "Avandia"
-    ]
+    ],
+    "strengths": [
+      2,
+      4,
+      8
+    ],
+    "unit": "mg",
+    "maxPerDay": 8
   },
   {
     "generic": "Rosuvastatin",
     "brands": [
       "Crestor",
       "Rosuvachol"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Rotigotine",
@@ -3957,7 +6179,12 @@
     "generic": "Rufinamide",
     "brands": [
       "Banzel"
-    ]
+    ],
+    "strengths": [
+      200,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sacubitril",
@@ -3998,13 +6225,25 @@
     "generic": "Sarecycline",
     "brands": [
       "Seysara"
-    ]
+    ],
+    "strengths": [
+      60,
+      100,
+      150
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Saxagliptin",
     "brands": [
       "Onglyza"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5
+    ],
+    "unit": "mg",
+    "maxPerDay": 5
   },
   {
     "generic": "Scopolamine",
@@ -4023,7 +6262,11 @@
     "brands": [
       "Emsam",
       "Eldepryl"
-    ]
+    ],
+    "strengths": [
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Selenium Sulfide",
@@ -4044,7 +6287,11 @@
     "brands": [
       "Senokot",
       "Ex-Lax"
-    ]
+    ],
+    "strengths": [
+      7.5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sertraline",
@@ -4052,27 +6299,51 @@
       "Zoloft",
       "Eleva",
       "Sertra"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 200
   },
   {
     "generic": "Sevelamer",
     "brands": [
       "Renvela",
       "Renagel"
-    ]
+    ],
+    "strengths": [
+      400,
+      800
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sildenafil",
     "brands": [
       "Viagra",
       "Revatio"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 100
   },
   {
     "generic": "Silodosin",
     "brands": [
       "Rapaflo"
-    ]
+    ],
+    "strengths": [
+      4,
+      8
+    ],
+    "unit": "mg",
+    "maxPerDay": 8
   },
   {
     "generic": "Simethicone",
@@ -4087,19 +6358,41 @@
       "Zocor",
       "Lipex",
       "Simvahexal"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Sirolimus",
     "brands": [
       "Rapamune"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1,
+      2
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sitagliptin",
     "brands": [
       "Januvia"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 100
   },
   {
     "generic": "Sodium Cromoglycate",
@@ -4131,31 +6424,56 @@
     "generic": "Solifenacin",
     "brands": [
       "Vesicare"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Sorafenib",
     "brands": [
       "Nexavar"
-    ]
+    ],
+    "strengths": [
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sotalol",
     "brands": [
       "Betapace"
-    ]
+    ],
+    "strengths": [
+      40,
+      80,
+      160
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Spironolactone",
     "brands": [
       "Aldactone"
-    ]
+    ],
+    "strengths": [
+      25,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sucralfate",
     "brands": [
       "Carafate"
-    ]
+    ],
+    "strengths": [
+      1000
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sulfamethoxazole; Trimethoprim",
@@ -4168,65 +6486,125 @@
     "generic": "Sulfasalazine",
     "brands": [
       "Azulfidine"
-    ]
+    ],
+    "strengths": [
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sulindac",
     "brands": [
       "Clinoril"
-    ]
+    ],
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Sumatriptan",
     "brands": [
       "Imigran",
       "Imitrex"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 200
   },
   {
     "generic": "Sunitinib",
     "brands": [
       "Sutent"
-    ]
+    ],
+    "strengths": [
+      12.5,
+      25,
+      37.5,
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Suvorexant",
     "brands": [
       "Belsomra"
-    ]
+    ],
+    "strengths": [
+      10,
+      15,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Tacrolimus",
     "brands": [
       "Protopic",
       "Prograf"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tadalafil",
     "brands": [
       "Cialis",
       "Adcirca"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5,
+      10,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tamoxifen",
     "brands": [
       "Nolvadex",
       "Soltamox"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tamsulosin",
     "brands": [
       "Flomax"
-    ]
+    ],
+    "strengths": [
+      0.4
+    ],
+    "unit": "mg",
+    "maxPerDay": 0.8
   },
   {
     "generic": "Tapentadol",
     "brands": [
       "Nucynta"
-    ]
+    ],
+    "strengths": [
+      50,
+      100,
+      150,
+      200,
+      250
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tazarotene",
@@ -4239,7 +6617,14 @@
     "brands": [
       "Micardis",
       "Pritor"
-    ]
+    ],
+    "strengths": [
+      20,
+      40,
+      80
+    ],
+    "unit": "mg",
+    "maxPerDay": 80
   },
   {
     "generic": "Temazepam",
@@ -4247,7 +6632,11 @@
       "Temaze",
       "Normison",
       "Restoril"
-    ]
+    ],
+    "strengths": [
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tenofovir",
@@ -4259,19 +6648,37 @@
     "generic": "Terazosin",
     "brands": [
       "Hytrin"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Terbinafine",
     "brands": [
       "Lamisil"
-    ]
+    ],
+    "strengths": [
+      250
+    ],
+    "unit": "mg",
+    "maxPerDay": 250
   },
   {
     "generic": "Teriflunomide",
     "brands": [
       "Aubagio"
-    ]
+    ],
+    "strengths": [
+      7,
+      14
+    ],
+    "unit": "mg",
+    "maxPerDay": 14
   },
   {
     "generic": "Teriparatide",
@@ -4291,32 +6698,61 @@
     "generic": "Tetrabenazine",
     "brands": [
       "Xenazine"
-    ]
+    ],
+    "strengths": [
+      12.5,
+      25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tetracycline",
     "brands": [
       "Sumycin"
-    ]
+    ],
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Theophylline",
     "brands": [
       "Theo-Dur",
       "Uniphyl"
-    ]
+    ],
+    "strengths": [
+      200,
+      300,
+      400,
+      600
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Thiamine",
     "brands": [
       "Vitamin B1"
-    ]
+    ],
+    "strengths": [
+      100,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Thioridazine",
     "brands": [
       "Mellaril"
-    ]
+    ],
+    "strengths": [
+      10,
+      25,
+      50,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Thyroid",
@@ -4329,13 +6765,25 @@
     "generic": "Tiagabine",
     "brands": [
       "Gabitril"
-    ]
+    ],
+    "strengths": [
+      2,
+      4,
+      12,
+      16
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ticagrelor",
     "brands": [
       "Brilinta"
-    ]
+    ],
+    "strengths": [
+      60,
+      90
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tigecycline",
@@ -4354,7 +6802,11 @@
     "generic": "Tinidazole",
     "brands": [
       "Tindamax"
-    ]
+    ],
+    "strengths": [
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tioconazole",
@@ -4379,7 +6831,12 @@
     "generic": "Tizanidine",
     "brands": [
       "Zanaflex"
-    ]
+    ],
+    "strengths": [
+      2,
+      4
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tobramycin",
@@ -4398,38 +6855,74 @@
     "generic": "Tofacitinib",
     "brands": [
       "Xeljanz"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tolmetin",
     "brands": [
       "Tolectin"
-    ]
+    ],
+    "strengths": [
+      200,
+      400,
+      600
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tolterodine",
     "brands": [
       "Detrol"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      4
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tolvaptan",
     "brands": [
       "Samsca",
       "Jynarque"
-    ]
+    ],
+    "strengths": [
+      15,
+      30
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Topiramate",
     "brands": [
       "Topamax"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Torsemide",
     "brands": [
       "Demadex"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20,
+      100
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Tramadol",
@@ -4438,19 +6931,38 @@
       "Durotram",
       "Ultram",
       "ConZip"
-    ]
+    ],
+    "strengths": [
+      50,
+      100,
+      150,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Trandolapril",
     "brands": [
       "Mavik"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1,
+      2,
+      4
+    ],
+    "unit": "mg",
+    "maxPerDay": 8
   },
   {
     "generic": "Tranylcypromine",
     "brands": [
       "Parnate"
-    ]
+    ],
+    "strengths": [
+      10
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Travoprost",
@@ -4463,7 +6975,13 @@
     "brands": [
       "Desyrel",
       "Oleptro"
-    ]
+    ],
+    "strengths": [
+      50,
+      100,
+      150
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Treprostinil",
@@ -4490,13 +7008,22 @@
     "generic": "Triamterene",
     "brands": [
       "Dyrenium"
-    ]
+    ],
+    "strengths": [
+      50
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Triazolam",
     "brands": [
       "Halcion"
-    ]
+    ],
+    "strengths": [
+      0.125,
+      0.25
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Trimethobenzamide",
@@ -4509,25 +7036,46 @@
     "brands": [
       "Primsol",
       "Proloprim"
-    ]
+    ],
+    "strengths": [
+      100,
+      150,
+      300
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Triprolidine",
     "brands": [
       "Actifed"
-    ]
+    ],
+    "strengths": [
+      2.5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Trospium",
     "brands": [
       "Sanctura"
-    ]
+    ],
+    "strengths": [
+      20,
+      60
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ubrogepant",
     "brands": [
       "Ubrelvy"
-    ]
+    ],
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg",
+    "maxPerDay": 200
   },
   {
     "generic": "Umeclidinium",
@@ -4539,14 +7087,26 @@
     "generic": "Upadacitinib",
     "brands": [
       "Rinvoq"
-    ]
+    ],
+    "strengths": [
+      15,
+      30,
+      45
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ursodiol",
     "brands": [
       "Actigall",
       "Urso"
-    ]
+    ],
+    "strengths": [
+      250,
+      300,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Ustekinumab",
@@ -4559,13 +7119,22 @@
     "brands": [
       "Valtrex",
       "Valacyclovir"
-    ]
+    ],
+    "strengths": [
+      500,
+      1000
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Valganciclovir",
     "brands": [
       "Valcyte"
-    ]
+    ],
+    "strengths": [
+      450
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Valproate",
@@ -4576,13 +7145,27 @@
       "Sodium Valproate",
       "Valproic Acid",
       "Depakene"
-    ]
+    ],
+    "strengths": [
+      100,
+      200,
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Valsartan",
     "brands": [
       "Diovan"
-    ]
+    ],
+    "strengths": [
+      40,
+      80,
+      160,
+      320
+    ],
+    "unit": "mg",
+    "maxPerDay": 320
   },
   {
     "generic": "Vancomycin",
@@ -4595,13 +7178,25 @@
     "brands": [
       "Levitra",
       "Staxyn"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Varenicline",
     "brands": [
       "Chantix"
-    ]
+    ],
+    "strengths": [
+      0.5,
+      1
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Vedolizumab",
@@ -4615,7 +7210,15 @@
       "Efexor",
       "Effexor",
       "Elaxine"
-    ]
+    ],
+    "strengths": [
+      37.5,
+      75,
+      150,
+      225
+    ],
+    "unit": "mg",
+    "maxPerDay": 375
   },
   {
     "generic": "Verapamil",
@@ -4623,25 +7226,52 @@
       "Calan",
       "Verelan",
       "Isoptin"
-    ]
+    ],
+    "strengths": [
+      40,
+      80,
+      120,
+      160,
+      180,
+      240
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Vigabatrin",
     "brands": [
       "Sabril"
-    ]
+    ],
+    "strengths": [
+      500
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Vilazodone",
     "brands": [
       "Viibryd"
-    ]
+    ],
+    "strengths": [
+      10,
+      20,
+      40
+    ],
+    "unit": "mg",
+    "maxPerDay": 40
   },
   {
     "generic": "Viloxazine",
     "brands": [
       "Qelbree"
-    ]
+    ],
+    "strengths": [
+      100,
+      150,
+      200,
+      400
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Vitamin A",
@@ -4666,14 +7296,27 @@
     "generic": "Voriconazole",
     "brands": [
       "Vfend"
-    ]
+    ],
+    "strengths": [
+      50,
+      200
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Vortioxetine",
     "brands": [
       "Trintellix",
       "Brintellix"
-    ]
+    ],
+    "strengths": [
+      5,
+      10,
+      15,
+      20
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Warfarin",
@@ -4681,19 +7324,37 @@
       "Coumadin",
       "Marevan",
       "Jantoven"
-    ]
+    ],
+    "strengths": [
+      1,
+      2,
+      3,
+      5
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Zafirlukast",
     "brands": [
       "Accolate"
-    ]
+    ],
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Zaleplon",
     "brands": [
       "Sonata"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 20
   },
   {
     "generic": "Zanamivir",
@@ -4705,7 +7366,14 @@
     "generic": "Ziprasidone",
     "brands": [
       "Geodon"
-    ]
+    ],
+    "strengths": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "unit": "mg"
   },
   {
     "generic": "Zoledronic Acid",
@@ -4718,7 +7386,13 @@
     "generic": "Zolmitriptan",
     "brands": [
       "Zomig"
-    ]
+    ],
+    "strengths": [
+      2.5,
+      5
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Zolpidem",
@@ -4726,12 +7400,24 @@
       "Stilnox",
       "Ambien",
       "Edluar"
-    ]
+    ],
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "maxPerDay": 10
   },
   {
     "generic": "Zonisamide",
     "brands": [
       "Zonegran"
-    ]
+    ],
+    "strengths": [
+      25,
+      50,
+      100
+    ],
+    "unit": "mg"
   }
 ]
