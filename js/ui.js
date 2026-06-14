@@ -137,25 +137,107 @@ async function openPicker() {
   input.focus();
 }
 
+// --- Shared dosing form widget (strength picker + interval + max tablets) ---
+function unitOf(med) { return med.unit || 'mg'; }
+
+// Builds the strength / interval / max-tablets fields. `cur` carries current
+// values when editing; empty when adding. If the med has a known `strengths`
+// list it renders a dropdown (+ Custom), otherwise a free-text strength box.
+function dosingFieldsHtml(med, cur) {
+  const unit = unitOf(med);
+  let strengthField;
+  if (med.strengths && med.strengths.length) {
+    const curNum = cur.strength ? parseFloat(cur.strength) : null;
+    const isKnown = curNum != null && med.strengths.includes(curNum);
+    const useCustom = !!cur.strength && !isKnown;
+    const opts = med.strengths
+      .map((s) => `<option value="${s}" ${isKnown && curNum === s ? 'selected' : ''}>${s} ${unit}</option>`)
+      .join('');
+    strengthField =
+      `<div class="field"><label>Strength per tablet</label>` +
+      `<select id="f-strength-sel">${opts}<option value="custom" ${useCustom ? 'selected' : ''}>Custom…</option></select></div>` +
+      `<div class="field" id="f-custom-wrap" style="display:${useCustom ? '' : 'none'}"><label>Custom strength</label>` +
+      `<input id="f-strength" placeholder="e.g. 250 mg" value="${useCustom ? cur.strength : ''}" /></div>`;
+  } else {
+    strengthField =
+      `<div class="field"><label>Strength per tablet (optional, e.g. 200 mg)</label>` +
+      `<input id="f-strength" placeholder="200 mg" value="${cur.strength || ''}" /></div>`;
+  }
+  const maxNote = med.strengths && med.maxPerDay ? `<div class="muted" id="f-maxnote"></div>` : '';
+  return (
+    strengthField +
+    `<div class="field"><label>Min hours between doses</label><input id="f-int" type="number" min="0" step="0.5" value="${cur.intervalHours ?? 6}" /></div>` +
+    `<div class="field"><label>Max tablets per day</label><input id="f-max" type="number" min="0" step="0.5" value="${cur.maxDailyUnits ?? 6}" />${maxNote}</div>`
+  );
+}
+
+// Wires the strength dropdown: toggles the custom box and auto-fills max
+// tablets/day = floor(maxPerDay / chosen strength) when max data is known.
+// `autoInit` recomputes max tablets for the pre-selected strength when the form
+// opens. Pass true when adding (no user value yet); pass false when editing so a
+// user's customised max isn't clobbered (it still recomputes if they change the
+// strength).
+function wireDosingFields(med, autoInit) {
+  const sel = modalRoot().querySelector('#f-strength-sel');
+  if (!sel) return;
+  const unit = unitOf(med);
+  const customWrap = modalRoot().querySelector('#f-custom-wrap');
+  const maxInput = modalRoot().querySelector('#f-max');
+  const note = modalRoot().querySelector('#f-maxnote');
+  const update = () => {
+    if (sel.value === 'custom') { customWrap.style.display = ''; return; }
+    customWrap.style.display = 'none';
+    if (med.maxPerDay) {
+      const tabs = Math.floor(med.maxPerDay / parseFloat(sel.value));
+      maxInput.value = tabs;
+      if (note) note.textContent = `Max ${med.maxPerDay} ${unit}/day ≈ ${tabs} × ${sel.value} ${unit} (editable — check your label)`;
+    }
+  };
+  sel.addEventListener('change', update);
+  if (autoInit) update();
+}
+
+// Reads the strength/interval/max values back out of the form.
+function readDosingFields(med) {
+  const sel = modalRoot().querySelector('#f-strength-sel');
+  const unit = unitOf(med);
+  let strength;
+  if (sel) {
+    strength = sel.value === 'custom'
+      ? modalRoot().querySelector('#f-strength').value.trim()
+      : `${sel.value} ${unit}`;
+  } else {
+    strength = modalRoot().querySelector('#f-strength').value.trim();
+  }
+  return {
+    strength,
+    intervalHours: parseFloat(modalRoot().querySelector('#f-int').value) || 0,
+    maxDailyUnits: parseFloat(modalRoot().querySelector('#f-max').value) || 0,
+  };
+}
+
 function openConfigForm(picked) {
   openSheet(
     `<h2>${picked.generic}</h2>` +
     `<div class="field"><label>Display name</label><input id="f-name" value="${picked.generic}" /></div>` +
-    `<div class="field"><label>Strength per tablet (optional, e.g. 200 mg)</label><input id="f-strength" placeholder="200 mg" /></div>` +
-    `<div class="field"><label>Min hours between doses</label><input id="f-int" type="number" min="0" step="0.5" value="6" /></div>` +
-    `<div class="field"><label>Max tablets per day</label><input id="f-max" type="number" min="0" step="0.5" value="6" /></div>` +
+    dosingFieldsHtml(picked, {}) +
     `<div class="btn-row"><button class="btn secondary" id="cancel">Cancel</button><button class="btn" id="save">Save</button></div>`
   );
+  wireDosingFields(picked, true);
   modalRoot().querySelector('#cancel').addEventListener('click', closeModal);
   modalRoot().querySelector('#save').addEventListener('click', () => {
     const meds = loadMeds();
+    const vals = readDosingFields(picked);
     meds.push({
       id: uuid(),
       name: modalRoot().querySelector('#f-name').value.trim() || picked.generic,
       brands: picked.brands || [],
-      strength: modalRoot().querySelector('#f-strength').value.trim(),
-      intervalHours: parseFloat(modalRoot().querySelector('#f-int').value) || 0,
-      maxDailyUnits: parseFloat(modalRoot().querySelector('#f-max').value) || 0,
+      strength: vals.strength,
+      strengths: picked.strengths || null,
+      unit: picked.unit || null,
+      maxPerDay: picked.maxPerDay || null,
+      intervalHours: vals.intervalHours,
+      maxDailyUnits: vals.maxDailyUnits,
       order: meds.length,
     });
     saveMeds(meds);
@@ -167,20 +249,20 @@ function openConfigForm(picked) {
 function openEditMed(med) {
   openSheet(
     `<h2>Edit ${med.name}</h2>` +
-    `<div class="field"><label>Display name</label><input id="e-name" value="${med.name}" /></div>` +
-    `<div class="field"><label>Strength per tablet (optional, e.g. 200 mg)</label><input id="e-strength" value="${med.strength || ''}" placeholder="200 mg" /></div>` +
-    `<div class="field"><label>Min hours between doses</label><input id="e-int" type="number" min="0" step="0.5" value="${med.intervalHours}" /></div>` +
-    `<div class="field"><label>Max tablets per day</label><input id="e-max" type="number" min="0" step="0.5" value="${med.maxDailyUnits}" /></div>` +
+    `<div class="field"><label>Display name</label><input id="f-name" value="${med.name}" /></div>` +
+    dosingFieldsHtml(med, { strength: med.strength, intervalHours: med.intervalHours, maxDailyUnits: med.maxDailyUnits }) +
     `<div class="btn-row"><button class="btn danger" id="del">Delete tile</button><button class="btn" id="save">Save</button></div>`
   );
+  wireDosingFields(med, false);
   modalRoot().querySelector('#save').addEventListener('click', () => {
     const meds = loadMeds();
     const m = meds.find((x) => x.id === med.id);
     if (m) {
-      m.name = modalRoot().querySelector('#e-name').value.trim() || m.name;
-      m.strength = modalRoot().querySelector('#e-strength').value.trim();
-      m.intervalHours = parseFloat(modalRoot().querySelector('#e-int').value) || 0;
-      m.maxDailyUnits = parseFloat(modalRoot().querySelector('#e-max').value) || 0;
+      const vals = readDosingFields(med);
+      m.name = modalRoot().querySelector('#f-name').value.trim() || m.name;
+      m.strength = vals.strength;
+      m.intervalHours = vals.intervalHours;
+      m.maxDailyUnits = vals.maxDailyUnits;
       saveMeds(meds);
     }
     closeModal();
