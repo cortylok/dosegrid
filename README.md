@@ -9,14 +9,14 @@ DoseGrid is a **personal logging tool, not medical advice**. It ships **no dosin
 ## Features
 
 - Tile grid of your medications, one tile per med
-- Tap a tile to log a ½, 1, or 2 dose
-- Each tile shows a live status: **Ready**, **Wait** (with countdown), or **Daily max**
-- Searchable list of 728 medications, including brand names (e.g. searching "advil" finds ibuprofen)
-- Per-medication editable dosing interval and daily maximum (in units)
+- Tap a tile to log tablets taken: **½, 1, or 2 tablets**
+- Each tile shows a live status: **Ready**, **Wait** (with countdown), or **Daily max**, plus the strength and limit (e.g. `200 mg · 6h · max 6 tabs/day`)
+- Searchable list of 722 medications using **Australian names** (generics and brands per AMH/TGA/PBS, e.g. Paracetamol/Panadol, Salbutamol/Ventolin, Adrenaline) — US names are kept as search aliases, so "tylenol" still finds Paracetamol and "albuterol" still finds Salbutamol
+- Per-medication editable **strength per tablet** (optional, e.g. "200 mg"), dosing interval, and **maximum tablets per day**
 - Daily totals reset automatically at the start of each calendar day
-- Units-based dose counting (½ / 1 / 2 units per log)
+- **Tablet-based counting** — the limit and history are tracked in tablets, so logging "2" toward a max of 6 leaves 4 for the day
 - 48-hour dose history per medication, with the ability to edit a dose's time or delete an entry
-- Works offline via a service worker
+- Works offline via a service worker (network-first: the latest version loads automatically when online, with the last-cached copy used offline)
 - All data stored on-device only (browser local storage) — no accounts, no syncing, no servers
 
 ## Run locally
@@ -49,9 +49,10 @@ node --test
 
 ## Manual test checklist
 
-- [ ] Add a med via search — confirm both a generic (e.g. "ibuprofen") and a brand (e.g. "advil") find it.
-- [ ] Tap a tile → log ½ / 1 / 2 — tile shows "Wait" with a countdown.
-- [ ] Reach the daily max — tile shows a red "Daily max" status.
+- [ ] Add a med via search — confirm a generic (e.g. "paracetamol"), an AU brand (e.g. "panadol"), and a US alias (e.g. "tylenol") all find it.
+- [ ] Set a strength (e.g. "500 mg") and max tablets/day — confirm the tile shows them.
+- [ ] Tap a tile → log ½ / 1 / 2 tablets — tile shows "Wait" with a countdown and the sheet shows tablets left.
+- [ ] Reach the daily max (in tablets) — tile shows a red "Daily max" status.
 - [ ] Long-press a tile → 48h history lists doses; edit a dose's time; delete an entry.
 - [ ] Reload the page — data persists.
 - [ ] Go offline (DevTools → Network → Offline, or airplane mode after install) — app still loads.
@@ -65,8 +66,8 @@ node --test
 - `js/dosing.js` — dose status logic (Ready / Wait / Daily max, countdowns)
 - `js/storage.js` — local storage persistence for medications and dose history
 - `js/data.js` — loads and searches the medication dataset
-- `medications.json` — dataset of 728 medications (generic and brand names)
+- `medications.json` — dataset of 722 medications (Australian generic and brand names, with US names as search aliases)
 - `manifest.webmanifest` — PWA manifest (name, icons, display mode)
-- `service-worker.js` — offline caching
+- `service-worker.js` — offline caching (network-first)
 - `icons/` — app icons (192px and 512px)
 - `tests/` — unit tests, run with `node --test`

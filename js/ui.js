@@ -34,7 +34,7 @@ export function renderGrid() {
       : 'Daily max';
     tile.innerHTML =
       `<div><h2>${med.name}</h2>` +
-      `<div class="dose-label">${med.intervalHours}h · max ${med.maxDailyUnits}/day</div></div>` +
+      `<div class="dose-label">${med.strength ? med.strength + ' · ' : ''}${med.intervalHours}h · max ${med.maxDailyUnits} tabs/day</div></div>` +
       `<div class="status ${s.state}"><span class="dot"></span><span>${statusText}</span></div>`;
     attachTileHandlers(tile, med);
     grid.appendChild(tile);
@@ -77,14 +77,16 @@ function openDoseSheet(med) {
   const s = computeStatus(med, doses, Date.now());
   const last = s.lastDoseTime ? fmtTime(s.lastDoseTime) : '—';
   const next = s.state === 'ready' ? 'now' : (s.nextDoseTime ? fmtTime(s.nextDoseTime) : 'now');
+  const remaining = Math.max(0, med.maxDailyUnits - s.unitsToday);
   openSheet(
-    `<h2>${med.name}</h2>` +
+    `<h2>${med.name}${med.strength ? ` <span class="muted">${med.strength}</span>` : ''}</h2>` +
     `<p class="muted">Last taken: ${last}<br>Can take again: ${next}<br>` +
-    `Today: ${s.unitsToday} of ${med.maxDailyUnits}</p>` +
+    `Today: ${s.unitsToday} of ${med.maxDailyUnits} tablets (${remaining} left)</p>` +
+    `<p class="muted">Log tablets taken:</p>` +
     `<div class="btn-row">` +
-      `<button class="btn" data-units="0.5">½</button>` +
-      `<button class="btn" data-units="1">1</button>` +
-      `<button class="btn" data-units="2">2</button>` +
+      `<button class="btn" data-units="0.5">½ tab</button>` +
+      `<button class="btn" data-units="1">1 tab</button>` +
+      `<button class="btn" data-units="2">2 tabs</button>` +
     `</div>` +
     `<div class="btn-row">` +
       `<button class="btn secondary" id="edit-med">Edit</button>` +
@@ -129,8 +131,9 @@ function openConfigForm(picked) {
   openSheet(
     `<h2>${picked.generic}</h2>` +
     `<div class="field"><label>Display name</label><input id="f-name" value="${picked.generic}" /></div>` +
+    `<div class="field"><label>Strength per tablet (optional, e.g. 200 mg)</label><input id="f-strength" placeholder="200 mg" /></div>` +
     `<div class="field"><label>Min hours between doses</label><input id="f-int" type="number" min="0" step="0.5" value="6" /></div>` +
-    `<div class="field"><label>Max doses per day (units)</label><input id="f-max" type="number" min="0" step="0.5" value="4" /></div>` +
+    `<div class="field"><label>Max tablets per day</label><input id="f-max" type="number" min="0" step="0.5" value="6" /></div>` +
     `<div class="btn-row"><button class="btn secondary" id="cancel">Cancel</button><button class="btn" id="save">Save</button></div>`
   );
   modalRoot().querySelector('#cancel').addEventListener('click', closeModal);
@@ -140,6 +143,7 @@ function openConfigForm(picked) {
       id: uuid(),
       name: modalRoot().querySelector('#f-name').value.trim() || picked.generic,
       brands: picked.brands || [],
+      strength: modalRoot().querySelector('#f-strength').value.trim(),
       intervalHours: parseFloat(modalRoot().querySelector('#f-int').value) || 0,
       maxDailyUnits: parseFloat(modalRoot().querySelector('#f-max').value) || 0,
       order: meds.length,
@@ -154,8 +158,9 @@ function openEditMed(med) {
   openSheet(
     `<h2>Edit ${med.name}</h2>` +
     `<div class="field"><label>Display name</label><input id="e-name" value="${med.name}" /></div>` +
+    `<div class="field"><label>Strength per tablet (optional, e.g. 200 mg)</label><input id="e-strength" value="${med.strength || ''}" placeholder="200 mg" /></div>` +
     `<div class="field"><label>Min hours between doses</label><input id="e-int" type="number" min="0" step="0.5" value="${med.intervalHours}" /></div>` +
-    `<div class="field"><label>Max doses per day (units)</label><input id="e-max" type="number" min="0" step="0.5" value="${med.maxDailyUnits}" /></div>` +
+    `<div class="field"><label>Max tablets per day</label><input id="e-max" type="number" min="0" step="0.5" value="${med.maxDailyUnits}" /></div>` +
     `<div class="btn-row"><button class="btn danger" id="del">Delete tile</button><button class="btn" id="save">Save</button></div>`
   );
   modalRoot().querySelector('#save').addEventListener('click', () => {
@@ -163,6 +168,7 @@ function openEditMed(med) {
     const m = meds.find((x) => x.id === med.id);
     if (m) {
       m.name = modalRoot().querySelector('#e-name').value.trim() || m.name;
+      m.strength = modalRoot().querySelector('#e-strength').value.trim();
       m.intervalHours = parseFloat(modalRoot().querySelector('#e-int').value) || 0;
       m.maxDailyUnits = parseFloat(modalRoot().querySelector('#e-max').value) || 0;
       saveMeds(meds);
@@ -187,7 +193,7 @@ function openHistory(med) {
   const rows = entries.length
     ? entries.map((d) =>
         `<li data-id="${d.id}">` +
-        `<span>${new Date(d.timestamp).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })} · ${d.units}</span>` +
+        `<span>${new Date(d.timestamp).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })} · ${d.units} tab${d.units === 1 ? '' : 's'}</span>` +
         `<span><button class="btn secondary" data-act="edit">Edit</button> ` +
         `<button class="btn danger" data-act="del">Del</button></span></li>`).join('')
     : `<li class="muted">No doses in the last 48 hours.</li>`;
