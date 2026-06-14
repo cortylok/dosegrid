@@ -31,30 +31,22 @@
     ]
   },
   {
-    "generic": "Acetaminophen",
-    "brands": [
-      "Tylenol",
-      "Panadol",
-      "Calpol",
-      "Mapap"
-    ]
-  },
-  {
     "generic": "Acetazolamide",
     "brands": [
       "Diamox"
     ]
   },
   {
-    "generic": "Aclidinium",
+    "generic": "Aciclovir",
     "brands": [
-      "Tudorza"
+      "Zovirax",
+      "Acyclovir"
     ]
   },
   {
-    "generic": "Acyclovir",
+    "generic": "Aclidinium",
     "brands": [
-      "Zovirax"
+      "Tudorza"
     ]
   },
   {
@@ -70,24 +62,19 @@
     ]
   },
   {
+    "generic": "Adrenaline",
+    "brands": [
+      "EpiPen",
+      "Anapen",
+      "Epinephrine",
+      "Auvi-Q",
+      "Adrenaclick"
+    ]
+  },
+  {
     "generic": "Albendazole",
     "brands": [
       "Albenza"
-    ]
-  },
-  {
-    "generic": "Albuterol",
-    "brands": [
-      "Ventolin",
-      "ProAir",
-      "Proventil"
-    ]
-  },
-  {
-    "generic": "Albuterol; Ipratropium",
-    "brands": [
-      "Combivent",
-      "DuoNeb"
     ]
   },
   {
@@ -112,16 +99,10 @@
     "generic": "Allopurinol",
     "brands": [
       "Zyloprim",
-      "Aloprim"
+      "Aloprim",
+      "Allopurinol Riboside",
+      "Allopurinol Sodium"
     ]
-  },
-  {
-    "generic": "Allopurinol Riboside",
-    "brands": []
-  },
-  {
-    "generic": "Allopurinol Sodium",
-    "brands": []
   },
   {
     "generic": "Almotriptan",
@@ -142,8 +123,11 @@
     ]
   },
   {
-    "generic": "Aluminum Hydroxide",
+    "generic": "Aluminium Hydroxide",
     "brands": [
+      "Aluminum Hydroxide",
+      "Mylanta",
+      "Gaviscon",
       "Amphojel"
     ]
   },
@@ -158,6 +142,20 @@
     "generic": "Ambrisentan",
     "brands": [
       "Letairis"
+    ]
+  },
+  {
+    "generic": "Amethocaine",
+    "brands": [
+      "Tetracaine",
+      "Amethocaine",
+      "Pontocaine"
+    ]
+  },
+  {
+    "generic": "Amfetamine; Dexamfetamine",
+    "brands": [
+      "Adderall"
     ]
   },
   {
@@ -188,7 +186,8 @@
   {
     "generic": "Amlodipine",
     "brands": [
-      "Norvasc"
+      "Norvasc",
+      "Amlo"
     ]
   },
   {
@@ -213,26 +212,28 @@
     "generic": "Amoxicillin",
     "brands": [
       "Amoxil",
+      "Moxacin",
+      "Cilamox",
+      "Alphamox",
       "Trimox"
     ]
   },
   {
     "generic": "Amoxicillin; Clavulanate",
     "brands": [
+      "Augmentin Duo",
+      "Clavulin",
+      "Curam",
       "Augmentin"
     ]
   },
   {
-    "generic": "Amphetamine; Dextroamphetamine",
-    "brands": [
-      "Adderall"
-    ]
-  },
-  {
-    "generic": "Amphotericin B",
+    "generic": "Amphotericin",
     "brands": [
       "Fungizone",
-      "AmBisome"
+      "AmBisome",
+      "Abelcet",
+      "Amphotericin B"
     ]
   },
   {
@@ -310,16 +311,21 @@
   {
     "generic": "Aspirin",
     "brands": [
+      "Aspro",
+      "Astrix",
+      "Cartia",
+      "Cardiprin",
+      "Disprin",
       "Bayer",
       "Ecotrin",
-      "Bufferin",
-      "Disprin"
+      "Bufferin"
     ]
   },
   {
     "generic": "Atenolol",
     "brands": [
-      "Tenormin"
+      "Tenormin",
+      "Noten"
     ]
   },
   {
@@ -331,7 +337,9 @@
   {
     "generic": "Atorvastatin",
     "brands": [
-      "Lipitor"
+      "Lipitor",
+      "Torvastat",
+      "Atorvachol"
     ]
   },
   {
@@ -375,6 +383,7 @@
     "generic": "Azithromycin",
     "brands": [
       "Zithromax",
+      "Zmax",
       "Z-Pak"
     ]
   },
@@ -408,10 +417,11 @@
     ]
   },
   {
-    "generic": "Beclomethasone",
+    "generic": "Beclometasone",
     "brands": [
       "Qvar",
-      "Beconase"
+      "Beconase",
+      "Beclomethasone"
     ]
   },
   {
@@ -546,7 +556,8 @@
   {
     "generic": "Budesonide; Formoterol",
     "brands": [
-      "Symbicort"
+      "Symbicort",
+      "DuoResp"
     ]
   },
   {
@@ -565,8 +576,10 @@
   {
     "generic": "Buprenorphine",
     "brands": [
-      "Suboxone",
+      "Norspan",
       "Subutex",
+      "Suboxone",
+      "Temgesic",
       "Belbuca",
       "Butrans"
     ]
@@ -604,8 +617,11 @@
     ]
   },
   {
-    "generic": "Calcipotriene",
+    "generic": "Calcipotriol",
     "brands": [
+      "Daivonex",
+      "Daivobet",
+      "Calcipotriene",
       "Dovonex"
     ]
   },
@@ -645,7 +661,8 @@
   {
     "generic": "Candesartan",
     "brands": [
-      "Atacand"
+      "Atacand",
+      "Candle"
     ]
   },
   {
@@ -707,13 +724,23 @@
   {
     "generic": "Cefaclor",
     "brands": [
-      "Ceclor"
+      "Ceclor",
+      "Distaclor"
     ]
   },
   {
     "generic": "Cefadroxil",
     "brands": [
       "Duricef"
+    ]
+  },
+  {
+    "generic": "Cefalexin",
+    "brands": [
+      "Keflex",
+      "Ialex",
+      "Rilexine",
+      "Cephalexin"
     ]
   },
   {
@@ -792,12 +819,6 @@
     ]
   },
   {
-    "generic": "Cephalexin",
-    "brands": [
-      "Keflex"
-    ]
-  },
-  {
     "generic": "Certolizumab",
     "brands": [
       "Cimzia"
@@ -807,6 +828,8 @@
     "generic": "Cetirizine",
     "brands": [
       "Zyrtec",
+      "Zilarex",
+      "Alzene",
       "Reactine"
     ]
   },
@@ -854,12 +877,6 @@
     ]
   },
   {
-    "generic": "Cholecalciferol",
-    "brands": [
-      "Vitamin D3"
-    ]
-  },
-  {
     "generic": "Cholestyramine",
     "brands": [
       "Questran"
@@ -877,6 +894,17 @@
     "brands": [
       "Loprox",
       "Penlac"
+    ]
+  },
+  {
+    "generic": "Ciclosporin",
+    "brands": [
+      "Neoral",
+      "Sandimmun",
+      "Cyclosporine",
+      "Cyclosporin",
+      "Restasis",
+      "Sandimmune"
     ]
   },
   {
@@ -900,13 +928,16 @@
   {
     "generic": "Ciprofloxacin",
     "brands": [
+      "Ciproxin",
       "Cipro"
     ]
   },
   {
     "generic": "Citalopram",
     "brands": [
-      "Celexa"
+      "Cipramil",
+      "Celexa",
+      "Talam"
     ]
   },
   {
@@ -964,7 +995,9 @@
   {
     "generic": "Clopidogrel",
     "brands": [
-      "Plavix"
+      "Plavix",
+      "Iscover",
+      "Coplavix"
     ]
   },
   {
@@ -990,6 +1023,7 @@
   {
     "generic": "Codeine",
     "brands": [
+      "Codral",
       "Tylenol 3"
     ]
   },
@@ -1011,6 +1045,15 @@
     ]
   },
   {
+    "generic": "Colecalciferol",
+    "brands": [
+      "Ostelin",
+      "Caltrate",
+      "Cholecalciferol",
+      "Vitamin D3"
+    ]
+  },
+  {
     "generic": "Colesevelam",
     "brands": [
       "Welchol"
@@ -1023,9 +1066,10 @@
     ]
   },
   {
-    "generic": "Conjugated Estrogens",
+    "generic": "Conjugated Oestrogens",
     "brands": [
-      "Premarin"
+      "Premarin",
+      "Conjugated Estrogens"
     ]
   },
   {
@@ -1039,13 +1083,6 @@
     ]
   },
   {
-    "generic": "Cromolyn",
-    "brands": [
-      "Intal",
-      "Nasalcrom"
-    ]
-  },
-  {
     "generic": "Cyanocobalamin",
     "brands": [
       "Vitamin B12"
@@ -1056,14 +1093,6 @@
     "brands": [
       "Flexeril",
       "Amrix"
-    ]
-  },
-  {
-    "generic": "Cyclosporine",
-    "brands": [
-      "Restasis",
-      "Sandimmune",
-      "Neoral"
     ]
   },
   {
@@ -1093,8 +1122,8 @@
   {
     "generic": "Dapagliflozin",
     "brands": [
-      "Farxiga",
-      "Forxiga"
+      "Forxiga",
+      "Farxiga"
     ]
   },
   {
@@ -1143,8 +1172,8 @@
   {
     "generic": "Desloratadine",
     "brands": [
-      "Clarinex",
-      "Aerius"
+      "Aerius",
+      "Clarinex"
     ]
   },
   {
@@ -1164,7 +1193,8 @@
   {
     "generic": "Desvenlafaxine",
     "brands": [
-      "Pristiq"
+      "Pristiq",
+      "Khedezla"
     ]
   },
   {
@@ -1180,6 +1210,15 @@
     ]
   },
   {
+    "generic": "Dexamfetamine",
+    "brands": [
+      "Aspen Dexamfetamine",
+      "Dextroamphetamine",
+      "Dexedrine",
+      "Zenzedi"
+    ]
+  },
+  {
     "generic": "Dexlansoprazole",
     "brands": [
       "Dexilant"
@@ -1192,13 +1231,6 @@
     ]
   },
   {
-    "generic": "Dextroamphetamine",
-    "brands": [
-      "Dexedrine",
-      "Zenzedi"
-    ]
-  },
-  {
     "generic": "Dextromethorphan",
     "brands": [
       "Robitussin DM",
@@ -1208,7 +1240,9 @@
   {
     "generic": "Diazepam",
     "brands": [
-      "Valium"
+      "Valium",
+      "Ducene",
+      "Antenex"
     ]
   },
   {
@@ -1226,8 +1260,10 @@
     ]
   },
   {
-    "generic": "Dicyclomine",
+    "generic": "Dicycloverine",
     "brands": [
+      "Merbentyl",
+      "Dicyclomine",
       "Bentyl"
     ]
   },
@@ -1342,8 +1378,9 @@
   {
     "generic": "Doxycycline",
     "brands": [
+      "Doryx",
       "Vibramycin",
-      "Doryx"
+      "Doxylin"
     ]
   },
   {
@@ -1372,7 +1409,7 @@
     ]
   },
   {
-    "generic": "Drospirenone; Ethinyl Estradiol",
+    "generic": "Drospirenone; Ethinylestradiol",
     "brands": [
       "Yaz",
       "Yasmin"
@@ -1387,7 +1424,8 @@
   {
     "generic": "Duloxetine",
     "brands": [
-      "Cymbalta"
+      "Cymbalta",
+      "Andepra"
     ]
   },
   {
@@ -1472,14 +1510,6 @@
     ]
   },
   {
-    "generic": "Epinephrine",
-    "brands": [
-      "EpiPen",
-      "Auvi-Q",
-      "Adrenaclick"
-    ]
-  },
-  {
     "generic": "Eplerenone",
     "brands": [
       "Inspra"
@@ -1540,6 +1570,8 @@
     "generic": "Escitalopram",
     "brands": [
       "Lexapro",
+      "Esipram",
+      "Loxalate",
       "Cipralex"
     ]
   },
@@ -1552,7 +1584,8 @@
   {
     "generic": "Esomeprazole",
     "brands": [
-      "Nexium"
+      "Nexium",
+      "Esoz"
     ]
   },
   {
@@ -1582,27 +1615,27 @@
     ]
   },
   {
-    "generic": "Ethinyl Estradiol; Etonogestrel",
+    "generic": "Ethinylestradiol; Etonogestrel",
     "brands": [
       "NuvaRing"
     ]
   },
   {
-    "generic": "Ethinyl Estradiol; Levonorgestrel",
+    "generic": "Ethinylestradiol; Levonorgestrel",
     "brands": [
       "Levora",
       "Seasonale"
     ]
   },
   {
-    "generic": "Ethinyl Estradiol; Norethindrone",
+    "generic": "Ethinylestradiol; Norethisterone",
     "brands": [
       "Loestrin",
       "Junel"
     ]
   },
   {
-    "generic": "Ethinyl Estradiol; Norgestimate",
+    "generic": "Ethinylestradiol; Norgestimate",
     "brands": [
       "Ortho Tri-Cyclen"
     ]
@@ -1691,9 +1724,10 @@
   {
     "generic": "Fentanyl",
     "brands": [
-      "Duragesic",
+      "Durogesic",
+      "Actiq",
       "Sublimaze",
-      "Actiq"
+      "Duragesic"
     ]
   },
   {
@@ -1718,6 +1752,8 @@
   {
     "generic": "Fexofenadine",
     "brands": [
+      "Telfast",
+      "Fexotabs",
       "Allegra"
     ]
   },
@@ -1766,6 +1802,8 @@
     "generic": "Fluoxetine",
     "brands": [
       "Prozac",
+      "Lovan",
+      "Zactin",
       "Sarafem"
     ]
   },
@@ -1792,6 +1830,7 @@
   {
     "generic": "Fluticasone; Salmeterol",
     "brands": [
+      "Seretide",
       "Advair"
     ]
   },
@@ -1865,13 +1904,17 @@
   {
     "generic": "Furosemide",
     "brands": [
-      "Lasix"
+      "Lasix",
+      "Frusemide",
+      "Frusid",
+      "Frusehexal"
     ]
   },
   {
     "generic": "Gabapentin",
     "brands": [
       "Neurontin",
+      "Gabaran",
       "Gralise"
     ]
   },
@@ -1930,6 +1973,17 @@
     ]
   },
   {
+    "generic": "Glibenclamide",
+    "brands": [
+      "Daonil",
+      "Glimel",
+      "Glyburide",
+      "DiaBeta",
+      "Micronase",
+      "Glynase"
+    ]
+  },
+  {
     "generic": "Glimepiride",
     "brands": [
       "Amaryl"
@@ -1953,11 +2007,15 @@
     "brands": []
   },
   {
-    "generic": "Glyburide",
+    "generic": "Glyceryl Trinitrate",
     "brands": [
-      "DiaBeta",
-      "Micronase",
-      "Glynase"
+      "Anginine",
+      "Nitrolingual",
+      "Nitro-Dur",
+      "GTN",
+      "Nitrostat",
+      "Nitroglycerin",
+      "Transiderm-Nitro"
     ]
   },
   {
@@ -2080,25 +2138,15 @@
   {
     "generic": "Hydroxychloroquine",
     "brands": [
-      "Plaquenil"
-    ]
-  },
-  {
-    "generic": "Hydroxychloroquine Sulfate",
-    "brands": [
-      "Plaquenil"
+      "Plaquenil",
+      "Hydroxychloroquine Sulfate"
     ]
   },
   {
     "generic": "Hydroxyzine",
     "brands": [
+      "Hydroxyzine Pamoate",
       "Atarax",
-      "Vistaril"
-    ]
-  },
-  {
-    "generic": "Hydroxyzine Pamoate",
-    "brands": [
       "Vistaril"
     ]
   },
@@ -2124,10 +2172,10 @@
   {
     "generic": "Ibuprofen",
     "brands": [
-      "Advil",
-      "Motrin",
       "Nurofen",
-      "Brufen"
+      "Brufen",
+      "Advil",
+      "Motrin"
     ]
   },
   {
@@ -2189,8 +2237,9 @@
   {
     "generic": "Insulin Aspart",
     "brands": [
-      "NovoLog",
-      "Fiasp"
+      "NovoRapid",
+      "Fiasp",
+      "NovoLog"
     ]
   },
   {
@@ -2210,6 +2259,7 @@
     "brands": [
       "Lantus",
       "Toujeo",
+      "Optisulin",
       "Basaglar"
     ]
   },
@@ -2242,7 +2292,8 @@
   {
     "generic": "Irbesartan",
     "brands": [
-      "Avapro"
+      "Avapro",
+      "Karvea"
     ]
   },
   {
@@ -2371,7 +2422,8 @@
   {
     "generic": "Lamotrigine",
     "brands": [
-      "Lamictal"
+      "Lamictal",
+      "Lamidus"
     ]
   },
   {
@@ -2429,12 +2481,6 @@
     ]
   },
   {
-    "generic": "Levalbuterol",
-    "brands": [
-      "Xopenex"
-    ]
-  },
-  {
     "generic": "Levetiracetam",
     "brands": [
       "Keppra"
@@ -2473,24 +2519,34 @@
     ]
   },
   {
+    "generic": "Levosalbutamol",
+    "brands": [
+      "Levalbuterol",
+      "Xopenex"
+    ]
+  },
+  {
     "generic": "Levothyroxine",
     "brands": [
+      "Eutroxsig",
+      "Oroxine",
       "Synthroid",
       "Levoxyl",
       "Euthyrox"
     ]
   },
   {
-    "generic": "Lidocaine",
-    "brands": [
-      "Xylocaine",
-      "Lidoderm"
-    ]
-  },
-  {
     "generic": "Lifitegrast",
     "brands": [
       "Xiidra"
+    ]
+  },
+  {
+    "generic": "Lignocaine",
+    "brands": [
+      "Xylocaine",
+      "Lidocaine",
+      "Lidoderm"
     ]
   },
   {
@@ -2533,7 +2589,8 @@
   {
     "generic": "Lisdexamfetamine",
     "brands": [
-      "Vyvanse"
+      "Vyvanse",
+      "Elvanse"
     ]
   },
   {
@@ -2565,6 +2622,8 @@
   {
     "generic": "Loratadine",
     "brands": [
+      "Claratyne",
+      "Lorano",
       "Claritin",
       "Alavert"
     ]
@@ -2604,6 +2663,18 @@
     "generic": "Macitentan",
     "brands": [
       "Opsumit"
+    ]
+  },
+  {
+    "generic": "Macrogol 3350",
+    "brands": [
+      "Movicol",
+      "OsmoLax",
+      "ClearLax",
+      "MiraLAX",
+      "Polyethylene Glycol 3350",
+      "PEG 3350",
+      "GlycoLax"
     ]
   },
   {
@@ -2688,12 +2759,6 @@
     ]
   },
   {
-    "generic": "Meperidine",
-    "brands": [
-      "Demerol"
-    ]
-  },
-  {
     "generic": "Mepivacaine",
     "brands": [
       "Carbocaine",
@@ -2707,11 +2772,15 @@
     ]
   },
   {
-    "generic": "Mesalamine",
+    "generic": "Mesalazine",
     "brands": [
+      "Mesasal",
+      "Salofalk",
+      "Pentasa",
+      "Mezavant",
+      "Mesalamine",
       "Asacol",
-      "Lialda",
-      "Pentasa"
+      "Lialda"
     ]
   },
   {
@@ -2730,7 +2799,10 @@
   {
     "generic": "Metformin",
     "brands": [
+      "Diabex",
+      "Diaformin",
       "Glucophage",
+      "Glucohexal",
       "Fortamet",
       "Glumetza"
     ]
@@ -2773,6 +2845,7 @@
     "brands": [
       "Ritalin",
       "Concerta",
+      "Aspen Methylphenidate",
       "Daytrana"
     ]
   },
@@ -2798,6 +2871,10 @@
   {
     "generic": "Metoprolol",
     "brands": [
+      "Betaloc",
+      "Lopresor",
+      "Toprol-XL",
+      "Metohexal",
       "Lopressor",
       "Toprol XL"
     ]
@@ -2805,7 +2882,8 @@
   {
     "generic": "Metronidazole",
     "brands": [
-      "Flagyl"
+      "Flagyl",
+      "Metrogyl"
     ]
   },
   {
@@ -2836,12 +2914,7 @@
   {
     "generic": "Midodrine",
     "brands": [
-      "ProAmatine"
-    ]
-  },
-  {
-    "generic": "Midodrine Hydrochloride",
-    "brands": [
+      "Midodrine Hydrochloride",
       "ProAmatine"
     ]
   },
@@ -2874,7 +2947,9 @@
   {
     "generic": "Mirtazapine",
     "brands": [
-      "Remeron"
+      "Avanza",
+      "Remeron",
+      "Mirtazon"
     ]
   },
   {
@@ -2904,26 +2979,26 @@
   {
     "generic": "Mometasone",
     "brands": [
-      "Asmanex",
-      "Nasonex"
-    ]
-  },
-  {
-    "generic": "Mometasone Furoate",
-    "brands": [
-      "Elocon"
+      "Nasonex",
+      "Elocon",
+      "Mometasone Furoate",
+      "Asmanex"
     ]
   },
   {
     "generic": "Montelukast",
     "brands": [
-      "Singulair"
+      "Singulair",
+      "Lukair"
     ]
   },
   {
     "generic": "Morphine",
     "brands": [
       "MS Contin",
+      "Ordine",
+      "Kapanol",
+      "Sevredol",
       "Kadian",
       "Roxanol",
       "Avinza"
@@ -3082,14 +3157,6 @@
     ]
   },
   {
-    "generic": "Nitroglycerin",
-    "brands": [
-      "Nitrostat",
-      "Nitro-Dur",
-      "Nitrolingual"
-    ]
-  },
-  {
     "generic": "Nizatidine",
     "brands": [
       "Axid"
@@ -3142,7 +3209,8 @@
   {
     "generic": "Olanzapine",
     "brands": [
-      "Zyprexa"
+      "Zyprexa",
+      "Zypine"
     ]
   },
   {
@@ -3168,8 +3236,10 @@
   {
     "generic": "Omeprazole",
     "brands": [
-      "Prilosec",
-      "Losec"
+      "Losec",
+      "Acimax",
+      "Probitor",
+      "Prilosec"
     ]
   },
   {
@@ -3218,6 +3288,9 @@
   {
     "generic": "Oxazepam",
     "brands": [
+      "Serepax",
+      "Murelax",
+      "Alepam",
       "Serax"
     ]
   },
@@ -3236,7 +3309,10 @@
   {
     "generic": "Oxycodone",
     "brands": [
+      "Endone",
       "OxyContin",
+      "OxyNorm",
+      "Targin",
       "Roxicodone",
       "Percocet"
     ]
@@ -3286,8 +3362,23 @@
   {
     "generic": "Pantoprazole",
     "brands": [
+      "Somac",
       "Protonix",
       "Pantoloc"
+    ]
+  },
+  {
+    "generic": "Paracetamol",
+    "brands": [
+      "Panadol",
+      "Panamax",
+      "Dymadon",
+      "Herron",
+      "Febridol",
+      "Acetaminophen",
+      "Tylenol",
+      "Calpol",
+      "Mapap"
     ]
   },
   {
@@ -3326,8 +3417,9 @@
   {
     "generic": "Perindopril",
     "brands": [
-      "Aceon",
-      "Coversyl"
+      "Coversyl",
+      "Perindo",
+      "Aceon"
     ]
   },
   {
@@ -3341,6 +3433,13 @@
     "generic": "Perphenazine",
     "brands": [
       "Trilafon"
+    ]
+  },
+  {
+    "generic": "Pethidine",
+    "brands": [
+      "Meperidine",
+      "Demerol"
     ]
   },
   {
@@ -3363,8 +3462,9 @@
     ]
   },
   {
-    "generic": "Phenobarbital",
+    "generic": "Phenobarbitone",
     "brands": [
+      "Phenobarbital",
       "Luminal"
     ]
   },
@@ -3443,13 +3543,6 @@
     ]
   },
   {
-    "generic": "Polyethylene Glycol 3350",
-    "brands": [
-      "MiraLAX",
-      "GlycoLax"
-    ]
-  },
-  {
     "generic": "Polymyxin B",
     "brands": []
   },
@@ -3487,7 +3580,8 @@
   {
     "generic": "Pravastatin",
     "brands": [
-      "Pravachol"
+      "Pravachol",
+      "Cholstat"
     ]
   },
   {
@@ -3505,6 +3599,10 @@
   {
     "generic": "Prednisolone",
     "brands": [
+      "Panafcortelone",
+      "Solone",
+      "Redipred",
+      "Predsol",
       "Orapred",
       "Prelone"
     ]
@@ -3512,6 +3610,8 @@
   {
     "generic": "Prednisone",
     "brands": [
+      "Panafcort",
+      "Sone",
       "Deltasone",
       "Rayos"
     ]
@@ -3519,7 +3619,8 @@
   {
     "generic": "Pregabalin",
     "brands": [
-      "Lyrica"
+      "Lyrica",
+      "Lyzalon"
     ]
   },
   {
@@ -3606,8 +3707,11 @@
     ]
   },
   {
-    "generic": "Pyrantel Pamoate",
+    "generic": "Pyrantel",
     "brands": [
+      "Combantrin",
+      "Pyrantel Pamoate",
+      "Pyrantel Embonate",
       "Pin-X"
     ]
   },
@@ -3624,7 +3728,9 @@
   {
     "generic": "Quetiapine",
     "brands": [
-      "Seroquel"
+      "Seroquel",
+      "Quetia",
+      "Syquet"
     ]
   },
   {
@@ -3636,8 +3742,8 @@
   {
     "generic": "Rabeprazole",
     "brands": [
-      "Aciphex",
-      "Pariet"
+      "Pariet",
+      "Aciphex"
     ]
   },
   {
@@ -3661,6 +3767,8 @@
   {
     "generic": "Ramipril",
     "brands": [
+      "Tritace",
+      "Ramace",
       "Altace"
     ]
   },
@@ -3671,8 +3779,11 @@
     ]
   },
   {
-    "generic": "Ranitidine Bismuth",
-    "brands": []
+    "generic": "Ranitidine Bismuth Citrate",
+    "brands": [
+      "Pylorid",
+      "Ranitidine Bismuth"
+    ]
   },
   {
     "generic": "Ranolazine",
@@ -3718,9 +3829,11 @@
     ]
   },
   {
-    "generic": "Rifampin",
+    "generic": "Rifampicin",
     "brands": [
       "Rifadin",
+      "Rimycin",
+      "Rifampin",
       "Rimactane"
     ]
   },
@@ -3763,7 +3876,8 @@
   {
     "generic": "Risperidone",
     "brands": [
-      "Risperdal"
+      "Risperdal",
+      "Rispa"
     ]
   },
   {
@@ -3829,7 +3943,8 @@
   {
     "generic": "Rosuvastatin",
     "brands": [
-      "Crestor"
+      "Crestor",
+      "Rosuvachol"
     ]
   },
   {
@@ -3852,6 +3967,25 @@
     "generic": "Sacubitril; Valsartan",
     "brands": [
       "Entresto"
+    ]
+  },
+  {
+    "generic": "Salbutamol",
+    "brands": [
+      "Ventolin",
+      "Asmol",
+      "Airomir",
+      "Albuterol",
+      "ProAir",
+      "Proventol",
+      "Proventil"
+    ]
+  },
+  {
+    "generic": "Salbutamol; Ipratropium",
+    "brands": [
+      "Combivent",
+      "DuoNeb"
     ]
   },
   {
@@ -3901,8 +4035,8 @@
     "generic": "Semaglutide",
     "brands": [
       "Ozempic",
-      "Rybelsus",
-      "Wegovy"
+      "Wegovy",
+      "Rybelsus"
     ]
   },
   {
@@ -3915,7 +4049,9 @@
   {
     "generic": "Sertraline",
     "brands": [
-      "Zoloft"
+      "Zoloft",
+      "Eleva",
+      "Sertra"
     ]
   },
   {
@@ -3948,7 +4084,9 @@
   {
     "generic": "Simvastatin",
     "brands": [
-      "Zocor"
+      "Zocor",
+      "Lipex",
+      "Simvahexal"
     ]
   },
   {
@@ -3961,6 +4099,16 @@
     "generic": "Sitagliptin",
     "brands": [
       "Januvia"
+    ]
+  },
+  {
+    "generic": "Sodium Cromoglycate",
+    "brands": [
+      "Intal",
+      "Cromolyn",
+      "Opticrom",
+      "Cromoglicate",
+      "Nasalcrom"
     ]
   },
   {
@@ -4031,6 +4179,7 @@
   {
     "generic": "Sumatriptan",
     "brands": [
+      "Imigran",
       "Imitrex"
     ]
   },
@@ -4088,12 +4237,15 @@
   {
     "generic": "Telmisartan",
     "brands": [
-      "Micardis"
+      "Micardis",
+      "Pritor"
     ]
   },
   {
     "generic": "Temazepam",
     "brands": [
+      "Temaze",
+      "Normison",
       "Restoril"
     ]
   },
@@ -4139,12 +4291,6 @@
     "generic": "Tetrabenazine",
     "brands": [
       "Xenazine"
-    ]
-  },
-  {
-    "generic": "Tetracaine",
-    "brands": [
-      "Pontocaine"
     ]
   },
   {
@@ -4288,6 +4434,8 @@
   {
     "generic": "Tramadol",
     "brands": [
+      "Tramal",
+      "Durotram",
       "Ultram",
       "ConZip"
     ]
@@ -4407,9 +4555,10 @@
     ]
   },
   {
-    "generic": "Valacyclovir",
+    "generic": "Valaciclovir",
     "brands": [
-      "Valtrex"
+      "Valtrex",
+      "Valacyclovir"
     ]
   },
   {
@@ -4421,7 +4570,11 @@
   {
     "generic": "Valproate",
     "brands": [
+      "Epilim",
+      "Valpro",
       "Depakote",
+      "Sodium Valproate",
+      "Valproic Acid",
       "Depakene"
     ]
   },
@@ -4459,7 +4612,9 @@
   {
     "generic": "Venlafaxine",
     "brands": [
-      "Effexor"
+      "Efexor",
+      "Effexor",
+      "Elaxine"
     ]
   },
   {
@@ -4524,6 +4679,7 @@
     "generic": "Warfarin",
     "brands": [
       "Coumadin",
+      "Marevan",
       "Jantoven"
     ]
   },
@@ -4567,6 +4723,7 @@
   {
     "generic": "Zolpidem",
     "brands": [
+      "Stilnox",
       "Ambien",
       "Edluar"
     ]
