@@ -1,7 +1,7 @@
 // tests/dosing.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { unitsToday } from '../js/dosing.js';
+import { unitsToday, nextDoseTime } from '../js/dosing.js';
 
 const midday = new Date('2026-06-14T12:00:00').getTime();
 const earlyToday = new Date('2026-06-14T08:00:00').getTime();
@@ -19,4 +19,18 @@ test('unitsToday sums only doses on the local calendar day', () => {
 
 test('unitsToday is 0 when no doses today', () => {
   assert.equal(unitsToday([{ medId: 'a', timestamp: yesterday, units: 1 }], 'a', midday), 0);
+});
+
+test('nextDoseTime adds intervalHours to last dose for the med', () => {
+  const t = new Date('2026-06-14T12:00:00').getTime();
+  const doses = [
+    { medId: 'a', timestamp: new Date('2026-06-14T10:00:00').getTime(), units: 1 },
+    { medId: 'a', timestamp: t, units: 1 }, // latest
+    { medId: 'b', timestamp: t, units: 1 },
+  ];
+  assert.equal(nextDoseTime(doses, 'a', 6), t + 6 * 3600 * 1000);
+});
+
+test('nextDoseTime returns null when med has no doses', () => {
+  assert.equal(nextDoseTime([], 'a', 6), null);
 });
