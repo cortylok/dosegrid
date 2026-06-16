@@ -1,7 +1,7 @@
 // js/ui.js
 import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid } from './storage.js';
 import { computeStatus } from './dosing.js';
-import { loadDataset, searchMeds } from './data.js';
+import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
 
 const gridEl = () => document.getElementById('grid');
@@ -122,20 +122,26 @@ async function openPicker() {
   openSheet(
     `<h2>Add medication</h2>` +
     `<div class="field"><label>Search</label><input id="med-search" placeholder="Generic or brand name" /></div>` +
-    `<ul class="list" id="med-results"></ul>`
+    `<ul class="list" id="med-results"></ul>` +
+    `<div class="btn-row"><button class="btn secondary" id="add-custom">+ Add a medication not listed</button></div>`
   );
   const input = modalRoot().querySelector('#med-search');
   const results = modalRoot().querySelector('#med-results');
   const render = () => {
-    const matches = searchMeds(input.value, dataset).slice(0, 50);
-    results.innerHTML = matches
-      .map((m, i) => `<li data-i="${i}"><span>${m.generic}</span>` +
-        `<span class="muted">${(m.brands || []).join(', ')}</span></li>`)
-      .join('');
-    results.querySelectorAll('li').forEach((li) =>
-      li.addEventListener('click', () => openConfigForm(matches[+li.dataset.i])));
+    const matches = searchMeds(input.value, dataset).slice(0, 80);
+    const groups = groupByCategory(matches);
+    results.innerHTML = groups.map((g) =>
+      `<li class="cat">${g.label}</li>` +
+      g.meds.map((m) =>
+        `<li data-gen="${m.generic}"><span>${m.generic}</span>` +
+        `<span class="muted">${(m.brands || []).join(', ')}</span></li>`).join('')
+    ).join('') || `<li class="muted">No matches — use “Add a medication not listed”.</li>`;
+    results.querySelectorAll('li[data-gen]').forEach((li) =>
+      li.addEventListener('click', () =>
+        openConfigForm(matches.find((m) => m.generic === li.dataset.gen))));
   };
   input.addEventListener('input', render);
+  modalRoot().querySelector('#add-custom').addEventListener('click', () => openCustomForm());
   render();
   input.focus();
 }
@@ -167,10 +173,18 @@ function dosingFieldsHtml(med, cur) {
       `<input id="f-strength" placeholder="200 mg" value="${cur.strength || ''}" /></div>`;
   }
   const maxNote = med.strengths && med.maxPerDay ? `<div class="muted" id="f-maxnote"></div>` : '';
+  const curType = cur.doseType || 'prn';
+  const doseTypeField =
+    `<div class="field"><label>When do you take it?</label>` +
+    `<select id="f-dosetype">` +
+    `<option value="prn"${curType === 'prn' ? ' selected' : ''}>As needed (PRN)</option>` +
+    `<option value="scheduled"${curType === 'scheduled' ? ' selected' : ''}>Scheduled / course</option>` +
+    `</select></div>`;
   return (
     strengthField +
     `<div class="field"><label>Min hours between doses</label><input id="f-int" type="number" min="0" step="0.5" value="${cur.intervalHours ?? 6}" /></div>` +
-    `<div class="field"><label>Max tablets per day</label><input id="f-max" type="number" min="0" step="0.5" value="${cur.maxDailyUnits ?? 6}" />${maxNote}</div>`
+    `<div class="field"><label>Max tablets per day</label><input id="f-max" type="number" min="0" step="0.5" value="${cur.maxDailyUnits ?? 6}" />${maxNote}</div>` +
+    doseTypeField
   );
 }
 
@@ -216,6 +230,7 @@ function readDosingFields(med) {
     strength,
     intervalHours: parseFloat(modalRoot().querySelector('#f-int').value) || 0,
     maxDailyUnits: parseFloat(modalRoot().querySelector('#f-max').value) || 0,
+    doseType: modalRoot().querySelector('#f-dosetype')?.value === 'scheduled' ? 'scheduled' : 'prn',
   };
 }
 
@@ -223,7 +238,11 @@ function openConfigForm(picked) {
   openSheet(
     `<h2>${picked.generic}</h2>` +
     `<div class="field"><label>Display name</label><input id="f-name" value="${picked.generic}" /></div>` +
-    dosingFieldsHtml(picked, {}) +
+    dosingFieldsHtml(picked, {
+      intervalHours: picked.defaultIntervalHours,
+      maxDailyUnits: picked.defaultMaxPerDay,
+      doseType: resolveDoseType(picked),
+    }) +
     `<div class="btn-row"><button class="btn secondary" id="cancel">Cancel</button><button class="btn" id="save">Save</button></div>`
   );
   wireDosingFields(picked, true);
@@ -239,9 +258,37 @@ function openConfigForm(picked) {
       strengths: picked.strengths || null,
       unit: picked.unit || null,
       maxPerDay: picked.maxPerDay || null,
+      category: picked.category || 'custom',
+      doseType: vals.doseType,
       intervalHours: vals.intervalHours,
       maxDailyUnits: vals.maxDailyUnits,
       order: meds.length,
+    });
+    saveMeds(meds);
+    closeModal();
+    renderGrid();
+  });
+}
+
+function openCustomForm() {
+  const picked = { generic: '', brands: [], category: 'custom' };
+  openSheet(
+    `<h2>Custom medication</h2>` +
+    `<div class="field"><label>Name</label><input id="f-name" placeholder="Medication name" /></div>` +
+    dosingFieldsHtml(picked, {}) +
+    `<div class="btn-row"><button class="btn secondary" id="cancel">Cancel</button><button class="btn" id="save">Save</button></div>`
+  );
+  modalRoot().querySelector('#cancel').addEventListener('click', closeModal);
+  modalRoot().querySelector('#save').addEventListener('click', () => {
+    const name = modalRoot().querySelector('#f-name').value.trim();
+    if (!name) return;
+    const meds = loadMeds();
+    const vals = readDosingFields(picked);
+    meds.push({
+      id: uuid(), name, brands: [], strength: vals.strength,
+      strengths: null, unit: null, maxPerDay: null, category: 'custom',
+      doseType: vals.doseType,
+      intervalHours: vals.intervalHours, maxDailyUnits: vals.maxDailyUnits, order: meds.length,
     });
     saveMeds(meds);
     closeModal();
@@ -253,7 +300,7 @@ function openEditMed(med) {
   openSheet(
     `<h2>Edit ${med.name}</h2>` +
     `<div class="field"><label>Display name</label><input id="f-name" value="${med.name}" /></div>` +
-    dosingFieldsHtml(med, { strength: med.strength, intervalHours: med.intervalHours, maxDailyUnits: med.maxDailyUnits }) +
+    dosingFieldsHtml(med, { strength: med.strength, intervalHours: med.intervalHours, maxDailyUnits: med.maxDailyUnits, doseType: resolveDoseType(med) }) +
     `<div class="btn-row"><button class="btn danger" id="del">Delete tile</button><button class="btn" id="save">Save</button></div>`
   );
   wireDosingFields(med, false);
@@ -266,6 +313,7 @@ function openEditMed(med) {
       m.strength = vals.strength;
       m.intervalHours = vals.intervalHours;
       m.maxDailyUnits = vals.maxDailyUnits;
+      m.doseType = vals.doseType;
       saveMeds(meds);
     }
     closeModal();
