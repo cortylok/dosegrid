@@ -1,7 +1,7 @@
 // tests/data.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { searchMeds } from '../js/data.js';
+import { searchMeds, groupByCategory } from '../js/data.js';
 
 const dataset = [
   { generic: 'Ibuprofen', brands: ['Advil', 'Motrin'] },
@@ -21,4 +21,19 @@ test('searchMeds matches brand name', () => {
 
 test('searchMeds empty query returns all', () => {
   assert.equal(searchMeds('', dataset).length, 2);
+});
+
+test('groupByCategory groups in category order and preserves member order', () => {
+  const meds = [
+    { generic: 'Cetirizine', category: 'allergy' },
+    { generic: 'Paracetamol', category: 'pain-fever' },
+    { generic: 'Ibuprofen', category: 'pain-fever' },
+    { generic: 'Mystery', category: 'not-a-category' },
+  ];
+  const groups = groupByCategory(meds);
+  assert.equal(groups[0].id, 'pain-fever');
+  assert.deepEqual(groups[0].meds.map((m) => m.generic), ['Paracetamol', 'Ibuprofen']);
+  assert.equal(groups[1].id, 'allergy');
+  // unknown category falls under 'custom'
+  assert.ok(groups.some((g) => g.id === 'custom' && g.meds[0].generic === 'Mystery'));
 });
