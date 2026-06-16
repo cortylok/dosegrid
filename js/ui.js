@@ -1,6 +1,6 @@
 // js/ui.js
 import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid } from './storage.js';
-import { computeStatus } from './dosing.js';
+import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
 
@@ -327,43 +327,73 @@ function openEditMed(med) {
   });
 }
 
-function openHistory(med) {
+function openHistory(med, view = 'graph') {
   const now = Date.now();
-  const cutoff = now - 48 * 3600 * 1000;
-  const entries = loadDoses()
-    .filter((d) => d.medId === med.id && d.timestamp >= cutoff)
-    .sort((a, b) => b.timestamp - a.timestamp);
-  const rows = entries.length
-    ? entries.map((d) =>
-        `<li data-id="${d.id}">` +
-        `<span>${new Date(d.timestamp).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })} · ${d.units} tab${d.units === 1 ? '' : 's'}</span>` +
-        `<span><button class="btn secondary" data-act="edit">Edit</button> ` +
-        `<button class="btn danger" data-act="del">Del</button></span></li>`).join('')
-    : `<li class="muted">No doses in the last 48 hours.</li>`;
-  openSheet(`<h2>${med.name} — last 48h</h2><ul class="list">${rows}</ul>` +
-    `<div class="btn-row"><button class="btn secondary" id="close">Close</button></div>`);
+  const sheetBody = view === 'graph' ? historyGraphHtml(med, now) : historyListHtml(med, now);
+  openSheet(
+    `<h2>${med.name} — last 14 days</h2>` +
+    `<div class="hist-toggle">` +
+      `<button data-v="graph" class="${view === 'graph' ? 'active' : ''}">Graph</button>` +
+      `<button data-v="list" class="${view === 'list' ? 'active' : ''}">List</button>` +
+    `</div>` +
+    `<div id="hist-body">${sheetBody}</div>` +
+    `<div class="btn-row"><button class="btn secondary" id="close">Close</button></div>`
+  );
   modalRoot().querySelector('#close').addEventListener('click', closeModal);
+  modalRoot().querySelectorAll('.hist-toggle button').forEach((b) =>
+    b.addEventListener('click', () => openHistory(med, b.dataset.v)));
+  if (view === 'list') wireHistoryList(med);
+}
+
+function historyGraphHtml(med, now) {
+  const buckets = dailyDoseTotals(loadDoses(), med.id, now, 14);
+  const max = med.maxDailyUnits || 0;
+  const peak = Math.max(max, ...buckets.map((b) => b.units), 1);
+  const maxPct = max > 0 ? (max / peak) * 100 : null;
+  const bars = buckets.map((b) => {
+    const h = Math.round((b.units / peak) * 100);
+    const cls = max && b.units >= max ? 'red' : max && b.units >= max * 0.75 ? 'amber' : '';
+    return `<div class="bar ${cls}" style="height:${h}%" title="${b.units} on ${new Date(b.dayStart).toLocaleDateString()}"></div>`;
+  }).join('');
+  const maxline = maxPct != null
+    ? `<div class="maxline" style="bottom:${maxPct}%"></div><div class="maxlbl" style="bottom:${maxPct}%">max ${max}</div>` : '';
+  return `<div class="bars">${maxline}${bars}</div>` +
+    `<div class="bars-axis"><span>2 wks ago</span><span>today</span></div>`;
+}
+
+function historyListHtml(med, now) {
+  const entries = loadDoses()
+    .filter((d) => d.medId === med.id)
+    .sort((a, b) => b.timestamp - a.timestamp);
+  if (!entries.length) return `<ul class="list"><li class="muted">No doses in the last 14 days.</li></ul>`;
+  return `<ul class="list">` + entries.map((d) =>
+    `<li data-id="${d.id}">` +
+    `<span>${new Date(d.timestamp).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })} · ${d.units} tab${d.units === 1 ? '' : 's'}</span>` +
+    `<span><button class="btn secondary" data-act="edit">Edit</button> ` +
+    `<button class="btn danger" data-act="del">Del</button></span></li>`).join('') + `</ul>`;
+}
+
+function wireHistoryList(med) {
   modalRoot().querySelectorAll('li[data-id]').forEach((li) => {
     const id = li.dataset.id;
     li.querySelector('[data-act="del"]')?.addEventListener('click', () => {
       if (!confirm('Delete this dose entry?')) return;
       saveDoses(loadDoses().filter((d) => d.id !== id));
-      openHistory(med);
+      openHistory(med, 'list');
       renderGrid();
     });
     li.querySelector('[data-act="edit"]')?.addEventListener('click', () => {
       const entry = loadDoses().find((d) => d.id === id);
       const current = new Date(entry.timestamp);
-      const val = prompt('New time (HH:MM, today):', `${String(current.getHours()).padStart(2,'0')}:${String(current.getMinutes()).padStart(2,'0')}`);
+      const val = prompt('New time (HH:MM, same day):', `${String(current.getHours()).padStart(2,'0')}:${String(current.getMinutes()).padStart(2,'0')}`);
       if (!val) return;
       const [h, m] = val.split(':').map(Number);
       if (Number.isNaN(h) || Number.isNaN(m)) return;
       const d = new Date(entry.timestamp); d.setHours(h, m, 0, 0);
       const doses = loadDoses();
-      const target = doses.find((x) => x.id === id);
-      target.timestamp = d.getTime();
+      doses.find((x) => x.id === id).timestamp = d.getTime();
       saveDoses(doses);
-      openHistory(med);
+      openHistory(med, 'list');
       renderGrid();
     });
   });

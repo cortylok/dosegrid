@@ -2,7 +2,7 @@
 import { loadDoses, saveDoses, pruneDoses } from './storage.js';
 import { renderGrid, showAbout } from './ui.js';
 
-// Prune doses older than 48h on startup
+// Prune doses older than 14 days on startup
 saveDoses(pruneDoses(loadDoses()));
 
 renderGrid();
