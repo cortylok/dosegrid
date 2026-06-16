@@ -526,6 +526,8 @@ body {
 .landing .pt .ic { font-size: 18px; width: 34px; height: 34px; flex: none; display: flex; align-items: center; justify-content: center; background: var(--surface); border-radius: 10px; }
 .landing .pt b { color: #f1f5f9; } .landing .pt span { color: var(--muted); font-size: 0.85rem; display: block; }
 .landing .disc { font-size: 0.72rem; line-height: 1.5; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; margin-top: 18px; }
+.landing .dismiss { display: flex; align-items: center; gap: 8px; margin-top: 16px; color: var(--muted); font-size: 0.85rem; cursor: pointer; }
+.landing .dismiss input { width: 18px; height: 18px; accent-color: var(--accent); }
 ```
 
 - [ ] **Step 2: Update `index.html` theme-color**
@@ -576,7 +578,7 @@ Replace the tile-building block (the `statusText` + `tile.innerHTML` assignment)
 ```javascript
     const lastLine = fmtLastTaken(s.lastDoseTime);
     const statusInner =
-      s.state === 'ready' ? 'Ready now'
+      s.state === 'ready' ? 'Ready when needed'
       : s.state === 'wait' ? `<span class="count">${fmtRemaining(s.msRemaining)}</span>&nbsp;until next`
       : 'Daily max';
     tile.innerHTML =
@@ -831,8 +833,16 @@ git commit -m "feat: 14-day history with daily-bars graph default and list toggl
 
 - [ ] **Step 1: Replace `showAbout` with `showLanding` in `js/ui.js`**
 
+`showLanding` accepts an options object. When `showDismiss` is true (auto-shown on
+launch) it renders a "Don't show this again" checkbox; ticking it and pressing
+"Get started" calls `onDismiss`. Opened from the `?` button (no options), the checkbox
+is hidden and it's purely informational.
+
 ```javascript
-export function showLanding(onStart) {
+export function showLanding(opts = {}) {
+  const dismissRow = opts.showDismiss
+    ? `<label class="dismiss"><input type="checkbox" id="land-dismiss" /> Don't show this again</label>`
+    : '';
   openSheet(
     `<div class="landing">` +
     `<div class="hero">Know when you <em>can</em>,<br>not when you <em>should</em>.</div>` +
@@ -844,6 +854,7 @@ export function showLanding(onStart) {
       `<span>Tiles turn red once you've hit the safe daily limit.</span></div></div>` +
     `<div class="pt"><div class="ic">🔒</div><div><b>Stays on your phone</b>` +
       `<span>No account, no cloud — your data never leaves the device.</span></div></div>` +
+    dismissRow +
     `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
     `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +
     `Always follow the directions on your medicine label or the advice of your doctor or pharmacist. ` +
@@ -851,8 +862,9 @@ export function showLanding(onStart) {
     `</div>`
   );
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
+    const cb = modalRoot().querySelector('#land-dismiss');
+    if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();
     closeModal();
-    if (typeof onStart === 'function') onStart();
   });
 }
 ```
@@ -873,12 +885,12 @@ saveDoses(pruneDoses(loadDoses()));
 
 renderGrid();
 
-// First launch → show the landing page once
+// Auto-show the landing page on launch until the user ticks "Don't show this again"
 if (!localStorage.getItem(ONBOARD_KEY)) {
-  showLanding(() => localStorage.setItem(ONBOARD_KEY, '1'));
+  showLanding({ showDismiss: true, onDismiss: () => localStorage.setItem(ONBOARD_KEY, '1') });
 }
 
-// Header button reopens the landing page any time (no flag change)
+// Header button reopens the landing page any time (informational, no checkbox)
 document.getElementById('about-btn').addEventListener('click', () => showLanding());
 
 // Keep countdowns + midnight reset fresh
@@ -901,7 +913,7 @@ Replace the header button (line 14) with:
 - [ ] **Step 4: Verify visually**
 
 Clear site data (DevTools → Application → Clear storage) and reload.
-Expected: landing page appears on first load; "Get started" dismisses it; reload does NOT show it again. The header `?` reopens it on demand.
+Expected: landing page appears on load with a "Don't show this again" checkbox. "Get started" *without* ticking → it appears again on next reload. Tick the box then "Get started" → it does NOT appear on subsequent reloads. The header `?` reopens it any time (no checkbox shown).
 
 - [ ] **Step 5: Run the full suite + commit**
 
