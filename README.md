@@ -1,6 +1,6 @@
 # DoseGrid
 
-A simple, offline-capable PWA for tracking when you last took a medication and when you can take it again.
+DoseGrid — a tracker for as-needed (PRN) and short-course medicines: it shows when you're *allowed* to take more, not when you should.
 
 ## Disclaimer
 
@@ -49,13 +49,14 @@ node --test
 
 ## Manual test checklist
 
-- [ ] Add a med via search — confirm a generic (e.g. "paracetamol"), an AU brand (e.g. "panadol"), and a US alias (e.g. "tylenol") all find it.
-- [ ] Set a strength (e.g. "500 mg") and max tablets/day — confirm the tile shows them.
-- [ ] Tap a tile → log ½ / 1 / 2 tablets — tile shows "Wait" with a countdown and the sheet shows tablets left.
-- [ ] Reach the daily max (in tablets) — tile shows a red "Daily max" status.
-- [ ] Long-press a tile → 48h history lists doses; edit a dose's time; delete an entry.
-- [ ] Reload the page — data persists.
-- [ ] Go offline (DevTools → Network → Offline, or airplane mode after install) — app still loads.
+- [ ] Add a medication via search — results are grouped by category (Pain & fever, Allergy, …); both generic and brand names match.
+- [ ] Picking a med pre-fills sensible interval / max defaults and the correct "When do you take it?" setting (e.g. Ibuprofen → As needed; Amoxicillin → Scheduled).
+- [ ] "Add a medication not listed" creates a custom medication from a typed name.
+- [ ] Tap a tile → log ½ / 1 / 2; a PRN tile shows "Ready when needed" / a countdown "… until next" / red "Daily max"; a scheduled tile shows "Due to take" / "Due in …" / "Done for today".
+- [ ] Each tile shows the last-taken time.
+- [ ] Long-press a tile → 14-day history shows a daily-dose bar graph by default with a dashed daily-max line; toggle to List to edit a dose time or delete an entry (graph and tile recompute).
+- [ ] First launch shows the landing page ("Know when you can, not when you should") with a "Don't show this again" checkbox; the header ? button reopens it any time.
+- [ ] Reload persists data; offline reload still loads the app (PWA).
 
 ## Project structure
 
