@@ -30,13 +30,15 @@ test('loadMeds returns [] when empty/corrupt', () => {
   assert.deepEqual(loadMeds(), []);
 });
 
-test('pruneDoses drops entries older than 48h', () => {
+test('pruneDoses keeps entries within 14 days, drops older', () => {
   const now = Date.now();
+  const day = 24 * 3600 * 1000;
   const doses = [
     { id: 'a', medId: 'm', timestamp: now - 1000, units: 1 },
-    { id: 'b', medId: 'm', timestamp: now - 49 * 3600 * 1000, units: 1 },
+    { id: 'b', medId: 'm', timestamp: now - 13 * day, units: 1 },
+    { id: 'c', medId: 'm', timestamp: now - 15 * day, units: 1 },
   ];
-  assert.deepEqual(pruneDoses(doses, now).map((d) => d.id), ['a']);
+  assert.deepEqual(pruneDoses(doses, now).map((d) => d.id), ['a', 'b']);
 });
 
 test('uuid returns unique strings', () => {

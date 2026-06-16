@@ -23,7 +23,7 @@ export function loadDoses() { return read(DOSES_KEY); }
 export function saveDoses(doses) { localStorage.setItem(DOSES_KEY, JSON.stringify(doses)); }
 
 export function pruneDoses(doses, now = Date.now()) {
-  const cutoff = now - 48 * 3600 * 1000;
+  const cutoff = now - 14 * 24 * 3600 * 1000;
   return doses.filter((d) => d.timestamp >= cutoff);
 }
 
