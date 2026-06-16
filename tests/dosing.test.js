@@ -1,7 +1,7 @@
 // tests/dosing.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { unitsToday, nextDoseTime, computeStatus } from '../js/dosing.js';
+import { unitsToday, nextDoseTime, computeStatus, dailyDoseTotals } from '../js/dosing.js';
 
 const midday = new Date('2026-06-14T12:00:00').getTime();
 const earlyToday = new Date('2026-06-14T08:00:00').getTime();
@@ -65,4 +65,29 @@ test('computeStatus READY when interval elapsed and under max', () => {
   const doses = [{ medId: 'a', timestamp: new Date('2026-06-14T04:00:00').getTime(), units: 1 }];
   const s = computeStatus(med, doses, now);
   assert.equal(s.state, 'ready');
+});
+
+test('dailyDoseTotals returns one bucket per day, newest last, zero-filled', () => {
+  const now = new Date('2026-06-16T10:00:00').getTime();
+  const day = 24 * 3600 * 1000;
+  const doses = [
+    { id: '1', medId: 'm', timestamp: now, units: 1 },
+    { id: '2', medId: 'm', timestamp: now - 1000, units: 0.5 },
+    { id: '3', medId: 'm', timestamp: now - 2 * day, units: 2 },
+    { id: '4', medId: 'other', timestamp: now, units: 5 },
+  ];
+  const out = dailyDoseTotals(doses, 'm', now, 14);
+  assert.equal(out.length, 14);
+  assert.equal(out[13].units, 1.5);          // today
+  assert.equal(out[12].units, 0);            // yesterday empty
+  assert.equal(out[11].units, 2);            // two days ago
+  assert.ok(out[13].dayStart <= now);        // each bucket carries its day start
+});
+
+test('dailyDoseTotals ignores doses older than the window', () => {
+  const now = new Date('2026-06-16T10:00:00').getTime();
+  const day = 24 * 3600 * 1000;
+  const doses = [{ id: '1', medId: 'm', timestamp: now - 20 * day, units: 9 }];
+  const out = dailyDoseTotals(doses, 'm', now, 14);
+  assert.equal(out.reduce((s, b) => s + b.units, 0), 0);
 });

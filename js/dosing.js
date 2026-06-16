@@ -23,6 +23,22 @@ export function nextDoseTime(doses, medId, intervalHours) {
   return last ? last.timestamp + intervalHours * 3600 * 1000 : null;
 }
 
+export function dailyDoseTotals(doses, medId, now, days = 14) {
+  const todayStart = startOfLocalDay(now);
+  const day = 24 * 3600 * 1000;
+  const buckets = [];
+  for (let i = days - 1; i >= 0; i--) {
+    buckets.push({ dayStart: todayStart - i * day, units: 0 });
+  }
+  const windowStart = todayStart - (days - 1) * day;
+  for (const d of doses) {
+    if (d.medId !== medId || d.timestamp < windowStart) continue;
+    const idx = Math.floor((startOfLocalDay(d.timestamp) - windowStart) / day);
+    if (idx >= 0 && idx < days) buckets[idx].units += d.units;
+  }
+  return buckets;
+}
+
 export function computeStatus(med, doses, now) {
   const units = unitsToday(doses, med.id, now);
   const next = nextDoseTime(doses, med.id, med.intervalHours);
