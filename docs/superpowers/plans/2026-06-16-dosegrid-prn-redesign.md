@@ -291,6 +291,12 @@ test('any dosing defaults present are positive numbers', () => {
   }
 });
 
+test('any doseType present is prn or scheduled', () => {
+  for (const m of meds) {
+    if ('doseType' in m) assert.ok(m.doseType === 'prn' || m.doseType === 'scheduled', m.generic);
+  }
+});
+
 test('dataset covers a broad set of PRN categories', () => {
   const present = new Set(meds.map((m) => m.category));
   assert.ok(present.size >= 14, `only ${present.size} categories present`);
@@ -343,10 +349,10 @@ Write the complete file below. `unit` is mg unless noted; `form` ∈ tablet/caps
   {"generic":"Antacid (aluminium/magnesium)","brands":["Mylanta","Gaviscon"],"category":"reflux","defaultIntervalHours":4,"defaultMaxPerDay":4,"form":"liquid"},
   {"generic":"Calcium carbonate","brands":["Quick-Eze","Rennie"],"category":"reflux","defaultIntervalHours":2,"defaultMaxPerDay":6,"form":"tablet"},
   {"generic":"Famotidine","brands":["Pepcidine","Pepzan"],"category":"reflux","strengths":[20,40],"unit":"mg","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Omeprazole","brands":["Losec","Acimax"],"category":"reflux","strengths":[10,20],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Pantoprazole","brands":["Somac"],"category":"reflux","strengths":[20,40],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Esomeprazole","brands":["Nexium"],"category":"reflux","strengths":[20,40],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Rabeprazole","brands":["Pariet"],"category":"reflux","strengths":[10,20],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
+  {"generic":"Omeprazole","brands":["Losec","Acimax"],"category":"reflux","strengths":[10,20],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet","doseType":"scheduled"},
+  {"generic":"Pantoprazole","brands":["Somac"],"category":"reflux","strengths":[20,40],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet","doseType":"scheduled"},
+  {"generic":"Esomeprazole","brands":["Nexium"],"category":"reflux","strengths":[20,40],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet","doseType":"scheduled"},
+  {"generic":"Rabeprazole","brands":["Pariet"],"category":"reflux","strengths":[10,20],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet","doseType":"scheduled"},
   {"generic":"Pseudoephedrine","brands":["Sudafed","Demazin"],"category":"cough-cold","strengths":[60],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"tablet"},
   {"generic":"Phenylephrine","brands":["Sudafed PE"],"category":"cough-cold","strengths":[10],"unit":"mg","defaultIntervalHours":4,"defaultMaxPerDay":6,"form":"tablet"},
   {"generic":"Dextromethorphan","brands":["Robitussin Dry","Bisolvon Dry"],"category":"cough-cold","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"liquid"},
@@ -398,7 +404,7 @@ Write the complete file below. `unit` is mg unless noted; `form` ∈ tablet/caps
   {"generic":"Aluminium sulfate spray","brands":["Stingose"],"category":"skin","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"spray"},
   {"generic":"Lidocaine gel","brands":["Xylocaine"],"category":"skin","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"cream"},
   {"generic":"Citric acid / sodium citrate","brands":["Ural","Citravescent"],"category":"urinary","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"sachet"},
-  {"generic":"Chloramphenicol eye drops","brands":["Chlorsig"],"category":"eye-ear","defaultIntervalHours":4,"defaultMaxPerDay":6,"form":"drops"},
+  {"generic":"Chloramphenicol eye drops","brands":["Chlorsig"],"category":"eye-ear","defaultIntervalHours":4,"defaultMaxPerDay":6,"form":"drops","doseType":"scheduled"},
   {"generic":"Ketotifen eye drops","brands":["Zaditen"],"category":"eye-ear","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"drops"},
   {"generic":"Olopatadine eye drops","brands":["Patanol"],"category":"eye-ear","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"drops"},
   {"generic":"Naphazoline/pheniramine eye drops","brands":["Naphcon-A","Visine Allergy"],"category":"eye-ear","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"drops"},
@@ -552,12 +558,55 @@ git commit -m "feat: Bold Dark theme"
 
 ---
 
-## Task 6: Redesigned tile (big countdown + last-taken)
+## Task 6: Dose-type helper + redesigned tile (big countdown, last-taken, PRN/scheduled wording)
+
+Medications fall into two models: **PRN / as-needed** (the interval is a minimum safe gap — you *may* redose if needed) and **scheduled / course** (the interval is a target schedule — you're *due* to take it). The tile wording differs per model.
 
 **Files:**
-- Modify: `js/ui.js:28-58` (`renderGrid`), `js/ui.js:18-26` (`fmtLastTaken`)
+- Modify: `js/categories.js` (add `SCHEDULED_CATEGORIES` + `resolveDoseType`)
+- Modify: `js/ui.js` (`fmtLastTaken`, `renderGrid`, add categories import)
+- Test: `tests/data.test.js` (add `resolveDoseType` cases)
 
-- [ ] **Step 1: Update `fmtLastTaken` to the short "Last taken" form**
+- [ ] **Step 1: Add the dose-type helper to `js/categories.js` (TDD)**
+
+Append this test to `tests/data.test.js` (add the import near the other imports):
+
+```javascript
+import { resolveDoseType } from '../js/categories.js';
+
+test('resolveDoseType: explicit doseType wins, else category default, else prn', () => {
+  assert.equal(resolveDoseType({ category: 'antibiotic' }), 'scheduled');
+  assert.equal(resolveDoseType({ category: 'pain-fever' }), 'prn');
+  assert.equal(resolveDoseType({ category: 'reflux', doseType: 'scheduled' }), 'scheduled');
+  assert.equal(resolveDoseType({ category: 'antibiotic', doseType: 'prn' }), 'prn');
+  assert.equal(resolveDoseType({}), 'prn');
+});
+```
+
+Run `node --test tests/data.test.js` → FAIL (`resolveDoseType` not exported). Then append to `js/categories.js`:
+
+```javascript
+// Categories whose meds are taken on a schedule/course by default (vs as-needed).
+export const SCHEDULED_CATEGORIES = new Set(['antibiotic', 'steroid-short', 'antiviral', 'antifungal']);
+
+// Effective dosing model: explicit med.doseType wins, else category default, else 'prn'.
+export function resolveDoseType(med) {
+  if (med && (med.doseType === 'prn' || med.doseType === 'scheduled')) return med.doseType;
+  return med && SCHEDULED_CATEGORIES.has(med.category) ? 'scheduled' : 'prn';
+}
+```
+
+Run `node --test tests/data.test.js` → PASS.
+
+- [ ] **Step 2: Import `resolveDoseType` in `js/ui.js`**
+
+Add this import near the top of `js/ui.js` (with the other local imports):
+
+```javascript
+import { resolveDoseType } from './categories.js';
+```
+
+- [ ] **Step 3: Update `fmtLastTaken` to the short "Last taken" form**
 
 Replace `fmtLastTaken` in `js/ui.js`:
 
@@ -571,16 +620,18 @@ function fmtLastTaken(ts) {
 }
 ```
 
-- [ ] **Step 2: Update the tile markup in `renderGrid`**
+- [ ] **Step 4: Update the tile markup in `renderGrid` (dose-type-aware wording)**
 
 Replace the tile-building block (the `statusText` + `tile.innerHTML` assignment) with:
 
 ```javascript
     const lastLine = fmtLastTaken(s.lastDoseTime);
+    const scheduled = resolveDoseType(med) === 'scheduled';
+    const count = `<span class="count">${fmtRemaining(s.msRemaining)}</span>`;
     const statusInner =
-      s.state === 'ready' ? 'Ready when needed'
-      : s.state === 'wait' ? `<span class="count">${fmtRemaining(s.msRemaining)}</span>&nbsp;until next`
-      : 'Daily max';
+      s.state === 'ready' ? (scheduled ? 'Due to take' : 'Ready when needed')
+      : s.state === 'wait' ? (scheduled ? `Due in&nbsp;${count}` : `${count}&nbsp;until next`)
+      : (scheduled ? 'Done for today' : 'Daily max');
     tile.innerHTML =
       `<div><h2>${med.name}</h2>` +
       `<div class="dose-label">${med.strength ? med.strength + ' · ' : ''}max ${med.maxDailyUnits}/day</div>` +
@@ -589,21 +640,21 @@ Replace the tile-building block (the `statusText` + `tile.innerHTML` assignment)
       `<div class="status ${s.state}">${statusInner}</div>`;
 ```
 
-- [ ] **Step 3: Verify visually**
+- [ ] **Step 5: Verify visually**
 
-Reload `http://localhost:8000`. Add a med, log a dose.
-Expected: tile shows name, `max N/day`, `🕑 Last taken …`, and a pill — green "Ready now", amber with a large countdown, or red "Daily max". Countdown updates within 30s.
+Reload `http://localhost:8000`. Add a PRN med (e.g. Ibuprofen) and a scheduled med (e.g. Amoxicillin), log a dose of each.
+Expected: PRN tile shows green "Ready when needed", amber "<countdown> until next", or red "Daily max". Scheduled tile shows green "Due to take", amber "Due in <countdown>", or red "Done for today". Both show `🕑 Last taken …`. Countdown updates within 30s.
 
-- [ ] **Step 4: Run the full suite (no regressions)**
+- [ ] **Step 6: Run the full suite (no regressions)**
 
 Run: `node --test`
 Expected: PASS — all tests green.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
-git add js/ui.js
-git commit -m "feat: redesigned dark tile with big countdown and last-taken line"
+git add js/categories.js js/ui.js tests/data.test.js
+git commit -m "feat: dose-type helper + dark tile with PRN/scheduled wording and last-taken"
 ```
 
 ---
@@ -656,24 +707,60 @@ async function openPicker() {
 }
 ```
 
-- [ ] **Step 3: Seed defaults from the dataset in `openConfigForm`**
+- [ ] **Step 3: Add a "When do you take it?" selector to the shared dosing form**
 
-In `openConfigForm`, the `dosingFieldsHtml(picked, {})` call uses `cur.intervalHours ?? 6` / `cur.maxDailyUnits ?? 6`. Pass the dataset defaults as current values so the form pre-fills them. Replace the `dosingFieldsHtml(picked, {})` call with:
+In `dosingFieldsHtml(med, cur)`, append a dose-type select to the returned markup so every add/edit/custom form carries it. Change the function's final `return (...)` so the concatenation also includes this field (insert it before the closing of the returned string):
+
+```javascript
+  const curType = cur.doseType || 'prn';
+  const doseTypeField =
+    `<div class="field"><label>When do you take it?</label>` +
+    `<select id="f-dosetype">` +
+    `<option value="prn"${curType === 'prn' ? ' selected' : ''}>As needed (PRN)</option>` +
+    `<option value="scheduled"${curType === 'scheduled' ? ' selected' : ''}>Scheduled / course</option>` +
+    `</select></div>`;
+```
+
+Add `doseTypeField` to the returned string (e.g. append `+ doseTypeField` after the max-tablets field). Then in `readDosingFields(med)`, add `doseType` to the returned object:
+
+```javascript
+    doseType: modalRoot().querySelector('#f-dosetype')?.value === 'scheduled' ? 'scheduled' : 'prn',
+```
+
+- [ ] **Step 4: Seed defaults + dose-type in `openConfigForm`**
+
+In `openConfigForm`, replace the `dosingFieldsHtml(picked, {})` call with one that pre-fills the dataset defaults and the resolved dose-type:
 
 ```javascript
     dosingFieldsHtml(picked, {
       intervalHours: picked.defaultIntervalHours,
       maxDailyUnits: picked.defaultMaxPerDay,
+      doseType: resolveDoseType(picked),
     }) +
 ```
 
-And ensure the saved med records its category — in the `meds.push({...})` object add:
+And in the `meds.push({...})` object add both the category and the chosen dose-type:
 
 ```javascript
       category: picked.category || 'custom',
+      doseType: vals.doseType,
 ```
 
-- [ ] **Step 4: Add `openCustomForm` for free-text meds**
+- [ ] **Step 5: Carry dose-type through `openEditMed`**
+
+In `openEditMed`, update the `dosingFieldsHtml(med, {...})` call to also seed the current dose-type, and persist it on save. Change the `dosingFieldsHtml` call's `cur` object to include:
+
+```javascript
+      doseType: resolveDoseType(med),
+```
+
+and in the save handler (where `m.intervalHours`/`m.maxDailyUnits` are assigned) add:
+
+```javascript
+      m.doseType = vals.doseType;
+```
+
+- [ ] **Step 6: Add `openCustomForm` for free-text meds**
 
 Add after `openConfigForm`:
 
@@ -695,6 +782,7 @@ function openCustomForm() {
     meds.push({
       id: uuid(), name, brands: [], strength: vals.strength,
       strengths: null, unit: null, maxPerDay: null, category: 'custom',
+      doseType: vals.doseType,
       intervalHours: vals.intervalHours, maxDailyUnits: vals.maxDailyUnits, order: meds.length,
     });
     saveMeds(meds);
@@ -704,17 +792,17 @@ function openCustomForm() {
 }
 ```
 
-- [ ] **Step 5: Verify visually**
+- [ ] **Step 7: Verify visually**
 
-Reload. Open Add medication: results show category headings (Pain & fever, Allergy, …). Search "nurofen" → Ibuprofen under Pain & fever; picking it pre-fills 6h / 6 per day. "Add a medication not listed" → type a name → saves a tile.
+Reload. Open Add medication: results show category headings (Pain & fever, Allergy, …). Search "nurofen" → Ibuprofen under Pain & fever; picking it pre-fills 6h / 6 per day and the selector shows **As needed (PRN)**. Search "amoxil" → Amoxicillin pre-fills with **Scheduled / course** selected. "Add a medication not listed" → type a name → defaults to As needed → saves a tile. Edit a med → the selector reflects its stored dose-type and saving keeps it.
 
-- [ ] **Step 6: Run the full suite + commit**
+- [ ] **Step 8: Run the full suite + commit**
 
 Run: `node --test` → PASS.
 
 ```bash
 git add js/ui.js
-git commit -m "feat: category-grouped picker with custom free-text add and seeded defaults"
+git commit -m "feat: category-grouped picker, custom add, seeded defaults, dose-type selector"
 ```
 
 ---
@@ -963,6 +1051,7 @@ git commit -m "chore: bump SW cache for PRN redesign; update README checklist"
 - **Curated PRN dataset + categories** → Tasks 3, 4 (18 categories incl. custom; ~95 entries; AU naming; confident defaults; sanity test).
 - **Free-text custom fallback** → Task 7 (`openCustomForm`, `category: 'custom'`).
 - **Bold Dark theme** → Task 5.
+- **PRN vs scheduled dose-type** → `resolveDoseType` + `SCHEDULED_CATEGORIES` (Task 6), dataset `doseType` outliers (Task 4: PPIs, chloramphenicol), form selector (Task 7). Tile wording: PRN = "Ready when needed" / "<cd> until next" / "Daily max"; scheduled = "Due to take" / "Due in <cd>" / "Done for today".
 - **Tile + last-taken** → Task 6 (big countdown, `🕑 Last taken …`).
 - **14-day history, graph default + list** → Tasks 1 (prune), 2 (`dailyDoseTotals`), 8 (graph/list, edit/delete preserved).
 - **Landing page, first-launch + menu** → Task 9 (`showLanding`, `dosegrid.onboarded`, `?` button).
