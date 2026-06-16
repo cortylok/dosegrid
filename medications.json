@@ -82,27 +82,6 @@
     "form": "tablet"
   },
   {
-    "generic": "Paracetamol with codeine",
-    "brands": [
-      "Panadeine",
-      "Panadeine Forte"
-    ],
-    "category": "pain-fever",
-    "defaultIntervalHours": 4,
-    "defaultMaxPerDay": 8,
-    "form": "tablet"
-  },
-  {
-    "generic": "Ibuprofen with codeine",
-    "brands": [
-      "Nurofen Plus"
-    ],
-    "category": "pain-fever",
-    "defaultIntervalHours": 6,
-    "defaultMaxPerDay": 6,
-    "form": "tablet"
-  },
-  {
     "generic": "Diclofenac topical gel",
     "brands": [
       "Voltaren Emulgel"
@@ -1310,8 +1289,7 @@
   {
     "generic": "Ibuprofen; Codeine",
     "brands": [
-      "Nurofen Plus",
-      "Maxigesic"
+      "Nurofen Plus"
     ],
     "category": "opioid",
     "defaultIntervalHours": 6,
@@ -1906,7 +1884,6 @@
   {
     "generic": "Diphenhydramine",
     "brands": [
-      "Benadryl",
       "Unisom"
     ],
     "category": "allergy",
@@ -1921,9 +1898,7 @@
   },
   {
     "generic": "Chlorphenamine",
-    "brands": [
-      "Demazin"
-    ],
+    "brands": [],
     "category": "allergy",
     "strengths": [
       4

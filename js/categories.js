@@ -1,6 +1,9 @@
 // js/categories.js — ordered PRN/short-term category ids → labels (single source)
 export const CATEGORIES = [
   { id: 'pain-fever', label: 'Pain & fever' },
+  { id: 'opioid', label: 'Strong pain relief (opioids)' },
+  { id: 'nerve-pain', label: 'Nerve & chronic pain' },
+  { id: 'muscle', label: 'Muscle relaxants' },
   { id: 'allergy', label: 'Allergy' },
   { id: 'antibiotic', label: 'Antibiotics (short course)' },
   { id: 'nausea', label: 'Nausea & motion sickness' },

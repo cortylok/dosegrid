@@ -11,7 +11,7 @@ DoseGrid is a **personal logging tool, not medical advice**. It ships **no dosin
 - Tile grid of your medications, one tile per med
 - Tap a tile to log tablets taken: **½, 1, or 2 tablets**
 - Each tile shows a live status: **Ready**, **Wait** (with countdown), or **Daily max**, plus the strength and limit (e.g. `200 mg · 6h · max 6 tabs/day`)
-- Searchable list of 722 medications using **Australian names** (generics and brands per AMH/TGA/PBS, e.g. Paracetamol/Panadol, Salbutamol/Ventolin, Adrenaline) — US names are kept as search aliases, so "tylenol" still finds Paracetamol and "albuterol" still finds Salbutamol
+- Searchable, category-grouped list of 142 commonly-used medications with **Australian names** (generics and brands per AMH/TGA/PBS) — covering pain & fever, opioids, nerve/chronic pain, muscle relaxants, allergy, antibiotics, nausea, reflux, cough/cold, gut, migraine, sleep and more
 - Per-medication editable **strength per tablet** (optional, e.g. "200 mg"), dosing interval, and **maximum tablets per day**
 - Daily totals reset automatically at the start of each calendar day
 - **Tablet-based counting** — the limit and history are tracked in tablets, so logging "2" toward a max of 6 leaves 4 for the day
@@ -67,7 +67,8 @@ node --test
 - `js/dosing.js` — dose status logic (Ready / Wait / Daily max, countdowns)
 - `js/storage.js` — local storage persistence for medications and dose history
 - `js/data.js` — loads and searches the medication dataset
-- `medications.json` — dataset of 722 medications (Australian generic and brand names, with US names as search aliases)
+- `medications.json` — curated dataset of 142 medications (Australian generic and brand names), each tagged with a `category`, `form`, and sensible interval/max defaults
+- `js/categories.js` — category ids/labels and the PRN-vs-scheduled dose-type helper
 - `manifest.webmanifest` — PWA manifest (name, icons, display mode)
 - `service-worker.js` — offline caching (network-first)
 - `icons/` — app icons (192px and 512px)
