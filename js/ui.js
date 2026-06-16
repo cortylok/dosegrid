@@ -399,9 +399,31 @@ function wireHistoryList(med) {
   });
 }
 
-export function showAbout() {
-  openSheet(`<h2>About DoseGrid</h2><p class="muted">DoseGrid is a personal medication logging tool. ` +
-    `It is <strong>not medical advice</strong> and ships no dosing recommendations — you set every interval and daily maximum yourself. ` +
-    `All data is stored only on this device.</p><div class="btn-row"><button class="btn" id="ok">OK</button></div>`);
-  modalRoot().querySelector('#ok').addEventListener('click', closeModal);
+export function showLanding(opts = {}) {
+  const dismissRow = opts.showDismiss
+    ? `<label class="dismiss"><input type="checkbox" id="land-dismiss" /> Don't show this again</label>`
+    : '';
+  openSheet(
+    `<div class="landing">` +
+    `<div class="hero">Know when you <em>can</em>,<br>not when you <em>should</em>.</div>` +
+    `<p class="lead">DoseGrid tracks your as-needed and short-course medicines and shows when ` +
+    `enough time has passed — or when you've reached the daily limit. It never tells you to take anything.</p>` +
+    `<div class="pt"><div class="ic">⏱</div><div><b>See the wait</b>` +
+      `<span>Each dose starts a countdown to when the next one is allowed.</span></div></div>` +
+    `<div class="pt"><div class="ic">🛑</div><div><b>Respect the max</b>` +
+      `<span>Tiles turn red once you've hit the safe daily limit.</span></div></div>` +
+    `<div class="pt"><div class="ic">🔒</div><div><b>Stays on your phone</b>` +
+      `<span>No account, no cloud — your data never leaves the device.</span></div></div>` +
+    dismissRow +
+    `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
+    `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +
+    `Always follow the directions on your medicine label or the advice of your doctor or pharmacist. ` +
+    `Never exceed the stated dose. In an emergency, call <strong>000</strong>.</p>` +
+    `</div>`
+  );
+  modalRoot().querySelector('#land-start').addEventListener('click', () => {
+    const cb = modalRoot().querySelector('#land-dismiss');
+    if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();
+    closeModal();
+  });
 }
