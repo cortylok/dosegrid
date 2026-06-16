@@ -1,97 +1,2042 @@
 [
-  {"generic":"Paracetamol","brands":["Panadol","Dymadon","Panamax"],"category":"pain-fever","strengths":[500],"unit":"mg","defaultIntervalHours":4,"defaultMaxPerDay":8,"form":"tablet"},
-  {"generic":"Ibuprofen","brands":["Nurofen","Advil","Brufen"],"category":"pain-fever","strengths":[200,400],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":6,"form":"tablet"},
-  {"generic":"Aspirin","brands":["Aspro","Disprin"],"category":"pain-fever","strengths":[300],"unit":"mg","defaultIntervalHours":4,"defaultMaxPerDay":8,"form":"tablet"},
-  {"generic":"Naproxen","brands":["Naprogesic","Aleve","Naprosyn"],"category":"pain-fever","strengths":[250,275],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Diclofenac","brands":["Voltaren","Fenac"],"category":"pain-fever","strengths":[12.5,25,50],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Paracetamol with codeine","brands":["Panadeine","Panadeine Forte"],"category":"pain-fever","defaultIntervalHours":4,"defaultMaxPerDay":8,"form":"tablet"},
-  {"generic":"Ibuprofen with codeine","brands":["Nurofen Plus"],"category":"pain-fever","defaultIntervalHours":6,"defaultMaxPerDay":6,"form":"tablet"},
-  {"generic":"Diclofenac topical gel","brands":["Voltaren Emulgel"],"category":"pain-fever","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"cream"},
-  {"generic":"Cetirizine","brands":["Zyrtec","Zilarex"],"category":"allergy","strengths":[10],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Loratadine","brands":["Claratyne"],"category":"allergy","strengths":[10],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Fexofenadine","brands":["Telfast","Fexotabs"],"category":"allergy","strengths":[60,120,180],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Desloratadine","brands":["Aerius"],"category":"allergy","strengths":[5],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Promethazine","brands":["Phenergan"],"category":"allergy","strengths":[10,25],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Dexchlorpheniramine","brands":["Polaramine"],"category":"allergy","strengths":[2],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"tablet"},
-  {"generic":"Amoxicillin","brands":["Amoxil","Alphamox"],"category":"antibiotic","strengths":[250,500],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"capsule"},
-  {"generic":"Amoxicillin with clavulanate","brands":["Augmentin","Augmentin Duo Forte"],"category":"antibiotic","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Cefalexin","brands":["Keflex","Ibilex"],"category":"antibiotic","strengths":[250,500],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"capsule"},
-  {"generic":"Doxycycline","brands":["Doryx","Vibramycin"],"category":"antibiotic","strengths":[50,100],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"capsule"},
-  {"generic":"Flucloxacillin","brands":["Flopen","Staphylex"],"category":"antibiotic","strengths":[250,500],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"capsule"},
-  {"generic":"Trimethoprim","brands":["Triprim","Alprim"],"category":"antibiotic","strengths":[300],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Nitrofurantoin","brands":["Macrodantin","Macrobid"],"category":"antibiotic","strengths":[50,100],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"capsule"},
-  {"generic":"Metronidazole","brands":["Flagyl","Metrogyl"],"category":"antibiotic","strengths":[200,400],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Azithromycin","brands":["Zithromax","Zedd"],"category":"antibiotic","strengths":[250,500],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Clarithromycin","brands":["Klacid"],"category":"antibiotic","strengths":[250,500],"unit":"mg","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Roxithromycin","brands":["Rulide"],"category":"antibiotic","strengths":[150,300],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Phenoxymethylpenicillin","brands":["Cilicaine VK","Abbocillin VK"],"category":"antibiotic","strengths":[250,500],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"tablet"},
-  {"generic":"Ondansetron","brands":["Zofran","Ondaz"],"category":"nausea","strengths":[4,8],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Metoclopramide","brands":["Maxolon"],"category":"nausea","strengths":[10],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Prochlorperazine","brands":["Stemetil","Stemzine"],"category":"nausea","strengths":[5],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Domperidone","brands":["Motilium"],"category":"nausea","strengths":[10],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Hyoscine hydrobromide","brands":["Kwells","Travacalm"],"category":"nausea","strengths":[0.3],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"tablet"},
-  {"generic":"Dimenhydrinate","brands":["Andrews Antinauseant"],"category":"nausea","strengths":[50],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"tablet"},
-  {"generic":"Antacid (aluminium/magnesium)","brands":["Mylanta","Gaviscon"],"category":"reflux","defaultIntervalHours":4,"defaultMaxPerDay":4,"form":"liquid"},
-  {"generic":"Calcium carbonate","brands":["Quick-Eze","Rennie"],"category":"reflux","defaultIntervalHours":2,"defaultMaxPerDay":6,"form":"tablet"},
-  {"generic":"Famotidine","brands":["Pepcidine","Pepzan"],"category":"reflux","strengths":[20,40],"unit":"mg","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Omeprazole","brands":["Losec","Acimax"],"category":"reflux","strengths":[10,20],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet","doseType":"scheduled"},
-  {"generic":"Pantoprazole","brands":["Somac"],"category":"reflux","strengths":[20,40],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet","doseType":"scheduled"},
-  {"generic":"Esomeprazole","brands":["Nexium"],"category":"reflux","strengths":[20,40],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet","doseType":"scheduled"},
-  {"generic":"Rabeprazole","brands":["Pariet"],"category":"reflux","strengths":[10,20],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet","doseType":"scheduled"},
-  {"generic":"Pseudoephedrine","brands":["Sudafed","Demazin"],"category":"cough-cold","strengths":[60],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"tablet"},
-  {"generic":"Phenylephrine","brands":["Sudafed PE"],"category":"cough-cold","strengths":[10],"unit":"mg","defaultIntervalHours":4,"defaultMaxPerDay":6,"form":"tablet"},
-  {"generic":"Dextromethorphan","brands":["Robitussin Dry","Bisolvon Dry"],"category":"cough-cold","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"liquid"},
-  {"generic":"Guaifenesin","brands":["Bisolvon Chesty","Mucinex"],"category":"cough-cold","defaultIntervalHours":4,"defaultMaxPerDay":4,"form":"liquid"},
-  {"generic":"Bromhexine","brands":["Bisolvon"],"category":"cough-cold","strengths":[8],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Loperamide","brands":["Imodium","Gastro-Stop"],"category":"gut","strengths":[2],"unit":"mg","defaultIntervalHours":2,"defaultMaxPerDay":8,"form":"capsule"},
-  {"generic":"Macrogol","brands":["Movicol","OsmoLax"],"category":"gut","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"sachet"},
-  {"generic":"Senna","brands":["Senokot"],"category":"gut","strengths":[7.5],"unit":"mg","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Docusate","brands":["Coloxyl"],"category":"gut","strengths":[50,120],"unit":"mg","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Bisacodyl","brands":["Dulcolax"],"category":"gut","strengths":[5],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Lactulose","brands":["Duphalac","Actilax"],"category":"gut","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"liquid"},
-  {"generic":"Psyllium","brands":["Metamucil"],"category":"gut","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"sachet"},
-  {"generic":"Sumatriptan","brands":["Imigran"],"category":"migraine","strengths":[50,100],"unit":"mg","defaultIntervalHours":2,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Rizatriptan","brands":["Maxalt"],"category":"migraine","strengths":[10],"unit":"mg","defaultIntervalHours":2,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Zolmitriptan","brands":["Zomig"],"category":"migraine","strengths":[2.5],"unit":"mg","defaultIntervalHours":2,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Eletriptan","brands":["Relpax"],"category":"migraine","strengths":[40],"unit":"mg","defaultIntervalHours":2,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Naratriptan","brands":["Naramig"],"category":"migraine","strengths":[2.5],"unit":"mg","defaultIntervalHours":4,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Hyoscine butylbromide","brands":["Buscopan"],"category":"cramps","strengths":[10],"unit":"mg","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"tablet"},
-  {"generic":"Mebeverine","brands":["Colofac"],"category":"cramps","strengths":[135],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Mefenamic acid","brands":["Ponstan"],"category":"cramps","strengths":[250,500],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"capsule"},
-  {"generic":"Prednisolone","brands":["Panafcort","Redipred","Solone"],"category":"steroid-short","strengths":[1,5,25],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Prednisone","brands":["Sone"],"category":"steroid-short","strengths":[1,5,25],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Hydrocortisone 1% cream","brands":["Sigmacort","DermAid"],"category":"steroid-short","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"cream"},
-  {"generic":"Betamethasone cream","brands":["Diprosone"],"category":"steroid-short","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"cream"},
-  {"generic":"Mometasone cream","brands":["Elocon"],"category":"steroid-short","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"cream"},
-  {"generic":"Melatonin","brands":["Circadin"],"category":"sleep","strengths":[2],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Doxylamine","brands":["Restavit","Dozile"],"category":"sleep","strengths":[25],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Temazepam","brands":["Temaze","Normison"],"category":"sleep","strengths":[10],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Zolpidem","brands":["Stilnox"],"category":"sleep","strengths":[5,10],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Zopiclone","brands":["Imovane","Imrest"],"category":"sleep","strengths":[7.5],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Fluconazole","brands":["Diflucan","Canesten Oral"],"category":"antifungal","strengths":[150,200],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"capsule"},
-  {"generic":"Clotrimazole cream","brands":["Canesten"],"category":"antifungal","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"cream"},
-  {"generic":"Terbinafine","brands":["Lamisil"],"category":"antifungal","strengths":[250],"unit":"mg","defaultIntervalHours":24,"defaultMaxPerDay":1,"form":"tablet"},
-  {"generic":"Miconazole gel","brands":["Daktarin"],"category":"antifungal","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"cream"},
-  {"generic":"Aciclovir","brands":["Zovirax","Acivir"],"category":"antiviral","strengths":[200,400,800],"unit":"mg","defaultIntervalHours":4,"defaultMaxPerDay":5,"form":"tablet"},
-  {"generic":"Aciclovir cold sore cream","brands":["Zovirax Cold Sore"],"category":"antiviral","defaultIntervalHours":4,"defaultMaxPerDay":5,"form":"cream"},
-  {"generic":"Valaciclovir","brands":["Valtrex"],"category":"antiviral","strengths":[500],"unit":"mg","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"tablet"},
-  {"generic":"Famciclovir","brands":["Famvir"],"category":"antiviral","strengths":[125,250,500],"unit":"mg","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"tablet"},
-  {"generic":"Salbutamol","brands":["Ventolin","Asmol","Airomir"],"category":"reliever","defaultIntervalHours":4,"defaultMaxPerDay":4,"form":"inhaler"},
-  {"generic":"Terbutaline","brands":["Bricanyl"],"category":"reliever","defaultIntervalHours":4,"defaultMaxPerDay":4,"form":"inhaler"},
-  {"generic":"Ipratropium","brands":["Atrovent"],"category":"reliever","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"inhaler"},
-  {"generic":"Benzydamine","brands":["Difflam"],"category":"throat-mouth","defaultIntervalHours":3,"defaultMaxPerDay":7,"form":"spray"},
-  {"generic":"Choline salicylate gel","brands":["Bonjela"],"category":"throat-mouth","defaultIntervalHours":3,"defaultMaxPerDay":6,"form":"cream"},
-  {"generic":"Hexylresorcinol lozenge","brands":["Strepsils"],"category":"throat-mouth","defaultIntervalHours":2,"defaultMaxPerDay":8,"form":"lozenge"},
-  {"generic":"Povidone-iodine gargle","brands":["Betadine Sore Throat"],"category":"throat-mouth","defaultIntervalHours":4,"defaultMaxPerDay":4,"form":"liquid"},
-  {"generic":"Calamine lotion","brands":["Calamine"],"category":"skin","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"liquid"},
-  {"generic":"Crotamiton cream","brands":["Eurax"],"category":"skin","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"cream"},
-  {"generic":"Antiseptic cream","brands":["Savlon"],"category":"skin","defaultIntervalHours":8,"defaultMaxPerDay":3,"form":"cream"},
-  {"generic":"Aluminium sulfate spray","brands":["Stingose"],"category":"skin","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"spray"},
-  {"generic":"Lidocaine gel","brands":["Xylocaine"],"category":"skin","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"cream"},
-  {"generic":"Citric acid / sodium citrate","brands":["Ural","Citravescent"],"category":"urinary","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"sachet"},
-  {"generic":"Chloramphenicol eye drops","brands":["Chlorsig"],"category":"eye-ear","defaultIntervalHours":4,"defaultMaxPerDay":6,"form":"drops","doseType":"scheduled"},
-  {"generic":"Ketotifen eye drops","brands":["Zaditen"],"category":"eye-ear","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"drops"},
-  {"generic":"Olopatadine eye drops","brands":["Patanol"],"category":"eye-ear","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"drops"},
-  {"generic":"Naphazoline/pheniramine eye drops","brands":["Naphcon-A","Visine Allergy"],"category":"eye-ear","defaultIntervalHours":6,"defaultMaxPerDay":4,"form":"drops"},
-  {"generic":"Carbamide peroxide ear drops","brands":["Ear Clear"],"category":"eye-ear","defaultIntervalHours":12,"defaultMaxPerDay":2,"form":"drops"}
+  {
+    "generic": "Paracetamol",
+    "brands": [
+      "Panadol",
+      "Dymadon",
+      "Panamax"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 8,
+    "form": "tablet"
+  },
+  {
+    "generic": "Ibuprofen",
+    "brands": [
+      "Nurofen",
+      "Advil",
+      "Brufen"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      200,
+      400
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Aspirin",
+    "brands": [
+      "Aspro",
+      "Disprin"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      300
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 8,
+    "form": "tablet"
+  },
+  {
+    "generic": "Naproxen",
+    "brands": [
+      "Naprogesic",
+      "Aleve",
+      "Naprosyn"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      250,
+      275
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Diclofenac",
+    "brands": [
+      "Voltaren",
+      "Fenac"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      12.5,
+      25,
+      50
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Paracetamol with codeine",
+    "brands": [
+      "Panadeine",
+      "Panadeine Forte"
+    ],
+    "category": "pain-fever",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 8,
+    "form": "tablet"
+  },
+  {
+    "generic": "Ibuprofen with codeine",
+    "brands": [
+      "Nurofen Plus"
+    ],
+    "category": "pain-fever",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Diclofenac topical gel",
+    "brands": [
+      "Voltaren Emulgel"
+    ],
+    "category": "pain-fever",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "cream"
+  },
+  {
+    "generic": "Cetirizine",
+    "brands": [
+      "Zyrtec",
+      "Zilarex"
+    ],
+    "category": "allergy",
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Loratadine",
+    "brands": [
+      "Claratyne"
+    ],
+    "category": "allergy",
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Fexofenadine",
+    "brands": [
+      "Telfast",
+      "Fexotabs"
+    ],
+    "category": "allergy",
+    "strengths": [
+      60,
+      120,
+      180
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Desloratadine",
+    "brands": [
+      "Aerius"
+    ],
+    "category": "allergy",
+    "strengths": [
+      5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Promethazine",
+    "brands": [
+      "Phenergan"
+    ],
+    "category": "allergy",
+    "strengths": [
+      10,
+      25
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Dexchlorpheniramine",
+    "brands": [
+      "Polaramine"
+    ],
+    "category": "allergy",
+    "strengths": [
+      2
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Amoxicillin",
+    "brands": [
+      "Amoxil",
+      "Alphamox"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "capsule"
+  },
+  {
+    "generic": "Amoxicillin with clavulanate",
+    "brands": [
+      "Augmentin",
+      "Augmentin Duo Forte"
+    ],
+    "category": "antibiotic",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Cefalexin",
+    "brands": [
+      "Keflex",
+      "Ibilex"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "capsule"
+  },
+  {
+    "generic": "Doxycycline",
+    "brands": [
+      "Doryx",
+      "Vibramycin"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "capsule"
+  },
+  {
+    "generic": "Flucloxacillin",
+    "brands": [
+      "Flopen",
+      "Staphylex"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "capsule"
+  },
+  {
+    "generic": "Trimethoprim",
+    "brands": [
+      "Triprim",
+      "Alprim"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      300
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Nitrofurantoin",
+    "brands": [
+      "Macrodantin",
+      "Macrobid"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "capsule"
+  },
+  {
+    "generic": "Metronidazole",
+    "brands": [
+      "Flagyl",
+      "Metrogyl"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      200,
+      400
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Azithromycin",
+    "brands": [
+      "Zithromax",
+      "Zedd"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Clarithromycin",
+    "brands": [
+      "Klacid"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Roxithromycin",
+    "brands": [
+      "Rulide"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      150,
+      300
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Phenoxymethylpenicillin",
+    "brands": [
+      "Cilicaine VK",
+      "Abbocillin VK"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Ondansetron",
+    "brands": [
+      "Zofran",
+      "Ondaz"
+    ],
+    "category": "nausea",
+    "strengths": [
+      4,
+      8
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Metoclopramide",
+    "brands": [
+      "Maxolon"
+    ],
+    "category": "nausea",
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Prochlorperazine",
+    "brands": [
+      "Stemetil",
+      "Stemzine"
+    ],
+    "category": "nausea",
+    "strengths": [
+      5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Domperidone",
+    "brands": [
+      "Motilium"
+    ],
+    "category": "nausea",
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Hyoscine hydrobromide",
+    "brands": [
+      "Kwells",
+      "Travacalm"
+    ],
+    "category": "nausea",
+    "strengths": [
+      0.3
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Dimenhydrinate",
+    "brands": [
+      "Andrews Antinauseant"
+    ],
+    "category": "nausea",
+    "strengths": [
+      50
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Antacid (aluminium/magnesium)",
+    "brands": [
+      "Mylanta",
+      "Gaviscon"
+    ],
+    "category": "reflux",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 4,
+    "form": "liquid"
+  },
+  {
+    "generic": "Calcium carbonate",
+    "brands": [
+      "Quick-Eze",
+      "Rennie"
+    ],
+    "category": "reflux",
+    "defaultIntervalHours": 2,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Famotidine",
+    "brands": [
+      "Pepcidine",
+      "Pepzan"
+    ],
+    "category": "reflux",
+    "strengths": [
+      20,
+      40
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Omeprazole",
+    "brands": [
+      "Losec",
+      "Acimax"
+    ],
+    "category": "reflux",
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Pantoprazole",
+    "brands": [
+      "Somac"
+    ],
+    "category": "reflux",
+    "strengths": [
+      20,
+      40
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Esomeprazole",
+    "brands": [
+      "Nexium"
+    ],
+    "category": "reflux",
+    "strengths": [
+      20,
+      40
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Rabeprazole",
+    "brands": [
+      "Pariet"
+    ],
+    "category": "reflux",
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Pseudoephedrine",
+    "brands": [
+      "Sudafed",
+      "Demazin"
+    ],
+    "category": "cough-cold",
+    "strengths": [
+      60
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Phenylephrine",
+    "brands": [
+      "Sudafed PE"
+    ],
+    "category": "cough-cold",
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Dextromethorphan",
+    "brands": [
+      "Robitussin Dry",
+      "Bisolvon Dry"
+    ],
+    "category": "cough-cold",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "liquid"
+  },
+  {
+    "generic": "Guaifenesin",
+    "brands": [
+      "Bisolvon Chesty",
+      "Mucinex"
+    ],
+    "category": "cough-cold",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 4,
+    "form": "liquid"
+  },
+  {
+    "generic": "Bromhexine",
+    "brands": [
+      "Bisolvon"
+    ],
+    "category": "cough-cold",
+    "strengths": [
+      8
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Loperamide",
+    "brands": [
+      "Imodium",
+      "Gastro-Stop"
+    ],
+    "category": "gut",
+    "strengths": [
+      2
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 2,
+    "defaultMaxPerDay": 8,
+    "form": "capsule"
+  },
+  {
+    "generic": "Macrogol",
+    "brands": [
+      "Movicol",
+      "OsmoLax"
+    ],
+    "category": "gut",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "sachet"
+  },
+  {
+    "generic": "Senna",
+    "brands": [
+      "Senokot"
+    ],
+    "category": "gut",
+    "strengths": [
+      7.5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Docusate",
+    "brands": [
+      "Coloxyl"
+    ],
+    "category": "gut",
+    "strengths": [
+      50,
+      120
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Bisacodyl",
+    "brands": [
+      "Dulcolax"
+    ],
+    "category": "gut",
+    "strengths": [
+      5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Lactulose",
+    "brands": [
+      "Duphalac",
+      "Actilax"
+    ],
+    "category": "gut",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "liquid"
+  },
+  {
+    "generic": "Psyllium",
+    "brands": [
+      "Metamucil"
+    ],
+    "category": "gut",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "sachet"
+  },
+  {
+    "generic": "Sumatriptan",
+    "brands": [
+      "Imigran"
+    ],
+    "category": "migraine",
+    "strengths": [
+      50,
+      100
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 2,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Rizatriptan",
+    "brands": [
+      "Maxalt"
+    ],
+    "category": "migraine",
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 2,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Zolmitriptan",
+    "brands": [
+      "Zomig"
+    ],
+    "category": "migraine",
+    "strengths": [
+      2.5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 2,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Eletriptan",
+    "brands": [
+      "Relpax"
+    ],
+    "category": "migraine",
+    "strengths": [
+      40
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 2,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Naratriptan",
+    "brands": [
+      "Naramig"
+    ],
+    "category": "migraine",
+    "strengths": [
+      2.5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Hyoscine butylbromide",
+    "brands": [
+      "Buscopan"
+    ],
+    "category": "cramps",
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Mebeverine",
+    "brands": [
+      "Colofac"
+    ],
+    "category": "cramps",
+    "strengths": [
+      135
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Mefenamic acid",
+    "brands": [
+      "Ponstan"
+    ],
+    "category": "cramps",
+    "strengths": [
+      250,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "capsule"
+  },
+  {
+    "generic": "Prednisolone",
+    "brands": [
+      "Panafcort",
+      "Redipred",
+      "Solone"
+    ],
+    "category": "steroid-short",
+    "strengths": [
+      1,
+      5,
+      25
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Prednisone",
+    "brands": [
+      "Sone"
+    ],
+    "category": "steroid-short",
+    "strengths": [
+      1,
+      5,
+      25
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Hydrocortisone 1% cream",
+    "brands": [
+      "Sigmacort",
+      "DermAid"
+    ],
+    "category": "steroid-short",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "cream"
+  },
+  {
+    "generic": "Betamethasone cream",
+    "brands": [
+      "Diprosone"
+    ],
+    "category": "steroid-short",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "cream"
+  },
+  {
+    "generic": "Mometasone cream",
+    "brands": [
+      "Elocon"
+    ],
+    "category": "steroid-short",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "cream"
+  },
+  {
+    "generic": "Melatonin",
+    "brands": [
+      "Circadin"
+    ],
+    "category": "sleep",
+    "strengths": [
+      2
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Doxylamine",
+    "brands": [
+      "Restavit",
+      "Dozile"
+    ],
+    "category": "sleep",
+    "strengths": [
+      25
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Temazepam",
+    "brands": [
+      "Temaze",
+      "Normison"
+    ],
+    "category": "sleep",
+    "strengths": [
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Zolpidem",
+    "brands": [
+      "Stilnox"
+    ],
+    "category": "sleep",
+    "strengths": [
+      5,
+      10
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Zopiclone",
+    "brands": [
+      "Imovane",
+      "Imrest"
+    ],
+    "category": "sleep",
+    "strengths": [
+      7.5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Fluconazole",
+    "brands": [
+      "Diflucan",
+      "Canesten Oral"
+    ],
+    "category": "antifungal",
+    "strengths": [
+      150,
+      200
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "capsule"
+  },
+  {
+    "generic": "Clotrimazole cream",
+    "brands": [
+      "Canesten"
+    ],
+    "category": "antifungal",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "cream"
+  },
+  {
+    "generic": "Terbinafine",
+    "brands": [
+      "Lamisil"
+    ],
+    "category": "antifungal",
+    "strengths": [
+      250
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Miconazole gel",
+    "brands": [
+      "Daktarin"
+    ],
+    "category": "antifungal",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "cream"
+  },
+  {
+    "generic": "Aciclovir",
+    "brands": [
+      "Zovirax",
+      "Acivir"
+    ],
+    "category": "antiviral",
+    "strengths": [
+      200,
+      400,
+      800
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 5,
+    "form": "tablet"
+  },
+  {
+    "generic": "Aciclovir cold sore cream",
+    "brands": [
+      "Zovirax Cold Sore"
+    ],
+    "category": "antiviral",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 5,
+    "form": "cream"
+  },
+  {
+    "generic": "Valaciclovir",
+    "brands": [
+      "Valtrex"
+    ],
+    "category": "antiviral",
+    "strengths": [
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Famciclovir",
+    "brands": [
+      "Famvir"
+    ],
+    "category": "antiviral",
+    "strengths": [
+      125,
+      250,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Salbutamol",
+    "brands": [
+      "Ventolin",
+      "Asmol",
+      "Airomir"
+    ],
+    "category": "reliever",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 4,
+    "form": "inhaler"
+  },
+  {
+    "generic": "Terbutaline",
+    "brands": [
+      "Bricanyl"
+    ],
+    "category": "reliever",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 4,
+    "form": "inhaler"
+  },
+  {
+    "generic": "Ipratropium",
+    "brands": [
+      "Atrovent"
+    ],
+    "category": "reliever",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "inhaler"
+  },
+  {
+    "generic": "Benzydamine",
+    "brands": [
+      "Difflam"
+    ],
+    "category": "throat-mouth",
+    "defaultIntervalHours": 3,
+    "defaultMaxPerDay": 7,
+    "form": "spray"
+  },
+  {
+    "generic": "Choline salicylate gel",
+    "brands": [
+      "Bonjela"
+    ],
+    "category": "throat-mouth",
+    "defaultIntervalHours": 3,
+    "defaultMaxPerDay": 6,
+    "form": "cream"
+  },
+  {
+    "generic": "Hexylresorcinol lozenge",
+    "brands": [
+      "Strepsils"
+    ],
+    "category": "throat-mouth",
+    "defaultIntervalHours": 2,
+    "defaultMaxPerDay": 8,
+    "form": "lozenge"
+  },
+  {
+    "generic": "Povidone-iodine gargle",
+    "brands": [
+      "Betadine Sore Throat"
+    ],
+    "category": "throat-mouth",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 4,
+    "form": "liquid"
+  },
+  {
+    "generic": "Calamine lotion",
+    "brands": [
+      "Calamine"
+    ],
+    "category": "skin",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "liquid"
+  },
+  {
+    "generic": "Crotamiton cream",
+    "brands": [
+      "Eurax"
+    ],
+    "category": "skin",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "cream"
+  },
+  {
+    "generic": "Antiseptic cream",
+    "brands": [
+      "Savlon"
+    ],
+    "category": "skin",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "cream"
+  },
+  {
+    "generic": "Aluminium sulfate spray",
+    "brands": [
+      "Stingose"
+    ],
+    "category": "skin",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "spray"
+  },
+  {
+    "generic": "Lidocaine gel",
+    "brands": [
+      "Xylocaine"
+    ],
+    "category": "skin",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "cream"
+  },
+  {
+    "generic": "Citric acid / sodium citrate",
+    "brands": [
+      "Ural",
+      "Citravescent"
+    ],
+    "category": "urinary",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "sachet"
+  },
+  {
+    "generic": "Chloramphenicol eye drops",
+    "brands": [
+      "Chlorsig"
+    ],
+    "category": "eye-ear",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 6,
+    "form": "drops",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Ketotifen eye drops",
+    "brands": [
+      "Zaditen"
+    ],
+    "category": "eye-ear",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "drops"
+  },
+  {
+    "generic": "Olopatadine eye drops",
+    "brands": [
+      "Patanol"
+    ],
+    "category": "eye-ear",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "drops"
+  },
+  {
+    "generic": "Naphazoline/pheniramine eye drops",
+    "brands": [
+      "Naphcon-A",
+      "Visine Allergy"
+    ],
+    "category": "eye-ear",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "drops"
+  },
+  {
+    "generic": "Carbamide peroxide ear drops",
+    "brands": [
+      "Ear Clear"
+    ],
+    "category": "eye-ear",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "drops"
+  },
+  {
+    "generic": "Codeine",
+    "brands": [
+      "Codeine phosphate",
+      "Codral"
+    ],
+    "category": "opioid",
+    "strengths": [
+      15,
+      30,
+      60
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 8,
+    "form": "tablet"
+  },
+  {
+    "generic": "Paracetamol; Codeine",
+    "brands": [
+      "Panadeine",
+      "Panadeine Forte",
+      "Mersyndol",
+      "Mersyndol Forte",
+      "Panamax Co"
+    ],
+    "category": "opioid",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 8,
+    "form": "tablet"
+  },
+  {
+    "generic": "Ibuprofen; Codeine",
+    "brands": [
+      "Nurofen Plus",
+      "Maxigesic"
+    ],
+    "category": "opioid",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Oxycodone",
+    "brands": [
+      "Endone",
+      "OxyNorm"
+    ],
+    "category": "opioid",
+    "strengths": [
+      5,
+      10,
+      20
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Oxycodone modified-release",
+    "brands": [
+      "OxyContin"
+    ],
+    "category": "opioid",
+    "strengths": [
+      5,
+      10,
+      15,
+      20,
+      30,
+      40,
+      80
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Oxycodone; Naloxone",
+    "brands": [
+      "Targin"
+    ],
+    "category": "opioid",
+    "strengths": [
+      5,
+      10,
+      20,
+      40
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Tapentadol",
+    "brands": [
+      "Palexia IR"
+    ],
+    "category": "opioid",
+    "strengths": [
+      50
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 8,
+    "form": "tablet"
+  },
+  {
+    "generic": "Tapentadol sustained-release",
+    "brands": [
+      "Palexia SR"
+    ],
+    "category": "opioid",
+    "strengths": [
+      50,
+      100,
+      150,
+      200,
+      250
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Tramadol",
+    "brands": [
+      "Tramal",
+      "Zydol"
+    ],
+    "category": "opioid",
+    "strengths": [
+      50
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 8,
+    "form": "capsule"
+  },
+  {
+    "generic": "Tramadol sustained-release",
+    "brands": [
+      "Tramal SR",
+      "Durotram XR"
+    ],
+    "category": "opioid",
+    "strengths": [
+      50,
+      100,
+      150,
+      200
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Morphine",
+    "brands": [
+      "Ordine",
+      "Sevredol",
+      "Anamorph"
+    ],
+    "category": "opioid",
+    "strengths": [
+      10,
+      20
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Morphine sustained-release",
+    "brands": [
+      "MS Contin",
+      "Kapanol",
+      "MS Mono"
+    ],
+    "category": "opioid",
+    "strengths": [
+      5,
+      10,
+      15,
+      30,
+      60,
+      100,
+      200
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Hydromorphone",
+    "brands": [
+      "Dilaudid"
+    ],
+    "category": "opioid",
+    "strengths": [
+      2,
+      4,
+      8
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Hydromorphone modified-release",
+    "brands": [
+      "Jurnista"
+    ],
+    "category": "opioid",
+    "strengths": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Buprenorphine patch",
+    "brands": [
+      "Norspan"
+    ],
+    "category": "opioid",
+    "strengths": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      40
+    ],
+    "unit": "mcg/hr",
+    "defaultIntervalHours": 168,
+    "defaultMaxPerDay": 1,
+    "form": "patch",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Buprenorphine; Naloxone",
+    "brands": [
+      "Suboxone"
+    ],
+    "category": "opioid",
+    "strengths": [
+      2,
+      8
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "wafer",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Fentanyl patch",
+    "brands": [
+      "Durogesic"
+    ],
+    "category": "opioid",
+    "strengths": [
+      12,
+      25,
+      50,
+      75,
+      100
+    ],
+    "unit": "mcg/hr",
+    "defaultIntervalHours": 72,
+    "defaultMaxPerDay": 1,
+    "form": "patch",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Pregabalin",
+    "brands": [
+      "Lyrica"
+    ],
+    "category": "nerve-pain",
+    "strengths": [
+      25,
+      75,
+      150,
+      300
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "capsule",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Gabapentin",
+    "brands": [
+      "Neurontin",
+      "Gabaran"
+    ],
+    "category": "nerve-pain",
+    "strengths": [
+      100,
+      300,
+      400,
+      600,
+      800
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "capsule",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Amitriptyline",
+    "brands": [
+      "Endep"
+    ],
+    "category": "nerve-pain",
+    "strengths": [
+      10,
+      25,
+      50
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Nortriptyline",
+    "brands": [
+      "Allegron"
+    ],
+    "category": "nerve-pain",
+    "strengths": [
+      10,
+      25
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Duloxetine",
+    "brands": [
+      "Cymbalta",
+      "Andepra"
+    ],
+    "category": "nerve-pain",
+    "strengths": [
+      30,
+      60
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "capsule",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Carbamazepine",
+    "brands": [
+      "Tegretol",
+      "Teril"
+    ],
+    "category": "nerve-pain",
+    "strengths": [
+      100,
+      200,
+      400
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Baclofen",
+    "brands": [
+      "Lioresal",
+      "Clofen",
+      "Stelax"
+    ],
+    "category": "muscle",
+    "strengths": [
+      10,
+      25
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Orphenadrine; Paracetamol",
+    "brands": [
+      "Norgesic"
+    ],
+    "category": "muscle",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 6,
+    "form": "tablet"
+  },
+  {
+    "generic": "Diazepam",
+    "brands": [
+      "Valium",
+      "Antenex",
+      "Ducene"
+    ],
+    "category": "muscle",
+    "strengths": [
+      2,
+      5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Tizanidine",
+    "brands": [
+      "Zanaflex"
+    ],
+    "category": "muscle",
+    "strengths": [
+      2,
+      4
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet",
+    "doseType": "scheduled"
+  },
+  {
+    "generic": "Meloxicam",
+    "brands": [
+      "Mobic",
+      "Meloxibell"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      7.5,
+      15
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Celecoxib",
+    "brands": [
+      "Celebrex"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "capsule"
+  },
+  {
+    "generic": "Indomethacin",
+    "brands": [
+      "Indocid"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      25
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "capsule"
+  },
+  {
+    "generic": "Ketoprofen",
+    "brands": [
+      "Orudis",
+      "Oruvail"
+    ],
+    "category": "pain-fever",
+    "strengths": [
+      100,
+      200
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "capsule"
+  },
+  {
+    "generic": "Almotriptan",
+    "brands": [
+      "Almogran"
+    ],
+    "category": "migraine",
+    "strengths": [
+      12.5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 2,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Ergotamine; Caffeine",
+    "brands": [
+      "Cafergot"
+    ],
+    "category": "migraine",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Cyclizine",
+    "brands": [
+      "Valoid"
+    ],
+    "category": "nausea",
+    "strengths": [
+      50
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "tablet"
+  },
+  {
+    "generic": "Ranitidine",
+    "brands": [
+      "Zantac"
+    ],
+    "category": "reflux",
+    "strengths": [
+      150,
+      300
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Alginate; antacid",
+    "brands": [
+      "Gaviscon Dual Action"
+    ],
+    "category": "reflux",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 4,
+    "form": "liquid"
+  },
+  {
+    "generic": "Pholcodine",
+    "brands": [
+      "Duro-Tuss",
+      "Benadryl"
+    ],
+    "category": "cough-cold",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "liquid"
+  },
+  {
+    "generic": "Codeine; Pseudoephedrine; Paracetamol",
+    "brands": [
+      "Codral Cold & Flu"
+    ],
+    "category": "cough-cold",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Sterculia",
+    "brands": [
+      "Normacol"
+    ],
+    "category": "gut",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "sachet"
+  },
+  {
+    "generic": "Glycerol suppository",
+    "brands": [
+      "Glycerin Suppositories"
+    ],
+    "category": "gut",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Diphenhydramine",
+    "brands": [
+      "Benadryl",
+      "Unisom"
+    ],
+    "category": "allergy",
+    "strengths": [
+      25,
+      50
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Chlorphenamine",
+    "brands": [
+      "Demazin"
+    ],
+    "category": "allergy",
+    "strengths": [
+      4
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Nitrazepam",
+    "brands": [
+      "Mogadon",
+      "Alodorm"
+    ],
+    "category": "sleep",
+    "strengths": [
+      5
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Oxazepam",
+    "brands": [
+      "Serepax",
+      "Murelax"
+    ],
+    "category": "sleep",
+    "strengths": [
+      15,
+      30
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 24,
+    "defaultMaxPerDay": 1,
+    "form": "tablet"
+  },
+  {
+    "generic": "Cefaclor",
+    "brands": [
+      "Ceclor"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      375,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 8,
+    "defaultMaxPerDay": 3,
+    "form": "capsule"
+  },
+  {
+    "generic": "Erythromycin",
+    "brands": [
+      "Eryc",
+      "EMU-V"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      400,
+      500
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 6,
+    "defaultMaxPerDay": 4,
+    "form": "tablet"
+  },
+  {
+    "generic": "Ciprofloxacin",
+    "brands": [
+      "Ciproxin"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      250,
+      500,
+      750
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Norfloxacin",
+    "brands": [
+      "Noroxin"
+    ],
+    "category": "antibiotic",
+    "strengths": [
+      400
+    ],
+    "unit": "mg",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  },
+  {
+    "generic": "Trimethoprim; Sulfamethoxazole",
+    "brands": [
+      "Bactrim",
+      "Septrin",
+      "Resprim"
+    ],
+    "category": "antibiotic",
+    "defaultIntervalHours": 12,
+    "defaultMaxPerDay": 2,
+    "form": "tablet"
+  }
 ]
