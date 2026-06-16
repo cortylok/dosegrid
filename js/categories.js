@@ -22,3 +22,12 @@ export const CATEGORIES = [
 ];
 export const CATEGORY_LABELS = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.label]));
 export const CATEGORY_ORDER = CATEGORIES.map((c) => c.id);
+
+// Categories whose meds are taken on a schedule/course by default (vs as-needed).
+export const SCHEDULED_CATEGORIES = new Set(['antibiotic', 'steroid-short', 'antiviral', 'antifungal']);
+
+// Effective dosing model: explicit med.doseType wins, else category default, else 'prn'.
+export function resolveDoseType(med) {
+  if (med && (med.doseType === 'prn' || med.doseType === 'scheduled')) return med.doseType;
+  return med && SCHEDULED_CATEGORIES.has(med.category) ? 'scheduled' : 'prn';
+}

@@ -2,6 +2,7 @@
 import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid } from './storage.js';
 import { computeStatus } from './dosing.js';
 import { loadDataset, searchMeds } from './data.js';
+import { resolveDoseType } from './categories.js';
 
 const gridEl = () => document.getElementById('grid');
 const modalRoot = () => document.getElementById('modal-root');
@@ -16,13 +17,11 @@ function fmtRemaining(ms) {
   return h > 0 ? `${h}h ${mm}m` : `${mm}m`;
 }
 function fmtLastTaken(ts) {
-  if (!ts) return 'Last taken: never';
+  if (!ts) return '';
   const d = new Date(ts);
-  const today = new Date();
-  const sameDay = d.toDateString() === today.toDateString();
-  return sameDay
-    ? `Last taken: ${fmtTime(ts)}`
-    : `Last taken: ${d.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })}`;
+  const sameDay = d.toDateString() === new Date().toDateString();
+  const when = sameDay ? fmtTime(ts) : d.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+  return `🕑 Last taken ${when}`;
 }
 
 export function renderGrid() {
@@ -37,15 +36,19 @@ export function renderGrid() {
     const tile = document.createElement('button');
     tile.className = 'tile';
     tile.dataset.medId = med.id;
-    const statusText =
-      s.state === 'ready' ? 'Ready'
-      : s.state === 'wait' ? `Wait ${fmtRemaining(s.msRemaining)}`
-      : 'Daily max';
+    const lastLine = fmtLastTaken(s.lastDoseTime);
+    const scheduled = resolveDoseType(med) === 'scheduled';
+    const count = `<span class="count">${fmtRemaining(s.msRemaining)}</span>`;
+    const statusInner =
+      s.state === 'ready' ? (scheduled ? 'Due to take' : 'Ready when needed')
+      : s.state === 'wait' ? (scheduled ? `Due in&nbsp;${count}` : `${count}&nbsp;until next`)
+      : (scheduled ? 'Done for today' : 'Daily max');
     tile.innerHTML =
       `<div><h2>${med.name}</h2>` +
-      `<div class="dose-label">${med.strength ? med.strength + ' · ' : ''}${med.intervalHours}h · max ${med.maxDailyUnits} tabs/day</div>` +
-      `<div class="dose-label">${fmtLastTaken(s.lastDoseTime)}</div></div>` +
-      `<div class="status ${s.state}"><span class="dot"></span><span>${statusText}</span></div>`;
+      `<div class="dose-label">${med.strength ? med.strength + ' · ' : ''}max ${med.maxDailyUnits}/day</div>` +
+      (lastLine ? `<div class="last">${lastLine}</div>` : '') +
+      `</div>` +
+      `<div class="status ${s.state}">${statusInner}</div>`;
     attachTileHandlers(tile, med);
     grid.appendChild(tile);
   }

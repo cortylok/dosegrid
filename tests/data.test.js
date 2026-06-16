@@ -2,6 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { searchMeds, groupByCategory } from '../js/data.js';
+import { resolveDoseType } from '../js/categories.js';
 
 const dataset = [
   { generic: 'Ibuprofen', brands: ['Advil', 'Motrin'] },
@@ -36,4 +37,12 @@ test('groupByCategory groups in category order and preserves member order', () =
   assert.equal(groups[1].id, 'allergy');
   // unknown category falls under 'custom'
   assert.ok(groups.some((g) => g.id === 'custom' && g.meds[0].generic === 'Mystery'));
+});
+
+test('resolveDoseType: explicit doseType wins, else category default, else prn', () => {
+  assert.equal(resolveDoseType({ category: 'antibiotic' }), 'scheduled');
+  assert.equal(resolveDoseType({ category: 'pain-fever' }), 'prn');
+  assert.equal(resolveDoseType({ category: 'reflux', doseType: 'scheduled' }), 'scheduled');
+  assert.equal(resolveDoseType({ category: 'antibiotic', doseType: 'prn' }), 'prn');
+  assert.equal(resolveDoseType({}), 'prn');
 });
