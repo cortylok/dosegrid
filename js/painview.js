@@ -1,19 +1,11 @@
-// js/painview.js — the Pain view: current-pain summary, log sheet, and overlay graph.
-import { loadPain, savePain, addPain, loadDoses, loadMeds } from './storage.js';
-import { WINDOWS, severity, painInWindow, dosesInWindow, latestPain } from './pain.js';
+// js/painview.js — the Pain view: current-pain summary, log sheet, and zoomable timeline.
+import { loadPain, savePain, addPain, loadMeds } from './storage.js';
+import { severity, latestPain, painColor } from './pain.js';
 import { openSheet, closeModal, modalRoot } from './ui.js';
-
-let currentWindow = '1d';
+import { createTimeline } from './timeline.js';
 
 const painViewEl = () => document.getElementById('pain-view');
-
-// Smooth green→red gradient: each 0–10 score gets its own colour along an HSL ramp
-// (140° green at 0 → 0° red at 10).
-function painColor(score) {
-  const s = Math.max(0, Math.min(10, score));
-  const hue = 140 - (140 * s) / 10;
-  return `hsl(${hue}, 75%, 52%)`;
-}
+let timeline = null;
 
 function fmtRelative(ts) {
   const mins = Math.round((Date.now() - ts) / 60000);
@@ -24,10 +16,6 @@ function fmtRelative(ts) {
   return new Date(ts).toLocaleDateString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' });
 }
 
-function fmtClock(ts) {
-  return new Date(ts).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-}
-
 export function renderPainView() {
   const pain = loadPain();
   const last = latestPain(pain);
@@ -36,30 +24,20 @@ export function renderPainView() {
       `<div class="pain-meta">${severity(last.score)} · logged ${fmtRelative(last.timestamp)}${last.note ? `<br><span class="muted">“${last.note}”</span>` : ''}</div></div>`
     : `<div class="pain-now muted">No pain logged yet. Tap “Log pain” to start.</div>`;
 
-  const tabs = WINDOWS.map((w) =>
-    `<button data-win="${w.key}" class="${w.key === currentWindow ? 'active' : ''}">${w.label}</button>`).join('');
-
-  const now = Date.now();
-  const win = WINDOWS.find((w) => w.key === currentWindow) || WINDOWS[0];
-  const graph = painGraphSvg(
-    painInWindow(pain, win.ms, now),
-    dosesInWindow(loadDoses(), win.ms, now),
-    medNameMap(),
-    win.ms,
-    now
-  );
-
   painViewEl().innerHTML =
     summary +
     `<button class="btn pain-log-btn" id="log-pain">＋ Log pain</button>` +
-    `<div class="win-tabs">${tabs}</div>` +
-    `<div class="pain-graph">${graph}</div>`;
+    `<div class="tl-bar"><span class="tl-hint">Drag to scroll · pinch / scroll to zoom</span>` +
+      `<span style="flex:1"></span><button class="zb" id="tl-out">–</button><button class="zb" id="tl-in">+</button></div>` +
+    `<div class="tl-host" id="tl-host"></div>`;
 
   painViewEl().querySelector('#log-pain').addEventListener('click', openPainLog);
-  painViewEl().querySelectorAll('.win-tabs button').forEach((b) =>
-    b.addEventListener('click', () => { currentWindow = b.dataset.win; renderPainView(); }));
-  painViewEl().querySelectorAll('.pain-hit').forEach((el) =>
-    el.addEventListener('click', () => openPainDetail(el.dataset.id)));
+  const hostEl = painViewEl().querySelector('#tl-host');
+  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail });
+  timeline.render();
+  const zoom = (deltaY) => hostEl.dispatchEvent(new WheelEvent('wheel', { deltaY, clientX: hostEl.getBoundingClientRect().left + hostEl.clientWidth / 2, cancelable: true }));
+  painViewEl().querySelector('#tl-in').addEventListener('click', () => zoom(-240));
+  painViewEl().querySelector('#tl-out').addEventListener('click', () => zoom(240));
 }
 
 export function openPainDetail(id) {
@@ -81,6 +59,20 @@ export function openPainDetail(id) {
     closeModal();
     renderPainView();
   });
+}
+
+export function openDoseDetail(dose) {
+  if (!dose) return;
+  const med = loadMeds().find((m) => m.id === dose.medId);
+  const when = new Date(dose.timestamp).toLocaleString([],
+    { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+  openSheet(
+    `<h2>${med ? med.name : 'Dose'}</h2>` +
+    `<p class="muted">${when}</p>` +
+    `<p>${dose.units} tablet${dose.units === 1 ? '' : 's'}${med && med.maxDailyUnits ? ` · max ${med.maxDailyUnits}/day` : ''}</p>` +
+    `<div class="btn-row"><button class="btn" id="dd-close">Close</button></div>`
+  );
+  modalRoot().querySelector('#dd-close').addEventListener('click', closeModal);
 }
 
 export function openPainLog() {
@@ -112,60 +104,3 @@ export function openPainLog() {
   });
 }
 
-function medNameMap() {
-  const map = {};
-  for (const m of loadMeds()) map[m.id] = m.name;
-  return map;
-}
-
-function painGraphSvg(painEntries, doses, medNames, windowMs, now) {
-  const W = 320, H = 180, padL = 24, padR = 10, padT = 12, padB = 24;
-  const plotW = W - padL - padR, plotH = H - padT - padB;
-  const start = now - windowMs;
-  const x = (ts) => padL + Math.max(0, Math.min(1, (ts - start) / windowMs)) * plotW;
-  const y = (score) => padT + (1 - score / 10) * plotH;
-
-  let grid = '';
-  for (const v of [0, 5, 10]) {
-    const yy = y(v);
-    grid += `<line x1="${padL}" y1="${yy}" x2="${W - padR}" y2="${yy}" stroke="#334155" stroke-width="1"/>`;
-    grid += `<text x="${padL - 4}" y="${yy + 3}" text-anchor="end" font-size="9" fill="#94a3b8">${v}</text>`;
-  }
-
-  const oneDay = 24 * 3600 * 1000;
-  let xticks = '';
-  for (let i = 0; i <= 4; i++) {
-    const ts = start + (windowMs * i) / 4;
-    const xx = padL + (plotW * i) / 4;
-    const label = windowMs <= oneDay
-      ? new Date(ts).toLocaleTimeString([], { hour: 'numeric' })
-      : new Date(ts).toLocaleDateString([], { day: 'numeric', month: 'numeric' });
-    xticks += `<text x="${xx}" y="${H - padB + 12}" text-anchor="middle" font-size="8" fill="#64748b">${label}</text>`;
-  }
-
-  let line = '', dots = '';
-  if (painEntries.length) {
-    if (painEntries.length > 1) {
-      const pts = painEntries.map((p) => `${x(p.timestamp)},${y(p.score)}`).join(' ');
-      line = `<polyline points="${pts}" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="2"/>`;
-    }
-    dots = painEntries.map((p) => {
-      const cx = x(p.timestamp), cy = y(p.score);
-      const ring = p.note ? ` stroke="#f8fafc" stroke-width="2"` : '';
-      return `<circle cx="${cx}" cy="${cy}" r="5" fill="${painColor(p.score)}"${ring}/>` +
-        `<circle class="pain-hit" data-id="${p.id}" cx="${cx}" cy="${cy}" r="11" fill="transparent" style="cursor:pointer">` +
-        `<title>Pain ${p.score}/10 · ${fmtClock(p.timestamp)}${p.note ? ` · ${p.note}` : ' · (tap for details)'}</title></circle>`;
-    }).join('');
-  }
-
-  const baseY = H - padB;
-  const ticks = doses.map((d) =>
-    `<line x1="${x(d.timestamp)}" y1="${baseY}" x2="${x(d.timestamp)}" y2="${baseY - 9}" stroke="#22d3ee" stroke-width="2">` +
-    `<title>${medNames[d.medId] || 'Dose'} · ${fmtClock(d.timestamp)} · ${d.units} tab${d.units === 1 ? '' : 's'}</title></line>`).join('');
-
-  const empty = painEntries.length ? '' :
-    `<text x="${W / 2}" y="${H / 2}" text-anchor="middle" font-size="11" fill="#94a3b8">No pain logged in this window — tap Log pain.</text>`;
-
-  return `<svg viewBox="0 0 ${W} ${H}" class="pain-svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pain over time with medication doses">` +
-    grid + xticks + line + dots + ticks + empty + `</svg>`;
-}
