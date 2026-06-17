@@ -1,25 +1,38 @@
 // js/app.js
-import { loadDoses, saveDoses, pruneDoses } from './storage.js';
+import { loadDoses, saveDoses, pruneDoses, loadPain, savePain, prunePain } from './storage.js';
 import { renderGrid, showLanding } from './ui.js';
+import { renderPainView } from './painview.js';
 
 const ONBOARD_KEY = 'dosegrid.onboarded';
 
-// Prune doses older than 14 days on startup
+// Prune old data on startup (doses 14d, pain 90d)
 saveDoses(pruneDoses(loadDoses()));
+savePain(prunePain(loadPain()));
 
+// Render both views (Meds view starts hidden; Pain is the default focus)
 renderGrid();
+renderPainView();
 
-// Auto-show the landing page on launch until the user ticks "Don't show this again"
+function setView(view) {
+  const pain = view === 'pain';
+  document.getElementById('pain-view').hidden = !pain;
+  document.getElementById('meds-view').hidden = pain;
+  document.getElementById('tab-pain').classList.toggle('active', pain);
+  document.getElementById('tab-meds').classList.toggle('active', !pain);
+  if (pain) renderPainView(); else renderGrid();
+}
+document.getElementById('tab-pain').addEventListener('click', () => setView('pain'));
+document.getElementById('tab-meds').addEventListener('click', () => setView('meds'));
+
+// First launch → landing page (unchanged)
 if (!localStorage.getItem(ONBOARD_KEY)) {
   showLanding({ showDismiss: true, onDismiss: () => localStorage.setItem(ONBOARD_KEY, '1') });
 }
-
-// Header button reopens the landing page any time (informational, no checkbox)
 document.getElementById('about-btn').addEventListener('click', () => showLanding());
 
-// Keep countdowns + midnight reset fresh
+// Keep dose countdowns + midnight reset fresh
 setInterval(renderGrid, 30000);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) renderGrid(); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { renderGrid(); renderPainView(); } });
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));

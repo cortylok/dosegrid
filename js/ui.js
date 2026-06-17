@@ -5,7 +5,7 @@ import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
 
 const gridEl = () => document.getElementById('grid');
-const modalRoot = () => document.getElementById('modal-root');
+export const modalRoot = () => document.getElementById('modal-root');
 
 function fmtTime(ts) {
   return new Date(ts).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
@@ -77,8 +77,8 @@ function attachTileHandlers(tile, med) {
   tile.addEventListener('click', () => { if (longFired) { longFired = false; return; } openDoseSheet(med); });
 }
 
-function closeModal() { modalRoot().innerHTML = ''; }
-function openSheet(html) {
+export function closeModal() { modalRoot().innerHTML = ''; }
+export function openSheet(html) {
   modalRoot().innerHTML = `<div class="scrim"><div class="sheet">${html}</div></div>`;
   modalRoot().querySelector('.scrim').addEventListener('click', (e) => {
     if (e.target.classList.contains('scrim')) closeModal();
