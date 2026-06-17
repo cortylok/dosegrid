@@ -97,3 +97,26 @@ body {
 .landing .disc { font-size: 0.72rem; line-height: 1.5; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; margin-top: 18px; }
 .landing .dismiss { display: flex; align-items: center; gap: 8px; margin-top: 16px; color: var(--muted); font-size: 0.85rem; cursor: pointer; }
 .landing .dismiss input { width: 18px; height: 18px; accent-color: var(--accent); }
+/* View toggle (header) */
+.view-toggle { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.view-toggle button { border: none; background: transparent; color: var(--muted); font: inherit; font-weight: 700; font-size: 0.85rem; padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+.view-toggle button.active { background: var(--accent); color: #06222a; }
+/* Pain view */
+#pain-view { padding: 14px; }
+.pain-now { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; min-height: 72px; }
+.pain-now.muted { color: var(--muted); }
+.pain-score { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+.pain-score span { font-size: 1rem; color: var(--muted); font-weight: 600; }
+.pain-meta { font-size: 0.85rem; color: var(--text); text-transform: capitalize; }
+.pain-log-btn { width: 100%; margin-top: 14px; font-size: 1.05rem; }
+.win-tabs { display: flex; gap: 6px; margin: 16px 0 8px; }
+.win-tabs button { flex: 1; padding: 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font: inherit; font-size: 0.8rem; cursor: pointer; }
+.win-tabs button.active { color: var(--accent); border-color: var(--accent); }
+.pain-graph { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px; }
+.pain-graph-placeholder { padding: 30px 10px; text-align: center; }
+.pain-svg { width: 100%; height: auto; display: block; }
+/* Pain scale picker (log sheet) */
+.pain-scale { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 8px; }
+.pain-pick { aspect-ratio: 1; border-radius: 10px; border: 2px solid var(--line); background: var(--surface); color: var(--text); font: inherit; font-weight: 700; cursor: pointer; }
+.pain-pick.sel { border-color: var(--sev); background: var(--sev); color: #06222a; }
+@media (min-width: 420px) { .pain-scale { grid-template-columns: repeat(11, 1fr); } }
