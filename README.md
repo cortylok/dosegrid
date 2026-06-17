@@ -16,7 +16,7 @@ DoseGrid is a **personal logging tool, not medical advice**. It ships **no dosin
 - Daily totals reset automatically at the start of each calendar day
 - **Tablet-based counting** — the limit and history are tracked in tablets, so logging "2" toward a max of 6 leaves 4 for the day
 - **Pain tracking (primary focus):** report a 0–10 pain score any time (coloured by severity), with an optional note. The app opens on the **Pain** view (Meds grid one tap away)
-- **Pain overlay graph:** your pain plotted over time, each point coloured by severity, with medication doses marked on the timeline — across **1 day / 3 days / 1 week / 2 weeks** views
+- **Zoomable timeline:** one continuous pinch-zoom + scrollable chart of pain over time (each point coloured green→red by severity) with your medication doses overlaid. Zoom in for individual scores + per-dose detail, out for a coloured pain line + per-med daily bars. History is unlimited; the most zoomed-out view is a fortnight. Day/hour background banding; tap any point or dose for its exact time and details
 - 14-day dose history per medication, with the ability to edit a dose's time or delete an entry
 - Works offline via a service worker (network-first: the latest version loads automatically when online, with the last-cached copy used offline)
 - All data stored on-device only (browser local storage) — no accounts, no syncing, no servers
@@ -75,7 +75,8 @@ node --test
 - `medications.json` — curated dataset of 142 medications (Australian generic and brand names), each tagged with a `category`, `form`, and sensible interval/max defaults
 - `js/categories.js` — category ids/labels and the PRN-vs-scheduled dose-type helper
 - `js/pain.js` — pure pain helpers (severity bands, time windows, in-window filters)
-- `js/painview.js` — the Pain view: current-pain summary, log sheet, and the severity-coloured overlay graph
+- `js/painview.js` — the Pain view: current-pain summary, log sheet, dose/pain detail sheets, and the timeline host
+- `js/timeline.js` — the zoomable, scrollable pain + dose timeline (pan/zoom, level-of-detail, banding)
 - `manifest.webmanifest` — PWA manifest (name, icons, display mode)
 - `service-worker.js` — offline caching (network-first)
 - `icons/` — app icons (192px and 512px)

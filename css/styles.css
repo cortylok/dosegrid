@@ -109,9 +109,13 @@ body {
 .pain-score span { font-size: 1rem; color: var(--muted); font-weight: 600; }
 .pain-meta { font-size: 0.85rem; color: var(--text); text-transform: capitalize; }
 .pain-log-btn { width: 100%; margin-top: 14px; font-size: 1.05rem; }
-.win-tabs { display: flex; gap: 6px; margin: 16px 0 8px; }
-.win-tabs button { flex: 1; padding: 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font: inherit; font-size: 0.8rem; cursor: pointer; }
-.win-tabs button.active { color: var(--accent); border-color: var(--accent); }
+/* Zoomable timeline */
+.tl-bar { display: flex; align-items: center; gap: 8px; margin: 16px 0 8px; }
+.tl-hint { color: var(--muted); font-size: 0.72rem; }
+.zb { background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 8px; width: 34px; height: 34px; font-size: 18px; cursor: pointer; }
+.tl-host { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; touch-action: none; overflow: hidden; cursor: grab; }
+.tl-host:active { cursor: grabbing; }
+.tl-svg { width: 100%; height: auto; display: block; }
 .pain-graph { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px; }
 .pain-graph-placeholder { padding: 30px 10px; text-align: center; }
 .pain-svg { width: 100%; height: auto; display: block; }
