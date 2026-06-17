@@ -1,12 +1,5 @@
 // js/pain.js — pure helpers for pain tracking (no DOM)
 
-export const WINDOWS = [
-  { key: '1d', label: '1 day', ms: 24 * 3600 * 1000 },
-  { key: '3d', label: '3 days', ms: 3 * 24 * 3600 * 1000 },
-  { key: '1w', label: '1 week', ms: 7 * 24 * 3600 * 1000 },
-  { key: '2w', label: '2 weeks', ms: 14 * 24 * 3600 * 1000 },
-];
-
 // 0 none · 1-3 mild · 4-6 moderate · 7-10 severe
 export function severity(score) {
   if (score <= 0) return 'none';
@@ -15,17 +8,46 @@ export function severity(score) {
   return 'severe';
 }
 
-export function painInWindow(pain, windowMs, now) {
-  const cutoff = now - windowMs;
-  return pain.filter((p) => p.timestamp >= cutoff).sort((a, b) => a.timestamp - b.timestamp);
-}
-
-export function dosesInWindow(doses, windowMs, now) {
-  const cutoff = now - windowMs;
-  return doses.filter((d) => d.timestamp >= cutoff).sort((a, b) => a.timestamp - b.timestamp);
-}
-
 export function latestPain(pain) {
   if (!pain.length) return null;
   return pain.reduce((a, b) => (b.timestamp > a.timestamp ? b : a));
+}
+
+// Smooth green→red gradient: each 0–10 score gets its own colour (140° green → 0° red).
+export function painColor(score) {
+  const s = Math.max(0, Math.min(10, score));
+  return `hsl(${140 - (140 * s) / 10}, 75%, 52%)`;
+}
+
+const MED_PALETTE = ['#38bdf8', '#a78bfa', '#f472b6', '#f59e0b', '#34d399', '#fb7185', '#60a5fa', '#c084fc'];
+export function medColor(index) {
+  const i = ((index % MED_PALETTE.length) + MED_PALETTE.length) % MED_PALETTE.length;
+  return MED_PALETTE[i];
+}
+
+export const DETAIL_PXDAY = 90; // px-per-day at/above which the chart shows full detail
+export function lodMode(pxPerDay) {
+  return pxPerDay >= DETAIL_PXDAY ? 'detail' : 'overview';
+}
+
+export function startOfDay(ts) {
+  const d = new Date(ts);
+  d.setHours(0, 0, 0, 0);
+  return d.getTime();
+}
+
+export function isEarlyDose(curTs, prevTs, intervalHours) {
+  return prevTs != null && (curTs - prevTs) < intervalHours * 3600 * 1000;
+}
+
+// Map<dayStartMs, { [medId]: totalUnits }>
+export function medDayTotals(doses) {
+  const map = new Map();
+  for (const d of doses) {
+    const ds = startOfDay(d.timestamp);
+    if (!map.has(ds)) map.set(ds, {});
+    const m = map.get(ds);
+    m[d.medId] = (m[d.medId] || 0) + d.units;
+  }
+  return map;
 }
