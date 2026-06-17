@@ -1,6 +1,6 @@
 # DoseGrid
 
-DoseGrid — a tracker for as-needed (PRN) and short-course medicines: it shows when you're *allowed* to take more, not when you should.
+DoseGrid — a pain-management tracker for as-needed (PRN) and short-course medicines: log your pain score over time and see it against when you medicated. It shows when you're *allowed* to take more, not when you should.
 
 ## Disclaimer
 
@@ -15,7 +15,9 @@ DoseGrid is a **personal logging tool, not medical advice**. It ships **no dosin
 - Per-medication editable **strength per tablet** (optional, e.g. "200 mg"), dosing interval, and **maximum tablets per day**
 - Daily totals reset automatically at the start of each calendar day
 - **Tablet-based counting** — the limit and history are tracked in tablets, so logging "2" toward a max of 6 leaves 4 for the day
-- 48-hour dose history per medication, with the ability to edit a dose's time or delete an entry
+- **Pain tracking (primary focus):** report a 0–10 pain score any time (coloured by severity), with an optional note. The app opens on the **Pain** view (Meds grid one tap away)
+- **Pain overlay graph:** your pain plotted over time, each point coloured by severity, with medication doses marked on the timeline — across **1 day / 3 days / 1 week / 2 weeks** views
+- 14-day dose history per medication, with the ability to edit a dose's time or delete an entry
 - Works offline via a service worker (network-first: the latest version loads automatically when online, with the last-cached copy used offline)
 - All data stored on-device only (browser local storage) — no accounts, no syncing, no servers
 
@@ -56,6 +58,9 @@ node --test
 - [ ] Each tile shows the last-taken time.
 - [ ] Long-press a tile → 14-day history shows a daily-dose bar graph by default with a dashed daily-max line; toggle to List to edit a dose time or delete an entry (graph and tile recompute).
 - [ ] First launch shows the landing page ("Know when you can, not when you should") with a "Don't show this again" checkbox; the header ? button reopens it any time.
+- [ ] App opens on the **Pain** view; the header toggle switches to the **Meds** grid and back.
+- [ ] "＋ Log pain" → pick a 0–10 score (coloured by severity) + optional note → Save; the current-pain summary updates in the matching colour.
+- [ ] The graph shows pain points coloured by severity with a connecting line, plus cyan ticks where doses were taken; switching 1 day / 3 days / 1 week / 2 weeks rescales the axis.
 - [ ] Reload persists data; offline reload still loads the app (PWA).
 
 ## Project structure
@@ -69,6 +74,8 @@ node --test
 - `js/data.js` — loads and searches the medication dataset
 - `medications.json` — curated dataset of 142 medications (Australian generic and brand names), each tagged with a `category`, `form`, and sensible interval/max defaults
 - `js/categories.js` — category ids/labels and the PRN-vs-scheduled dose-type helper
+- `js/pain.js` — pure pain helpers (severity bands, time windows, in-window filters)
+- `js/painview.js` — the Pain view: current-pain summary, log sheet, and the severity-coloured overlay graph
 - `manifest.webmanifest` — PWA manifest (name, icons, display mode)
 - `service-worker.js` — offline caching (network-first)
 - `icons/` — app icons (192px and 512px)
