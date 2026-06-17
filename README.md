@@ -17,6 +17,7 @@ DoseGrid is a **personal logging tool, not medical advice**. It ships **no dosin
 - **Tablet-based counting** — the limit and history are tracked in tablets, so logging "2" toward a max of 6 leaves 4 for the day
 - **Pain tracking (primary focus):** report a 0–10 pain score any time (coloured by severity), with an optional note. The app opens on the **Pain** view (Meds grid one tap away)
 - **Zoomable timeline:** one continuous pinch-zoom + scrollable chart of pain over time (each point coloured green→red by severity) with your medication doses overlaid. Zoom in for individual scores + per-dose detail, out for a coloured pain line + per-med daily bars. History is unlimited; the most zoomed-out view is a fortnight. Day/hour background banding; tap any point or dose for its exact time and details
+- **Safety check (free):** logging a dose sooner than your set interval, or over your daily max, shows a confirm card with the facts and your country's nurse / poison-information help lines — you can still log it. Set your country on the welcome screen
 - 14-day dose history per medication, with the ability to edit a dose's time or delete an entry
 - Works offline via a service worker (network-first: the latest version loads automatically when online, with the last-cached copy used offline)
 - All data stored on-device only (browser local storage) — no accounts, no syncing, no servers
@@ -77,6 +78,8 @@ node --test
 - `js/pain.js` — pure pain helpers (severity bands, time windows, in-window filters)
 - `js/painview.js` — the Pain view: current-pain summary, log sheet, dose/pain detail sheets, and the timeline host
 - `js/timeline.js` — the zoomable, scrollable pain + dose timeline (pan/zoom, level-of-detail, banding)
+- `js/safety.js` — pre-log dose safety check (early / over-max)
+- `js/helplines.js` — per-country drug-advice/poison help lines + country setting
 - `manifest.webmanifest` — PWA manifest (name, icons, display mode)
 - `service-worker.js` — offline caching (network-first)
 - `icons/` — app icons (192px and 512px)
