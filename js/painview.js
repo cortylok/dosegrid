@@ -1,5 +1,5 @@
 // js/painview.js — the Pain view: current-pain summary, log sheet, and overlay graph.
-import { loadPain, addPain, loadDoses, loadMeds } from './storage.js';
+import { loadPain, savePain, addPain, loadDoses, loadMeds } from './storage.js';
 import { WINDOWS, severity, painInWindow, dosesInWindow, latestPain } from './pain.js';
 import { openSheet, closeModal, modalRoot } from './ui.js';
 
@@ -7,7 +7,13 @@ let currentWindow = '1d';
 
 const painViewEl = () => document.getElementById('pain-view');
 
-const SEV_COLOR = { none: '#4ade80', mild: '#4ade80', moderate: '#fbbf24', severe: '#f87171' };
+// Smooth green→red gradient: each 0–10 score gets its own colour along an HSL ramp
+// (140° green at 0 → 0° red at 10).
+function painColor(score) {
+  const s = Math.max(0, Math.min(10, score));
+  const hue = 140 - (140 * s) / 10;
+  return `hsl(${hue}, 75%, 52%)`;
+}
 
 function fmtRelative(ts) {
   const mins = Math.round((Date.now() - ts) / 60000);
@@ -26,7 +32,7 @@ export function renderPainView() {
   const pain = loadPain();
   const last = latestPain(pain);
   const summary = last
-    ? `<div class="pain-now"><div class="pain-score" style="color:${SEV_COLOR[severity(last.score)]}">${last.score}<span>/10</span></div>` +
+    ? `<div class="pain-now"><div class="pain-score" style="color:${painColor(last.score)}">${last.score}<span>/10</span></div>` +
       `<div class="pain-meta">${severity(last.score)} · logged ${fmtRelative(last.timestamp)}${last.note ? `<br><span class="muted">“${last.note}”</span>` : ''}</div></div>`
     : `<div class="pain-now muted">No pain logged yet. Tap “Log pain” to start.</div>`;
 
@@ -52,12 +58,35 @@ export function renderPainView() {
   painViewEl().querySelector('#log-pain').addEventListener('click', openPainLog);
   painViewEl().querySelectorAll('.win-tabs button').forEach((b) =>
     b.addEventListener('click', () => { currentWindow = b.dataset.win; renderPainView(); }));
+  painViewEl().querySelectorAll('.pain-hit').forEach((el) =>
+    el.addEventListener('click', () => openPainDetail(el.dataset.id)));
+}
+
+export function openPainDetail(id) {
+  const entry = loadPain().find((p) => p.id === id);
+  if (!entry) return;
+  const when = new Date(entry.timestamp).toLocaleString([],
+    { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+  openSheet(
+    `<h2 style="color:${painColor(entry.score)}">Pain ${entry.score}/10 <span class="muted" style="color:var(--muted)">· ${severity(entry.score)}</span></h2>` +
+    `<p class="muted">${when}</p>` +
+    `<p>${entry.note ? entry.note.replace(/</g, '&lt;') : '<span class="muted">No note added.</span>'}</p>` +
+    `<div class="btn-row"><button class="btn danger" id="pd-del">Delete</button>` +
+    `<button class="btn" id="pd-close">Close</button></div>`
+  );
+  modalRoot().querySelector('#pd-close').addEventListener('click', closeModal);
+  modalRoot().querySelector('#pd-del').addEventListener('click', () => {
+    if (!confirm('Delete this pain entry?')) return;
+    savePain(loadPain().filter((p) => p.id !== id));
+    closeModal();
+    renderPainView();
+  });
 }
 
 export function openPainLog() {
   let selected = null;
   const scale = Array.from({ length: 11 }, (_, n) =>
-    `<button class="pain-pick" data-score="${n}" style="--sev:${SEV_COLOR[severity(n)]}">${n}</button>`).join('');
+    `<button class="pain-pick" data-score="${n}" style="--sev:${painColor(n)};border-color:${painColor(n)}">${n}</button>`).join('');
   openSheet(
     `<h2>How bad is your pain right now?</h2>` +
     `<div class="pain-scale">${scale}</div>` +
@@ -120,9 +149,13 @@ function painGraphSvg(painEntries, doses, medNames, windowMs, now) {
       const pts = painEntries.map((p) => `${x(p.timestamp)},${y(p.score)}`).join(' ');
       line = `<polyline points="${pts}" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="2"/>`;
     }
-    dots = painEntries.map((p) =>
-      `<circle cx="${x(p.timestamp)}" cy="${y(p.score)}" r="4" fill="${SEV_COLOR[severity(p.score)]}">` +
-      `<title>Pain ${p.score}/10 · ${fmtClock(p.timestamp)}${p.note ? ` · ${p.note}` : ''}</title></circle>`).join('');
+    dots = painEntries.map((p) => {
+      const cx = x(p.timestamp), cy = y(p.score);
+      const ring = p.note ? ` stroke="#f8fafc" stroke-width="2"` : '';
+      return `<circle cx="${cx}" cy="${cy}" r="5" fill="${painColor(p.score)}"${ring}/>` +
+        `<circle class="pain-hit" data-id="${p.id}" cx="${cx}" cy="${cy}" r="11" fill="transparent" style="cursor:pointer">` +
+        `<title>Pain ${p.score}/10 · ${fmtClock(p.timestamp)}${p.note ? ` · ${p.note}` : ' · (tap for details)'}</title></circle>`;
+    }).join('');
   }
 
   const baseY = H - padB;

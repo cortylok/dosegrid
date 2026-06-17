@@ -412,8 +412,13 @@ export function showLanding(opts = {}) {
       `<span>Each dose starts a countdown to when the next one is allowed.</span></div></div>` +
     `<div class="pt"><div class="ic">🛑</div><div><b>Respect the max</b>` +
       `<span>Tiles turn red once you've hit the safe daily limit.</span></div></div>` +
+    `<div class="pt"><div class="ic">📈</div><div><b>Track your pain</b>` +
+      `<span>Log a 0–10 pain score any time (0 = none, 10 = worst imaginable). The graph ` +
+      `colours each score from green through to red and overlays your doses, so you can see ` +
+      `pain against when you medicated — over 1 day, 3 days, 1 week or a fortnight.</span></div></div>` +
     `<div class="pt"><div class="ic">🔒</div><div><b>Stays on your phone</b>` +
       `<span>No account, no cloud — your data never leaves the device.</span></div></div>` +
+    `<div class="pain-legend"><span>0 None</span><div class="grad"></div><span>10 Worst</span></div>` +
     dismissRow +
     `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
     `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +

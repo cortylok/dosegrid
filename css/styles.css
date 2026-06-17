@@ -120,3 +120,6 @@ body {
 .pain-pick { aspect-ratio: 1; border-radius: 10px; border: 2px solid var(--line); background: var(--surface); color: var(--text); font: inherit; font-weight: 700; cursor: pointer; }
 .pain-pick.sel { border-color: var(--sev); background: var(--sev); color: #06222a; }
 @media (min-width: 420px) { .pain-scale { grid-template-columns: repeat(11, 1fr); } }
+/* Severity gradient legend (landing + reference) */
+.pain-legend { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 0.72rem; color: var(--muted); }
+.pain-legend .grad { flex: 1; height: 8px; border-radius: 4px; background: linear-gradient(to right, hsl(140,75%,52%), hsl(95,75%,50%), hsl(60,80%,52%), hsl(30,85%,52%), hsl(0,75%,52%)); }
