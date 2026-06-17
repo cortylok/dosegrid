@@ -3,6 +3,8 @@ import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid } f
 import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
+import { checkDose } from './safety.js';
+import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS } from './helplines.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -108,13 +110,83 @@ function openDoseSheet(med) {
   );
   modalRoot().querySelectorAll('[data-units]').forEach((b) =>
     b.addEventListener('click', () => {
-      addDose(med.id, parseFloat(b.dataset.units));
-      closeModal();
-      renderGrid();
+      const units = parseFloat(b.dataset.units);
+      const commit = () => { addDose(med.id, units); closeModal(); renderGrid(); };
+      const info = checkDose(med, loadDoses(), units, Date.now());
+      if (info) openDoseWarning(med, units, info, commit); else commit();
     })
   );
   modalRoot().querySelector('#edit-med').addEventListener('click', () => openEditMed(med));
   modalRoot().querySelector('#view-hist').addEventListener('click', () => openHistory(med));
+}
+
+function fmtGap(ms) {
+  if (ms == null) return 'some time';
+  const mins = Math.round(ms / 60000);
+  if (mins < 60) return `${mins} min`;
+  const h = Math.floor(mins / 60), m = mins % 60;
+  return m ? `${h} h ${m} min` : `${h} h`;
+}
+
+function helpLinesHtml(code) {
+  const hl = helpLinesFor(code);
+  let body;
+  if (hl.advice.length) {
+    body = hl.advice.map((a) =>
+      `<a class="help-line" href="tel:${a.number.replace(/\s/g, '')}"><span>${a.label}` +
+      `${a.note ? `<small>${a.note}</small>` : ''}</span><span class="num">${a.number}</span></a>`).join('');
+  } else {
+    body = `<a class="help-line" href="${hl.directory.url}" target="_blank" rel="noopener">` +
+      `<span>${hl.directory.label}<small>Find your nearest centre</small></span><span class="num">↗</span></a>` +
+      `<p class="caution">Or contact your doctor or pharmacist. In an emergency, call your local emergency number.</p>`;
+  }
+  return `<div class="help"><div class="h">Need advice?</div>${body}</div>`;
+}
+
+function openDoseWarning(med, units, info, onConfirm) {
+  const code = getCountry();
+  const over = info.type === 'over';
+  const facts = over
+    ? `This would make <b>${info.resultingUnits}</b> tablet${info.resultingUnits === 1 ? '' : 's'} of <b>${med.name}</b> today — more than your daily max of <b>${info.maxDailyUnits}</b>.`
+    : `You last took <b>${med.name}</b> <b>${fmtGap(info.gapMs)}</b> ago. The minimum gap you set is <b>${info.intervalHours} h</b>.`;
+  const caution = over
+    ? `Going over your daily limit can be harmful. Please double-check the label, and get advice if you're unsure.`
+    : `Taking doses closer together than directed can be unsafe. If you're unsure what to do, it's worth getting advice.`;
+  openSheet(
+    `<div class="warn-ico ${over ? 'over' : ''}">${over ? '🛑' : '⏱'}</div>` +
+    `<h2>${over ? "That's over your daily limit" : "That's sooner than usual"}</h2>` +
+    `<div class="facts">${facts}</div>` +
+    `<p class="caution">${caution}</p>` +
+    helpLinesHtml(code) +
+    `<div class="btn-row"><button class="btn secondary" id="dw-cancel">Cancel</button>` +
+    `<button class="btn ${over ? 'danger' : ''}" id="dw-go">Log it anyway</button></div>` +
+    `<div class="country-note">Help lines for <b>${helpLinesFor(code).country}</b>. ` +
+    `<a href="#" id="dw-country">Change country</a></div>`
+  );
+  modalRoot().querySelector('#dw-cancel').addEventListener('click', closeModal);
+  modalRoot().querySelector('#dw-go').addEventListener('click', () => onConfirm());
+  modalRoot().querySelector('#dw-country').addEventListener('click', (e) => {
+    e.preventDefault();
+    openCountryPicker(() => openDoseWarning(med, units, info, onConfirm));
+  });
+}
+
+function openCountryPicker(onDone) {
+  const cur = getCountry();
+  const opts = COUNTRY_OPTIONS.map(([c, name]) => `<option value="${c}"${c === cur ? ' selected' : ''}>${name}</option>`).join('');
+  openSheet(
+    `<h2>Your country</h2>` +
+    `<p class="muted">Used to show the right help lines. Stored only on this device.</p>` +
+    `<div class="field"><label>Country</label><select id="cp-sel">${opts}</select></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="cp-cancel">Cancel</button>` +
+    `<button class="btn" id="cp-save">Save</button></div>`
+  );
+  modalRoot().querySelector('#cp-cancel').addEventListener('click', closeModal);
+  modalRoot().querySelector('#cp-save').addEventListener('click', () => {
+    setCountry(modalRoot().querySelector('#cp-sel').value);
+    closeModal();
+    if (typeof onDone === 'function') onDone();
+  });
 }
 
 async function openPicker() {
@@ -419,6 +491,9 @@ export function showLanding(opts = {}) {
     `<div class="pt"><div class="ic">🔒</div><div><b>Stays on your phone</b>` +
       `<span>No account, no cloud — your data never leaves the device.</span></div></div>` +
     `<div class="pain-legend"><span>0 None</span><div class="grad"></div><span>10 Worst</span></div>` +
+    `<div class="field"><label>Your country (for help lines)</label><select id="land-country">` +
+    COUNTRY_OPTIONS.map(([c, name]) => `<option value="${c}"${c === getCountry() ? ' selected' : ''}>${name}</option>`).join('') +
+    `</select></div>` +
     dismissRow +
     `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
     `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +
@@ -426,6 +501,7 @@ export function showLanding(opts = {}) {
     `Never exceed the stated dose. In an emergency, call <strong>000</strong>.</p>` +
     `</div>`
   );
+  modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
     const cb = modalRoot().querySelector('#land-dismiss');
     if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();
