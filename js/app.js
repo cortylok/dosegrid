@@ -24,6 +24,9 @@ function setView(view) {
 document.getElementById('tab-pain').addEventListener('click', () => setView('pain'));
 document.getElementById('tab-meds').addEventListener('click', () => setView('meds'));
 
+// Start on the Meds grid by default
+setView('meds');
+
 // First launch → landing page (unchanged)
 if (!localStorage.getItem(ONBOARD_KEY)) {
   showLanding({ showDismiss: true, onDismiss: () => localStorage.setItem(ONBOARD_KEY, '1') });

@@ -1,6 +1,6 @@
 // js/painview.js — the Pain view: current-pain summary, log sheet, and zoomable timeline.
 import { loadPain, savePain, addPain, loadMeds } from './storage.js';
-import { severity, latestPain, painColor } from './pain.js';
+import { severity, latestPain, painColor, medColor } from './pain.js';
 import { openSheet, closeModal, modalRoot } from './ui.js';
 import { createTimeline } from './timeline.js';
 
@@ -24,12 +24,18 @@ export function renderPainView() {
       `<div class="pain-meta">${severity(last.score)} · logged ${fmtRelative(last.timestamp)}${last.note ? `<br><span class="muted">“${last.note}”</span>` : ''}</div></div>`
     : `<div class="pain-now muted">No pain logged yet. Tap “Log pain” to start.</div>`;
 
+  const meds = loadMeds().slice().sort((a, b) => (a.order || 0) - (b.order || 0));
+  const legend = meds.length
+    ? `<div class="tl-legend">` + meds.map((m) => `<span><i style="background:${medColor(m.order || 0)}"></i>${m.name}</span>`).join('') + `</div>`
+    : '';
+
   painViewEl().innerHTML =
     summary +
     `<button class="btn pain-log-btn" id="log-pain">＋ Log pain</button>` +
-    `<div class="tl-bar"><span class="tl-hint">Drag to scroll · pinch / scroll to zoom</span>` +
+    `<div class="tl-bar"><span class="tl-hint">Drag · pinch to zoom</span>` +
       `<span style="flex:1"></span><button class="zb" id="tl-out">–</button><button class="zb" id="tl-in">+</button></div>` +
-    `<div class="tl-host" id="tl-host"></div>`;
+    `<div class="tl-host" id="tl-host"></div>` +
+    legend;
 
   painViewEl().querySelector('#log-pain').addEventListener('click', openPainLog);
   const hostEl = painViewEl().querySelector('#tl-host');

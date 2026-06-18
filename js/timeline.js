@@ -84,7 +84,7 @@ export function createTimeline(host, { onPainClick, onDoseClick } = {}) {
         const cx = X(p.timestamp).toFixed(1), cy = Y(p.score).toFixed(1);
         const ring = p.note ? ' stroke="#f8fafc" stroke-width="2"' : '';
         s += `<circle cx="${cx}" cy="${cy}" r="4.5" fill="${painColor(p.score)}"${ring}/>`;
-        s += `<circle cx="${cx}" cy="${cy}" r="13" fill="transparent" data-pain="${p.id}" style="cursor:pointer"/>`;
+        s += `<circle cx="${cx}" cy="${cy}" r="17" fill="transparent" data-pain="${p.id}" style="cursor:pointer"/>`;
       }
     } else {
       for (let i = 1; i < vis.length; i++) {
@@ -93,7 +93,7 @@ export function createTimeline(host, { onPainClick, onDoseClick } = {}) {
       }
       for (const p of vis) if (p.note) {
         const cx = X(p.timestamp).toFixed(1), cy = Y(p.score).toFixed(1);
-        s += `<circle cx="${cx}" cy="${cy}" r="3.2" fill="#f8fafc"/><circle cx="${cx}" cy="${cy}" r="13" fill="transparent" data-pain="${p.id}" style="cursor:pointer"/>`;
+        s += `<circle cx="${cx}" cy="${cy}" r="3.2" fill="#f8fafc"/><circle cx="${cx}" cy="${cy}" r="17" fill="transparent" data-pain="${p.id}" style="cursor:pointer"/>`;
       }
     }
 
@@ -114,8 +114,9 @@ export function createTimeline(host, { onPainClick, onDoseClick } = {}) {
         lastTs[d.medId] = d.timestamp;
         const x = X(d.timestamp).toFixed(1);
         s += `<line x1="${x}" y1="${laneBot}" x2="${x}" y2="${top.toFixed(1)}" stroke="${m.color}" stroke-width="3"/>`;
-        s += `<circle cx="${x}" cy="${top.toFixed(1)}" r="7" fill="${m.color}"${early ? ' stroke="#fbbf24" stroke-width="2"' : ''} data-dose="${d.id}" style="cursor:pointer"/>`;
+        s += `<circle cx="${x}" cy="${top.toFixed(1)}" r="7" fill="${m.color}"${early ? ' stroke="#fbbf24" stroke-width="2"' : ''}/>`;
         s += `<text x="${x}" y="${(top + 3).toFixed(1)}" font-size="8" fill="#06222a" text-anchor="middle" font-weight="700" pointer-events="none">${d.units}</text>`;
+        s += `<circle cx="${x}" cy="${top.toFixed(1)}" r="16" fill="transparent" data-dose="${d.id}" style="cursor:pointer"/>`;
       }
     } else {
       const totals = medDayTotals(visDoses);
