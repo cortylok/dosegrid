@@ -554,6 +554,7 @@ export function showLanding(opts = {}) {
     `<div class="field"><label>Your country (for help lines)</label><select id="land-country">` +
     COUNTRY_OPTIONS.map(([c, name]) => `<option value="${c}"${c === getCountry() ? ' selected' : ''}>${name}</option>`).join('') +
     `</select></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="land-pro">${isPro() ? 'DoseGrid Pro ✓ Active' : 'DoseGrid Pro ✦ — unlock full history'}</button></div>` +
     dismissRow +
     `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
     `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +
@@ -562,6 +563,7 @@ export function showLanding(opts = {}) {
     `</div>`
   );
   modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
+  modalRoot().querySelector('#land-pro')?.addEventListener('click', () => { closeModal(); openPaywall(); });
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
     const cb = modalRoot().querySelector('#land-dismiss');
     if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();
