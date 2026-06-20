@@ -4,7 +4,37 @@
     "brands": [
       "Panadol",
       "Dymadon",
-      "Panamax"
+      "Panamax",
+      "Acetaminophen",
+      "Tylenol",
+      "Calpol",
+      "Doliprane",
+      "Dafalgan",
+      "Efferalgan",
+      "Ben-u-ron",
+      "Tachipirina",
+      "Alvedon",
+      "Panodil",
+      "Crocin",
+      "Depon",
+      "Paralen",
+      "Biogesic",
+      "Acamol",
+      "Panado",
+      "Tempra",
+      "Apap",
+      "Mexalen",
+      "Hedex",
+      "Parol",
+      "Napa",
+      "Sara",
+      "Sanmol",
+      "Gelocatil",
+      "Calonal",
+      "Pamol",
+      "Febridol",
+      "Herron",
+      "Tafirol"
     ],
     "category": "pain-fever",
     "strengths": [
@@ -20,7 +50,32 @@
     "brands": [
       "Nurofen",
       "Advil",
-      "Brufen"
+      "Brufen",
+      "Motrin",
+      "Calprofen",
+      "Dolormin",
+      "Ibuflam",
+      "Moment",
+      "Neobrufen",
+      "Ibuprom",
+      "Ipren",
+      "Ibux",
+      "Ibumetin",
+      "Burana",
+      "Algofren",
+      "Ibalgin",
+      "Ibupirac",
+      "Actron",
+      "Alivium",
+      "Ibuprodol",
+      "Fenbid",
+      "Algifor",
+      "Irfen",
+      "Buscofem",
+      "Panafen",
+      "Fenpaed",
+      "Sapofen",
+      "Dorival"
     ],
     "category": "pain-fever",
     "strengths": [
@@ -36,7 +91,18 @@
     "generic": "Aspirin",
     "brands": [
       "Aspro",
-      "Disprin"
+      "Disprin",
+      "Acetylsalicylic acid",
+      "Bayer",
+      "Bufferin",
+      "Ecotrin",
+      "Aspirina",
+      "Bayaspirina",
+      "Aspégic",
+      "Ecosprin",
+      "Aspocid",
+      "Cartia",
+      "Astrix"
     ],
     "category": "pain-fever",
     "strengths": [
@@ -52,7 +118,14 @@
     "brands": [
       "Naprogesic",
       "Aleve",
-      "Naprosyn"
+      "Naprosyn",
+      "Flanax",
+      "Apronax",
+      "Feminax",
+      "Pronaxen",
+      "Momendol",
+      "Naxdom",
+      "Anaprox"
     ],
     "category": "pain-fever",
     "strengths": [
@@ -68,7 +141,14 @@
     "generic": "Diclofenac",
     "brands": [
       "Voltaren",
-      "Fenac"
+      "Fenac",
+      "Cataflam",
+      "Voltarol",
+      "Voltarène",
+      "Diclac",
+      "Olfen",
+      "Dicloran",
+      "Catafast"
     ],
     "category": "pain-fever",
     "strengths": [
@@ -84,7 +164,10 @@
   {
     "generic": "Diclofenac topical gel",
     "brands": [
-      "Voltaren Emulgel"
+      "Voltaren Emulgel",
+      "Voltarol Gel",
+      "Voltaren Schmerzgel",
+      "Diclac Gel"
     ],
     "category": "pain-fever",
     "defaultIntervalHours": 6,
@@ -95,7 +178,21 @@
     "generic": "Cetirizine",
     "brands": [
       "Zyrtec",
-      "Zilarex"
+      "Zilarex",
+      "Reactine",
+      "Zirtek",
+      "Piriteze",
+      "Zirtec",
+      "Virlix",
+      "Cetzine",
+      "Alerid",
+      "Texa",
+      "Allercet",
+      "Allertec",
+      "Alatrol",
+      "Razene",
+      "Histaclear",
+      "Cetrix"
     ],
     "category": "allergy",
     "strengths": [
@@ -109,7 +206,16 @@
   {
     "generic": "Loratadine",
     "brands": [
-      "Claratyne"
+      "Claratyne",
+      "Claritin",
+      "Clarityne",
+      "Clarityn",
+      "Claritine",
+      "Lisino",
+      "Lorano",
+      "Lorfast",
+      "Flonidan",
+      "Loraclear"
     ],
     "category": "allergy",
     "strengths": [
@@ -124,7 +230,13 @@
     "generic": "Fexofenadine",
     "brands": [
       "Telfast",
-      "Fexotabs"
+      "Fexotabs",
+      "Allegra",
+      "Allevia",
+      "Fexova",
+      "Fexo",
+      "Xergic",
+      "Fexaclear"
     ],
     "category": "allergy",
     "strengths": [
@@ -140,7 +252,12 @@
   {
     "generic": "Desloratadine",
     "brands": [
-      "Aerius"
+      "Aerius",
+      "Clarinex",
+      "Azomyr",
+      "Aviant",
+      "Desalex",
+      "Neoclarityn"
     ],
     "category": "allergy",
     "strengths": [
@@ -154,7 +271,8 @@
   {
     "generic": "Promethazine",
     "brands": [
-      "Phenergan"
+      "Phenergan",
+      "Avomine"
     ],
     "category": "allergy",
     "strengths": [
@@ -306,7 +424,8 @@
     "generic": "Azithromycin",
     "brands": [
       "Zithromax",
-      "Zedd"
+      "Zedd",
+      "Z-Pak"
     ],
     "category": "antibiotic",
     "strengths": [
@@ -383,7 +502,12 @@
   {
     "generic": "Metoclopramide",
     "brands": [
-      "Maxolon"
+      "Maxolon",
+      "Reglan",
+      "Primperan",
+      "Plasil",
+      "Perinorm",
+      "Pramin"
     ],
     "category": "nausea",
     "strengths": [
@@ -412,7 +536,10 @@
   {
     "generic": "Domperidone",
     "brands": [
-      "Motilium"
+      "Motilium",
+      "Domstal",
+      "Vomistop",
+      "Vometa"
     ],
     "category": "nausea",
     "strengths": [
@@ -441,7 +568,17 @@
   {
     "generic": "Dimenhydrinate",
     "brands": [
-      "Andrews Antinauseant"
+      "Andrews Antinauseant",
+      "Dramamine",
+      "Gravol",
+      "Dramin",
+      "Vomex",
+      "Xamamina",
+      "Biodramina",
+      "Aviomarin",
+      "Dramina",
+      "Antimo",
+      "Nausicalm"
     ],
     "category": "nausea",
     "strengths": [
@@ -478,7 +615,13 @@
     "generic": "Famotidine",
     "brands": [
       "Pepcidine",
-      "Pepzan"
+      "Pepzan",
+      "Pepcid",
+      "Pepcid AC",
+      "Gaster",
+      "Quamatel",
+      "Famocid",
+      "Famox"
     ],
     "category": "reflux",
     "strengths": [
@@ -494,7 +637,19 @@
     "generic": "Omeprazole",
     "brands": [
       "Losec",
-      "Acimax"
+      "Acimax",
+      "Prilosec",
+      "Olex",
+      "Omez",
+      "Risek",
+      "Mopral",
+      "Helicid",
+      "Losectil",
+      "Gasec",
+      "Inhibitron",
+      "Ulcorex",
+      "Probitor",
+      "Omezol"
     ],
     "category": "reflux",
     "strengths": [
@@ -510,7 +665,14 @@
   {
     "generic": "Pantoprazole",
     "brands": [
-      "Somac"
+      "Somac",
+      "Pantozol",
+      "Pantoloc",
+      "Controloc",
+      "Pantocid",
+      "Pantorc",
+      "Tecta",
+      "Salpraz"
     ],
     "category": "reflux",
     "strengths": [
@@ -526,7 +688,11 @@
   {
     "generic": "Esomeprazole",
     "brands": [
-      "Nexium"
+      "Nexium",
+      "Nexium Control",
+      "Inexium",
+      "Nexiam",
+      "Nexpro"
     ],
     "category": "reflux",
     "strengths": [
@@ -588,7 +754,9 @@
     "generic": "Dextromethorphan",
     "brands": [
       "Robitussin Dry",
-      "Bisolvon Dry"
+      "Bisolvon Dry",
+      "Delsym",
+      "Benylin"
     ],
     "category": "cough-cold",
     "defaultIntervalHours": 6,
@@ -624,7 +792,14 @@
     "generic": "Loperamide",
     "brands": [
       "Imodium",
-      "Gastro-Stop"
+      "Gastro-Stop",
+      "Fortasec",
+      "Lopedium",
+      "Laremid",
+      "Imosec",
+      "Stoperan",
+      "Eldoper",
+      "Diocalm"
     ],
     "category": "gut",
     "strengths": [
@@ -713,7 +888,9 @@
   {
     "generic": "Sumatriptan",
     "brands": [
-      "Imigran"
+      "Imigran",
+      "Imitrex",
+      "Imigran Recovery"
     ],
     "category": "migraine",
     "strengths": [
@@ -784,7 +961,8 @@
   {
     "generic": "Hyoscine butylbromide",
     "brands": [
-      "Buscopan"
+      "Buscopan",
+      "Buscapina"
     ],
     "category": "cramps",
     "strengths": [
@@ -812,7 +990,11 @@
   {
     "generic": "Mefenamic acid",
     "brands": [
-      "Ponstan"
+      "Ponstan",
+      "Ponstel",
+      "Meftal",
+      "Dolfenal",
+      "Pontal"
     ],
     "category": "cramps",
     "strengths": [
@@ -892,7 +1074,8 @@
   {
     "generic": "Melatonin",
     "brands": [
-      "Circadin"
+      "Circadin",
+      "Natrol"
     ],
     "category": "sleep",
     "strengths": [
@@ -907,7 +1090,11 @@
     "generic": "Doxylamine",
     "brands": [
       "Restavit",
-      "Dozile"
+      "Dozile",
+      "Unisom",
+      "Donormyl",
+      "Dormidina",
+      "Hoggar Night"
     ],
     "category": "sleep",
     "strengths": [
@@ -1075,7 +1262,9 @@
     "brands": [
       "Ventolin",
       "Asmol",
-      "Airomir"
+      "Airomir",
+      "Albuterol",
+      "ProAir"
     ],
     "category": "reliever",
     "defaultIntervalHours": 4,
@@ -1884,7 +2073,12 @@
   {
     "generic": "Diphenhydramine",
     "brands": [
-      "Unisom"
+      "Unisom",
+      "Benadryl",
+      "Nytol",
+      "Sominex",
+      "Drewell",
+      "Sedaplus"
     ],
     "category": "allergy",
     "strengths": [
@@ -1898,7 +2092,16 @@
   },
   {
     "generic": "Chlorphenamine",
-    "brands": [],
+    "brands": [
+      "Chlorpheniramine",
+      "Piriton",
+      "Chlor-Trimeton",
+      "Allergex",
+      "Avil",
+      "CTM",
+      "Clorotrimeton",
+      "Chlor-Tripolon"
+    ],
     "category": "allergy",
     "strengths": [
       4
