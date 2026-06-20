@@ -1,7 +1,7 @@
 // js/painview.js — the Pain view: current-pain summary, log sheet, and zoomable timeline.
 import { loadPain, savePain, addPain, loadMeds } from './storage.js';
 import { severity, latestPain, painColor, medColor } from './pain.js';
-import { openSheet, closeModal, modalRoot } from './ui.js';
+import { openSheet, closeModal, modalRoot, openPaywall } from './ui.js';
 import { createTimeline } from './timeline.js';
 
 const painViewEl = () => document.getElementById('pain-view');
@@ -39,7 +39,7 @@ export function renderPainView() {
 
   painViewEl().querySelector('#log-pain').addEventListener('click', openPainLog);
   const hostEl = painViewEl().querySelector('#tl-host');
-  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail });
+  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail, onUpgrade: openPaywall });
   timeline.render();
   const zoom = (deltaY) => hostEl.dispatchEvent(new WheelEvent('wheel', { deltaY, clientX: hostEl.getBoundingClientRect().left + hostEl.clientWidth / 2, cancelable: true }));
   painViewEl().querySelector('#tl-in').addEventListener('click', () => zoom(-240));
