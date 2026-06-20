@@ -5,6 +5,7 @@ import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
+import { isPro, purchasePro, restorePurchases } from './pro.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -473,6 +474,45 @@ function wireHistoryList(med) {
       openHistory(med, 'list');
       renderGrid();
     });
+  });
+}
+
+const PRO_PRICE = '$4.99'; // placeholder until the store product is created
+
+function refreshViews() { document.dispatchEvent(new CustomEvent('dosegrid:refresh')); }
+
+export function openPaywall() {
+  if (isPro()) {
+    openSheet(
+      `<h2>DoseGrid Pro ✓</h2>` +
+      `<p class="muted">Pro is active — your full history is unlocked.</p>` +
+      `<div class="btn-row"><button class="btn" id="pw-close">Close</button></div>`
+    );
+    modalRoot().querySelector('#pw-close').addEventListener('click', closeModal);
+    return;
+  }
+  openSheet(
+    `<h2>DoseGrid Pro</h2>` +
+    `<p class="lead">Keep your full medication &amp; pain history — not just the last 24 hours.</p>` +
+    `<div class="pt"><div class="ic">📈</div><div><b>Unlimited history</b>` +
+      `<span>Scroll and chart pain &amp; doses across weeks, months and years.</span></div></div>` +
+    `<div class="pt"><div class="ic">🔓</div><div><b>One-time unlock</b>` +
+      `<span>Pay once. No subscription.</span></div></div>` +
+    `<div class="pt"><div class="ic">🛟</div><div><b>Safety stays free</b>` +
+      `<span>Early-dose and daily-limit warnings are always free.</span></div></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="pw-restore">Restore</button>` +
+      `<button class="btn" id="pw-buy">Unlock — ${PRO_PRICE}</button></div>` +
+    `<p class="disc muted">Your data already stays on your device. Pro only changes how much of it you can see.</p>`
+  );
+  modalRoot().querySelector('#pw-buy').addEventListener('click', async () => {
+    await purchasePro();
+    closeModal();
+    refreshViews();
+  });
+  modalRoot().querySelector('#pw-restore').addEventListener('click', async () => {
+    const ok = await restorePurchases();
+    closeModal();
+    if (ok) refreshViews();
   });
 }
 
