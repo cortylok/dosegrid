@@ -27,3 +27,30 @@ test('COUNTRY_OPTIONS covers the data + an Other entry', () => {
   const codes = COUNTRY_OPTIONS.map((o) => o[0]);
   assert.ok(codes.includes('AU') && codes.includes('other'));
 });
+
+test('COUNTRY_OPTIONS is sorted by name with Other last, one per HELP_LINES entry', () => {
+  assert.equal(COUNTRY_OPTIONS.length, Object.keys(HELP_LINES).length);
+  assert.equal(COUNTRY_OPTIONS[COUNTRY_OPTIONS.length - 1][0], 'other');
+  const names = COUNTRY_OPTIONS.slice(0, -1).map((o) => o[1]);
+  assert.deepEqual(names, [...names].sort((a, b) => a.localeCompare(b)));
+});
+
+test('expanded coverage: a newly-added country (Germany) leads with a public advice line', () => {
+  const de = helpLinesFor('DE');
+  assert.equal(de.country, 'Germany');
+  assert.ok(de.advice.length >= 1);
+  assert.equal(de.advice[0].kind, 'nurse');
+  assert.equal(de.advice[0].number, '116117');
+  assert.equal(de.emergency.number, '112');
+});
+
+test('every advice line is nurse or poison and has a number; non-other entries carry advice', () => {
+  for (const [code, e] of Object.entries(HELP_LINES)) {
+    if (code === 'other') continue;
+    assert.ok(e.advice.length >= 1, `${code} has no advice line`);
+    for (const a of e.advice) {
+      assert.ok(a.kind === 'nurse' || a.kind === 'poison', `${code}: bad kind ${a.kind}`);
+      assert.ok(a.number && a.number.trim(), `${code}: missing number`);
+    }
+  }
+});
