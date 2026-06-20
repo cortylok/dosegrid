@@ -146,3 +146,8 @@ body {
 .hist-unlock, .tl-lock { display:block; width:100%; margin-top:10px; padding:10px;
   background:rgba(34,211,238,0.08); color:#67e8f9; border:1px solid rgba(34,211,238,0.35);
   border-radius:10px; font-size:13px; text-align:center; cursor:pointer; }
+.pro-nudge { display:flex; align-items:center; gap:8px; margin-bottom:10px; padding:9px 12px;
+  background:rgba(34,211,238,0.08); border:1px solid rgba(34,211,238,0.3); border-radius:10px;
+  font-size:13px; color:#cbd5e1; }
+.pro-nudge a { color:#67e8f9; }
+.pro-nudge button { margin-left:auto; background:none; border:none; color:#94a3b8; cursor:pointer; font-size:14px; }
