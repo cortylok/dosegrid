@@ -6,6 +6,7 @@ import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 import { isPro, purchasePro, restorePurchases } from './pro.js';
+import { visibleWindow, hiddenCount } from './gating.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -407,19 +408,26 @@ function openEditMed(med) {
 
 function openHistory(med, view = 'graph') {
   const now = Date.now();
+  const pro = isPro();
+  // Free users get the 24h list only (the 14-day graph is a Pro view).
+  if (!pro) view = 'list';
+  const title = pro ? 'last 14 days' : 'last 24 hours';
   const sheetBody = view === 'graph' ? historyGraphHtml(med, now) : historyListHtml(med, now);
   openSheet(
-    `<h2>${med.name} — last 14 days</h2>` +
-    `<div class="hist-toggle">` +
-      `<button data-v="graph" class="${view === 'graph' ? 'active' : ''}">Graph</button>` +
-      `<button data-v="list" class="${view === 'list' ? 'active' : ''}">List</button>` +
-    `</div>` +
+    `<h2>${med.name} — ${title}</h2>` +
+    (pro
+      ? `<div class="hist-toggle">` +
+        `<button data-v="graph" class="${view === 'graph' ? 'active' : ''}">Graph</button>` +
+        `<button data-v="list" class="${view === 'list' ? 'active' : ''}">List</button>` +
+        `</div>`
+      : '') +
     `<div id="hist-body">${sheetBody}</div>` +
     `<div class="btn-row"><button class="btn secondary" id="close">Close</button></div>`
   );
   modalRoot().querySelector('#close').addEventListener('click', closeModal);
   modalRoot().querySelectorAll('.hist-toggle button').forEach((b) =>
     b.addEventListener('click', () => openHistory(med, b.dataset.v)));
+  modalRoot().querySelector('#hist-unlock')?.addEventListener('click', openPaywall);
   if (view === 'list') wireHistoryList(med);
 }
 
@@ -440,15 +448,22 @@ function historyGraphHtml(med, now) {
 }
 
 function historyListHtml(med, now) {
-  const entries = loadDoses()
-    .filter((d) => d.medId === med.id)
-    .sort((a, b) => b.timestamp - a.timestamp);
-  if (!entries.length) return `<ul class="list"><li class="muted">No doses in the last 14 days.</li></ul>`;
+  const pro = isPro();
+  const { fromTs } = visibleWindow(now, pro);
+  const all = loadDoses().filter((d) => d.medId === med.id);
+  const entries = all.filter((d) => d.timestamp >= fromTs).sort((a, b) => b.timestamp - a.timestamp);
+  const hidden = hiddenCount(all, now, pro);
+  const footer = hidden > 0
+    ? `<button class="hist-unlock" id="hist-unlock">🔒 +${hidden} earlier dose${hidden === 1 ? '' : 's'} — Unlock full history</button>`
+    : '';
+  if (!entries.length) {
+    return `<ul class="list"><li class="muted">No doses in the ${pro ? 'last 14 days' : 'last 24 hours'}.</li></ul>${footer}`;
+  }
   return `<ul class="list">` + entries.map((d) =>
     `<li data-id="${d.id}">` +
     `<span>${new Date(d.timestamp).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })} · ${d.units} tab${d.units === 1 ? '' : 's'}</span>` +
     `<span><button class="btn secondary" data-act="edit">Edit</button> ` +
-    `<button class="btn danger" data-act="del">Del</button></span></li>`).join('') + `</ul>`;
+    `<button class="btn danger" data-act="del">Del</button></span></li>`).join('') + `</ul>${footer}`;
 }
 
 function wireHistoryList(med) {
