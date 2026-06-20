@@ -1,13 +1,23 @@
 // js/app.js
-import { loadDoses, saveDoses, pruneDoses, loadPain, savePain, prunePain } from './storage.js';
 import { renderGrid, showLanding } from './ui.js';
 import { renderPainView } from './painview.js';
+import { setPro } from './pro.js';
+import { recordUsageDay } from './gating.js';
 
 const ONBOARD_KEY = 'dosegrid.onboarded';
 
-// Prune old data on startup (doses 14d, pain 90d)
-saveDoses(pruneDoses(loadDoses()));
-savePain(prunePain(loadPain()));
+// Freemium: all data is retained on-device; the view is gated to 24h for free
+// users (see gating.js). We deliberately no longer prune on boot.
+
+// Dev/test entitlement toggle (web build only): ?pro=1 unlocks, ?pro=0 clears.
+const params = new URLSearchParams(location.search);
+if (params.has('pro')) setPro(params.get('pro') !== '0');
+
+// Track distinct days of use (drives the one-off upgrade nudge).
+recordUsageDay();
+
+// Re-render both views whenever entitlement changes (e.g. after purchase/restore).
+document.addEventListener('dosegrid:refresh', () => { renderGrid(); renderPainView(); });
 
 // Render both views (Meds view starts hidden; Pain is the default focus)
 renderGrid();
