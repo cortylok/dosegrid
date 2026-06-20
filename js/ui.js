@@ -4,7 +4,7 @@ import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
-import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS } from './helplines.js';
+import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -128,18 +128,23 @@ function fmtGap(ms) {
   return m ? `${h} h ${m} min` : `${h} h`;
 }
 
+function telLine(a) {
+  return `<a class="help-line" href="tel:${String(a.number).replace(/\s/g, '')}"><span>${a.label}` +
+    `${a.note ? `<small>${a.note}</small>` : ''}</span><span class="num">${a.number}</span></a>`;
+}
+
 function helpLinesHtml(code) {
   const hl = helpLinesFor(code);
   let body;
   if (hl.advice.length) {
-    body = hl.advice.map((a) =>
-      `<a class="help-line" href="tel:${a.number.replace(/\s/g, '')}"><span>${a.label}` +
-      `${a.note ? `<small>${a.note}</small>` : ''}</span><span class="num">${a.number}</span></a>`).join('');
+    body = hl.advice.map(telLine).join('');
   } else {
-    body = `<a class="help-line" href="${hl.directory.url}" target="_blank" rel="noopener">` +
-      `<span>${hl.directory.label}<small>Find your nearest centre</small></span><span class="num">↗</span></a>` +
-      `<p class="caution">Or contact your doctor or pharmacist. In an emergency, call your local emergency number.</p>`;
+    body = `<a class="help-line" href="${WHO_DIRECTORY.url}" target="_blank" rel="noopener">` +
+      `<span>${WHO_DIRECTORY.label}<small>Find your nearest centre</small></span><span class="num">↗</span></a>` +
+      `<p class="caution">Or contact your doctor or pharmacist.</p>`;
   }
+  // Always offer the emergency number for the selected country.
+  if (hl.emergency && hl.emergency.number) body += telLine(hl.emergency);
   return `<div class="help"><div class="h">Need advice?</div>${body}</div>`;
 }
 
@@ -498,7 +503,7 @@ export function showLanding(opts = {}) {
     `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
     `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +
     `Always follow the directions on your medicine label or the advice of your doctor or pharmacist. ` +
-    `Never exceed the stated dose. In an emergency, call <strong>000</strong>.</p>` +
+    `Never exceed the stated dose. In an emergency, call <strong>${helpLinesFor(getCountry()).emergency.number || 'your local emergency number'}</strong>.</p>` +
     `</div>`
   );
   modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
