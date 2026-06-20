@@ -1,16 +1,20 @@
 // js/timeline.js — zoomable, scrollable pain + dose timeline with level-of-detail.
 import { loadPain, loadDoses, loadMeds } from './storage.js';
 import { painColor, medColor, lodMode, startOfDay, isEarlyDose, medDayTotals } from './pain.js';
+import { isPro } from './pro.js';
+import { FREE_WINDOW_MS, hiddenCount } from './gating.js';
 
 const DAY = 864e5, HOUR = 36e5;
 const padL = 30, padR = 12;
 const painTop = 14, painBot = 150, laneTop = 182, laneBot = 292, axisY = 308, H = 320;
 const MAX_SPAN = 14 * DAY;   // most zoomed-out = a fortnight on screen
 const MIN_SPAN = 12 * HOUR;  // deepest zoom
+// Free users can pan/zoom no wider than the 24h free window.
+const effMaxSpan = () => (isPro() ? MAX_SPAN : Math.min(MAX_SPAN, FREE_WINDOW_MS));
 
 const startOfHour = t => { const d = new Date(t); d.setMinutes(0, 0, 0); return d.getTime(); };
 
-export function createTimeline(host, { onPainClick, onDoseClick } = {}) {
+export function createTimeline(host, { onPainClick, onDoseClick, onUpgrade } = {}) {
   let scale = 1, t0 = 0, W = 600;
   let dragging = false, dragMoved = false, lastX = 0;
   const pointers = new Map(); let pinchDist = 0;
@@ -19,15 +23,16 @@ export function createTimeline(host, { onPainClick, onDoseClick } = {}) {
   function range() {
     const now = Date.now();
     const ts = [...loadPain().map(p => p.timestamp), ...loadDoses().map(d => d.timestamp)];
-    const min = ts.length ? Math.min(...ts) : now - MAX_SPAN;
-    return { start: Math.min(min, now - MAX_SPAN), end: now };
+    const min = ts.length ? Math.min(...ts) : now - effMaxSpan();
+    const floor = isPro() ? -Infinity : now - FREE_WINDOW_MS;
+    return { start: Math.max(Math.min(min, now - effMaxSpan()), floor), end: now };
   }
-  function fit() { W = host.clientWidth; scale = (W - padL - padR) / MAX_SPAN; t0 = Date.now() - MAX_SPAN; }
+  function fit() { W = host.clientWidth; scale = (W - padL - padR) / effMaxSpan(); t0 = Date.now() - effMaxSpan(); }
   const pxDay = () => scale * DAY;
   function clamp() {
     W = host.clientWidth;
     const { start, end } = range();
-    const sMin = (W - padL - padR) / MAX_SPAN, sMax = (W - padL - padR) / MIN_SPAN;
+    const sMin = (W - padL - padR) / effMaxSpan(), sMax = (W - padL - padR) / MIN_SPAN;
     scale = Math.max(sMin, Math.min(sMax, scale));
     const span = (W - padL - padR) / scale;
     const lo = start, hi = end - span;
@@ -142,6 +147,16 @@ export function createTimeline(host, { onPainClick, onDoseClick } = {}) {
         : new Date(t).getDate() + '/' + (new Date(t).getMonth() + 1);
       s += `<text x="${x.toFixed(1)}" y="${axisY}" font-size="9" fill="#94a3b8" text-anchor="middle">${label}</text>`;
     }
+    // ---- free-tier lock cap (older history hidden) ----
+    if (!isPro()) {
+      const hidden = hiddenCount([...loadPain(), ...loadDoses()], Date.now(), false);
+      if (hidden > 0) {
+        const cy = (painTop + laneBot) / 2;
+        s += `<g data-upgrade="1" style="cursor:pointer">` +
+          `<rect x="${padL}" y="${painTop}" width="20" height="${laneBot - painTop}" fill="rgba(2,6,23,0.55)"/>` +
+          `<text x="${padL + 10}" y="${cy}" font-size="10" fill="#67e8f9" text-anchor="middle" transform="rotate(-90 ${padL + 10} ${cy})">🔒 Unlock full history</text></g>`;
+      }
+    }
     s += `</svg>`;
     host.innerHTML = s;
   }
@@ -160,6 +175,7 @@ export function createTimeline(host, { onPainClick, onDoseClick } = {}) {
   host.addEventListener('pointerup', up); host.addEventListener('pointercancel', up);
   host.addEventListener('click', e => {
     if (dragMoved) return;
+    const upg = e.target.closest('[data-upgrade]'); if (upg) { onUpgrade && onUpgrade(); return; }
     const pa = e.target.closest('[data-pain]'); if (pa) { onPainClick && onPainClick(pa.dataset.pain); return; }
     const dz = e.target.closest('[data-dose]'); if (dz) { onDoseClick && onDoseClick(doseById.get(dz.dataset.dose)); return; }
   });
