@@ -28,3 +28,48 @@ export function defaultReminderTimes(intervalHours) {
   for (let i = 0; i < n; i++) out.push(fmt(Math.round(WAKE_START * 60 + (i * spanMin) / (n - 1))));
   return out;
 }
+
+function toHHMM(ts) {
+  const d = new Date(ts);
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+
+// Stable positive integer id per (med, slot) so reschedules are deterministic.
+function notifId(medId, slot) {
+  let h = 0;
+  for (let i = 0; i < medId.length; i++) h = (h * 31 + medId.charCodeAt(i)) | 0;
+  return (Math.abs(h) % 1000000) * 10 + slot;
+}
+
+// Build the desired notification set from current state. Pure; native layer schedules it.
+export function buildSchedule({ meds, doses, settings, now, pro }) {
+  if (!pro) return [];
+  const out = [];
+  for (const med of meds) {
+    if (!med.notify) continue;
+    if (resolveDoseType(med) === 'scheduled') {
+      const times = (med.reminderTimes && med.reminderTimes.length)
+        ? med.reminderTimes : defaultReminderTimes(med.intervalHours);
+      times.forEach((hhmm, slot) => {
+        const [hour, minute] = hhmm.split(':').map(Number);
+        out.push({
+          id: notifId(med.id, slot), medId: med.id,
+          repeatAt: { hour, minute },
+          channel: inQuietHours(hhmm, settings) ? 'quiet' : 'default',
+          title: med.name, body: `Time for your ${med.name}.`,
+        });
+      });
+    } else {
+      const last = lastDose(doses, med.id);
+      if (!last) continue;
+      const fireAt = last.timestamp + (med.intervalHours || 0) * 3600 * 1000;
+      if (fireAt <= now) continue;
+      out.push({
+        id: notifId(med.id, 0), medId: med.id, fireAt,
+        channel: inQuietHours(toHHMM(fireAt), settings) ? 'quiet' : 'default',
+        title: med.name, body: `You can take another ${med.name} now.`,
+      });
+    }
+  }
+  return out;
+}
