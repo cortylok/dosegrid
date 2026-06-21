@@ -6,6 +6,7 @@ import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 import { isPro, purchasePro, restorePurchases } from './pro.js';
+import { getProPrice } from './iap.js';
 import { visibleWindow, hiddenCount } from './gating.js';
 import { defaultReminderTimes } from './notify-schedule.js';
 import { syncNotifications, requestPermission } from './notify.js';
@@ -549,17 +550,25 @@ export function openPaywall() {
       `<span>Early-dose and daily-limit warnings are always free.</span></div></div>` +
     `<div class="btn-row"><button class="btn secondary" id="pw-restore">Restore</button>` +
       `<button class="btn" id="pw-buy">Unlock — ${PRO_PRICE}</button></div>` +
+    `<p class="pw-msg muted" id="pw-msg"></p>` +
     `<p class="disc muted">Your data already stays on your device. Pro only changes how much of it you can see.</p>`
   );
+  // Show the store-localized price when available (native); falls back to the placeholder.
+  getProPrice().then((price) => {
+    if (!price) return;
+    const buy = modalRoot().querySelector('#pw-buy');
+    if (buy) buy.textContent = `Unlock — ${price}`;
+  });
+  const msg = () => modalRoot().querySelector('#pw-msg');
   modalRoot().querySelector('#pw-buy').addEventListener('click', async () => {
-    await purchasePro();
-    closeModal();
-    refreshViews();
+    const ok = await purchasePro();
+    if (ok) { closeModal(); refreshViews(); }
+    else if (msg()) msg().textContent = 'Purchase didn’t complete. You can try again.';
   });
   modalRoot().querySelector('#pw-restore').addEventListener('click', async () => {
     const ok = await restorePurchases();
-    closeModal();
-    if (ok) refreshViews();
+    if (ok) { closeModal(); refreshViews(); }
+    else if (msg()) msg().textContent = 'No previous purchase found to restore.';
   });
 }
 
