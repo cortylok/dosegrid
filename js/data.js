@@ -10,6 +10,26 @@ export async function loadDataset() {
   return cache;
 }
 
+let brandsCache = null;
+// Per-country brand names, generated from docs/research/meds-*.md (see _parsebrands).
+// Shape: { ISO2: { GenericName: [brand, ...] } }. Returns {} if missing/offline.
+export async function loadCountryBrands() {
+  if (brandsCache) return brandsCache;
+  try { brandsCache = await (await fetch('./country-brands.json')).json(); }
+  catch { brandsCache = {}; }
+  return brandsCache;
+}
+
+// Region-appropriate brand names for a med, or null to fall back to the dataset's
+// brands. App stores 'UK' where the research uses 'GB'.
+const COUNTRY_ALIAS = { UK: 'GB' };
+export function regionalBrands(map, country, generic) {
+  if (!map || !country) return null;
+  const c = map[country] || map[COUNTRY_ALIAS[country]] || null;
+  const list = c && c[generic];
+  return list && list.length ? list : null;
+}
+
 export function searchMeds(query, dataset) {
   const q = (query || '').trim().toLowerCase();
   if (!q) return dataset.slice();

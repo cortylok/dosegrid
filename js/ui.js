@@ -1,7 +1,7 @@
 // js/ui.js
 import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid, loadNotifySettings, saveNotifySettings } from './storage.js';
 import { computeStatus, dailyDoseTotals } from './dosing.js';
-import { loadDataset, searchMeds, groupByCategory } from './data.js';
+import { loadDataset, searchMeds, groupByCategory, loadCountryBrands, regionalBrands } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
 import { checkIngredients, ingredientTotals, INGREDIENT_LIMITS } from './ingredients.js';
@@ -230,6 +230,10 @@ function openCountryPicker(onDone) {
 
 async function openPicker() {
   const dataset = await loadDataset();
+  const countryBrands = await loadCountryBrands();
+  const country = getCountry();
+  // Show brand names common in the user's country (falls back to the dataset's).
+  const brandsFor = (m) => regionalBrands(countryBrands, country, m.generic) || m.brands || [];
   openSheet(
     `<h2>Add medication</h2>` +
     `<div class="field"><label>Search</label><input id="med-search" placeholder="Generic or brand name" /></div>` +
@@ -245,7 +249,7 @@ async function openPicker() {
       `<li class="cat">${g.label}</li>` +
       g.meds.map((m) =>
         `<li data-gen="${m.generic}"><span>${m.generic}</span>` +
-        `<span class="muted">${(m.brands || []).join(', ')}</span></li>`).join('')
+        `<span class="muted">${brandsFor(m).join(', ')}</span></li>`).join('')
     ).join('') || `<li class="muted">No matches — use “Add a medication not listed”.</li>`;
     results.querySelectorAll('li[data-gen]').forEach((li) =>
       li.addEventListener('click', () =>

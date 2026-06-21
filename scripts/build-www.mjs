@@ -9,7 +9,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 // Runtime asset set served to the browser / bundled into the native app.
 const ASSETS = [
-  'index.html', 'css', 'js', 'medications.json',
+  'index.html', 'css', 'js', 'medications.json', 'country-brands.json',
   'manifest.webmanifest', 'service-worker.js', 'icons',
 ];
 
