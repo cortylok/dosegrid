@@ -1,6 +1,7 @@
 // js/pro.js — single entitlement seam.
-// The native in-app-purchase layer (separate spec) replaces purchasePro/restorePurchases;
-// no other code in the app touches the store.
+// Native purchasing is delegated to js/iap.js; on web the dev stub grants directly.
+import { isAvailable, buyPro, restorePro, isProOwned } from './iap.js';
+
 const PRO_KEY = 'dosegrid.pro';
 
 export function isPro() {
@@ -14,8 +15,21 @@ export function setPro(on) {
   } catch { /* ignore */ }
 }
 
-// Stub for the test/web build: a "purchase" simply grants the entitlement.
-export async function purchasePro() { setPro(true); return true; }
+// Native: run the real purchase and grant on success. Web/dev: grant directly.
+export async function purchasePro() {
+  if (isAvailable()) { const ok = await buyPro(); if (ok) setPro(true); return ok; }
+  setPro(true);
+  return true;
+}
 
-// Stub: there is nothing to restore on web beyond the local flag.
-export async function restorePurchases() { return isPro(); }
+// Native: restore from the store and grant if owned. Web/dev: reflect the local flag.
+export async function restorePurchases() {
+  if (isAvailable()) { const ok = await restorePro(); if (ok) setPro(true); return ok; }
+  return isPro();
+}
+
+// Native: sync the local entitlement from the store's ownership (non-intrusive).
+// Called on boot so Pro auto-recovers after reinstall. No-op on web.
+export async function refreshEntitlement() {
+  if (isAvailable()) setPro(await isProOwned());
+}

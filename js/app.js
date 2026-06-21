@@ -1,7 +1,7 @@
 // js/app.js
 import { renderGrid, showLanding } from './ui.js';
 import { renderPainView } from './painview.js';
-import { setPro } from './pro.js';
+import { setPro, refreshEntitlement } from './pro.js';
 import { recordUsageDay } from './gating.js';
 import { syncNotifications } from './notify.js';
 
@@ -17,6 +17,10 @@ if (params.has('pro')) setPro(params.get('pro') !== '0');
 // Track distinct days of use (drives the one-off upgrade nudge).
 recordUsageDay();
 syncNotifications();
+
+// On native, sync Pro entitlement from the store (auto-recovers after reinstall),
+// then re-render + resync notifications once ownership is known. No-op on web.
+refreshEntitlement().then(() => { document.dispatchEvent(new CustomEvent('dosegrid:refresh')); syncNotifications(); });
 
 // Re-render both views whenever entitlement changes (e.g. after purchase/restore).
 document.addEventListener('dosegrid:refresh', () => { renderGrid(); renderPainView(); });
