@@ -3,6 +3,7 @@ import { renderGrid, showLanding } from './ui.js';
 import { renderPainView } from './painview.js';
 import { setPro } from './pro.js';
 import { recordUsageDay } from './gating.js';
+import { syncNotifications } from './notify.js';
 
 const ONBOARD_KEY = 'dosegrid.onboarded';
 
@@ -15,6 +16,7 @@ if (params.has('pro')) setPro(params.get('pro') !== '0');
 
 // Track distinct days of use (drives the one-off upgrade nudge).
 recordUsageDay();
+syncNotifications();
 
 // Re-render both views whenever entitlement changes (e.g. after purchase/restore).
 document.addEventListener('dosegrid:refresh', () => { renderGrid(); renderPainView(); });
@@ -45,7 +47,7 @@ document.getElementById('about-btn').addEventListener('click', () => showLanding
 
 // Keep dose countdowns + midnight reset fresh
 setInterval(renderGrid, 30000);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) { renderGrid(); renderPainView(); } });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { renderGrid(); renderPainView(); syncNotifications(); } });
 
 // Register the service worker on the web only. In a Capacitor native build the
 // app is bundled locally (offline already works), and a network-first SW against

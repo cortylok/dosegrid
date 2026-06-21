@@ -1,5 +1,5 @@
 // js/ui.js
-import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid } from './storage.js';
+import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid, loadNotifySettings, saveNotifySettings } from './storage.js';
 import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
@@ -7,6 +7,8 @@ import { checkDose } from './safety.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 import { isPro, purchasePro, restorePurchases } from './pro.js';
 import { visibleWindow, hiddenCount } from './gating.js';
+import { defaultReminderTimes } from './notify-schedule.js';
+import { syncNotifications, requestPermission } from './notify.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -113,7 +115,7 @@ function openDoseSheet(med) {
   modalRoot().querySelectorAll('[data-units]').forEach((b) =>
     b.addEventListener('click', () => {
       const units = parseFloat(b.dataset.units);
-      const commit = () => { addDose(med.id, units); closeModal(); renderGrid(); };
+      const commit = () => { addDose(med.id, units); closeModal(); renderGrid(); syncNotifications(); };
       const info = checkDose(med, loadDoses(), units, Date.now());
       if (info) openDoseWarning(med, units, info, commit); else commit();
     })
@@ -259,11 +261,25 @@ function dosingFieldsHtml(med, cur) {
     `<option value="prn"${curType === 'prn' ? ' selected' : ''}>As needed (PRN)</option>` +
     `<option value="scheduled"${curType === 'scheduled' ? ' selected' : ''}>Scheduled / course</option>` +
     `</select></div>`;
+  const pro = isPro();
+  const notifyOn = !!cur.notify;
+  const isScheduled = curType === 'scheduled';
+  const times = (cur.reminderTimes && cur.reminderTimes.length) ? cur.reminderTimes : defaultReminderTimes(cur.intervalHours ?? 6);
+  const timesEditor = `<div class="field" id="f-times-wrap" style="display:${notifyOn && isScheduled ? '' : 'none'}">` +
+    `<label>Reminder times</label><div id="f-times">` +
+    times.map((t) => `<input type="time" class="f-time" value="${t}" />`).join('') +
+    `</div></div>`;
+  const notifyField =
+    `<div class="field"><label>Reminders ${pro ? '' : '<span class="pro-badge">PRO</span>'}</label>` +
+    `<label class="switch"><input type="checkbox" id="f-notify" ${notifyOn ? 'checked' : ''} ${pro ? '' : 'data-locked="1"'} /> ` +
+    `${isScheduled ? 'Remind me at set times' : 'Tell me when I can take another'}</label></div>` +
+    timesEditor;
   return (
     strengthField +
     `<div class="field"><label>Min hours between doses</label><input id="f-int" type="number" min="0" step="0.5" value="${cur.intervalHours ?? 6}" /></div>` +
     `<div class="field"><label>Max tablets per day</label><input id="f-max" type="number" min="0" step="0.5" value="${cur.maxDailyUnits ?? 6}" />${maxNote}</div>` +
-    doseTypeField
+    doseTypeField +
+    notifyField
   );
 }
 
@@ -291,6 +307,16 @@ function wireDosingFields(med, autoInit) {
   };
   sel.addEventListener('change', update);
   if (autoInit) update();
+  const notify = modalRoot().querySelector('#f-notify');
+  if (notify) {
+    notify.addEventListener('change', () => {
+      if (notify.dataset.locked) { notify.checked = false; openPaywall(); return; }
+      const w = modalRoot().querySelector('#f-times-wrap');
+      const scheduled = modalRoot().querySelector('#f-dosetype')?.value === 'scheduled';
+      if (w) w.style.display = notify.checked && scheduled ? '' : 'none';
+      if (notify.checked) requestPermission();
+    });
+  }
 }
 
 // Reads the strength/interval/max values back out of the form.
@@ -310,6 +336,8 @@ function readDosingFields(med) {
     intervalHours: parseFloat(modalRoot().querySelector('#f-int').value) || 0,
     maxDailyUnits: parseFloat(modalRoot().querySelector('#f-max').value) || 0,
     doseType: modalRoot().querySelector('#f-dosetype')?.value === 'scheduled' ? 'scheduled' : 'prn',
+    notify: !!modalRoot().querySelector('#f-notify')?.checked,
+    reminderTimes: Array.from(modalRoot().querySelectorAll('.f-time')).map((i) => i.value).filter(Boolean),
   };
 }
 
@@ -339,11 +367,13 @@ function openConfigForm(picked) {
       maxPerDay: picked.maxPerDay || null,
       category: picked.category || 'custom',
       doseType: vals.doseType,
+      notify: vals.notify, reminderTimes: vals.reminderTimes,
       intervalHours: vals.intervalHours,
       maxDailyUnits: vals.maxDailyUnits,
       order: meds.length,
     });
     saveMeds(meds);
+    syncNotifications();
     closeModal();
     renderGrid();
   });
@@ -367,9 +397,11 @@ function openCustomForm() {
       id: uuid(), name, brands: [], strength: vals.strength,
       strengths: null, unit: null, maxPerDay: null, category: 'custom',
       doseType: vals.doseType,
+      notify: vals.notify, reminderTimes: vals.reminderTimes,
       intervalHours: vals.intervalHours, maxDailyUnits: vals.maxDailyUnits, order: meds.length,
     });
     saveMeds(meds);
+    syncNotifications();
     closeModal();
     renderGrid();
   });
@@ -531,6 +563,27 @@ export function openPaywall() {
   });
 }
 
+export function openNotifySettings() {
+  const s = loadNotifySettings();
+  openSheet(
+    `<h2>Reminders</h2>` +
+    `<p class="muted">During quiet hours, reminders still arrive but silently (vibrate only).</p>` +
+    `<div class="field"><label>Quiet hours start</label><input id="ns-start" type="time" value="${s.quietStart}" /></div>` +
+    `<div class="field"><label>Quiet hours end</label><input id="ns-end" type="time" value="${s.quietEnd}" /></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="ns-cancel">Cancel</button>` +
+    `<button class="btn" id="ns-save">Save</button></div>`
+  );
+  modalRoot().querySelector('#ns-cancel').addEventListener('click', closeModal);
+  modalRoot().querySelector('#ns-save').addEventListener('click', () => {
+    saveNotifySettings({
+      quietStart: modalRoot().querySelector('#ns-start').value || '22:00',
+      quietEnd: modalRoot().querySelector('#ns-end').value || '07:00',
+    });
+    closeModal();
+    syncNotifications();
+  });
+}
+
 export function showLanding(opts = {}) {
   const dismissRow = opts.showDismiss
     ? `<label class="dismiss"><input type="checkbox" id="land-dismiss" /> Don't show this again</label>`
@@ -555,6 +608,7 @@ export function showLanding(opts = {}) {
     COUNTRY_OPTIONS.map(([c, name]) => `<option value="${c}"${c === getCountry() ? ' selected' : ''}>${name}</option>`).join('') +
     `</select></div>` +
     `<div class="btn-row"><button class="btn secondary" id="land-pro">${isPro() ? 'DoseGrid Pro ✓ Active' : 'DoseGrid Pro ✦ — unlock full history'}</button></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="land-reminders">Reminder settings</button></div>` +
     dismissRow +
     `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
     `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +
@@ -564,6 +618,7 @@ export function showLanding(opts = {}) {
   );
   modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
   modalRoot().querySelector('#land-pro')?.addEventListener('click', () => { closeModal(); openPaywall(); });
+  modalRoot().querySelector('#land-reminders')?.addEventListener('click', () => { closeModal(); openNotifySettings(); });
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
     const cb = modalRoot().querySelector('#land-dismiss');
     if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();

@@ -151,3 +151,7 @@ body {
   font-size:13px; color:#cbd5e1; }
 .pro-nudge a { color:#67e8f9; }
 .pro-nudge button { margin-left:auto; background:none; border:none; color:#94a3b8; cursor:pointer; font-size:14px; }
+
+.pro-badge { font-size:10px; font-weight:700; color:#06222a; background:#67e8f9; border-radius:6px; padding:1px 5px; vertical-align:middle; }
+.switch { display:flex; align-items:center; gap:8px; font-size:14px; }
+#f-times { display:flex; flex-wrap:wrap; gap:6px; }
