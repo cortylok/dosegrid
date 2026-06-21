@@ -51,3 +51,18 @@ export function addPain(score, note = '', timestamp = Date.now()) {
   savePain(pain);
   return pain;
 }
+
+const NOTIFY_KEY = 'dosegrid.notifySettings';
+const NOTIFY_DEFAULTS = { quietStart: '22:00', quietEnd: '07:00' };
+
+export function loadNotifySettings() {
+  try {
+    const raw = localStorage.getItem(NOTIFY_KEY);
+    return raw ? { ...NOTIFY_DEFAULTS, ...JSON.parse(raw) } : { ...NOTIFY_DEFAULTS };
+  } catch { return { ...NOTIFY_DEFAULTS }; }
+}
+export function saveNotifySettings(patch) {
+  const merged = { ...loadNotifySettings(), ...patch };
+  try { localStorage.setItem(NOTIFY_KEY, JSON.stringify(merged)); } catch { /* ignore */ }
+  return merged;
+}
