@@ -1,5 +1,5 @@
 // js/ui.js
-import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid } from './storage.js';
+import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid, loadNotifySettings, saveNotifySettings } from './storage.js';
 import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
@@ -563,6 +563,27 @@ export function openPaywall() {
   });
 }
 
+export function openNotifySettings() {
+  const s = loadNotifySettings();
+  openSheet(
+    `<h2>Reminders</h2>` +
+    `<p class="muted">During quiet hours, reminders still arrive but silently (vibrate only).</p>` +
+    `<div class="field"><label>Quiet hours start</label><input id="ns-start" type="time" value="${s.quietStart}" /></div>` +
+    `<div class="field"><label>Quiet hours end</label><input id="ns-end" type="time" value="${s.quietEnd}" /></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="ns-cancel">Cancel</button>` +
+    `<button class="btn" id="ns-save">Save</button></div>`
+  );
+  modalRoot().querySelector('#ns-cancel').addEventListener('click', closeModal);
+  modalRoot().querySelector('#ns-save').addEventListener('click', () => {
+    saveNotifySettings({
+      quietStart: modalRoot().querySelector('#ns-start').value || '22:00',
+      quietEnd: modalRoot().querySelector('#ns-end').value || '07:00',
+    });
+    closeModal();
+    syncNotifications();
+  });
+}
+
 export function showLanding(opts = {}) {
   const dismissRow = opts.showDismiss
     ? `<label class="dismiss"><input type="checkbox" id="land-dismiss" /> Don't show this again</label>`
@@ -587,6 +608,7 @@ export function showLanding(opts = {}) {
     COUNTRY_OPTIONS.map(([c, name]) => `<option value="${c}"${c === getCountry() ? ' selected' : ''}>${name}</option>`).join('') +
     `</select></div>` +
     `<div class="btn-row"><button class="btn secondary" id="land-pro">${isPro() ? 'DoseGrid Pro ✓ Active' : 'DoseGrid Pro ✦ — unlock full history'}</button></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="land-reminders">Reminder settings</button></div>` +
     dismissRow +
     `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
     `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +
@@ -596,6 +618,7 @@ export function showLanding(opts = {}) {
   );
   modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
   modalRoot().querySelector('#land-pro')?.addEventListener('click', () => { closeModal(); openPaywall(); });
+  modalRoot().querySelector('#land-reminders')?.addEventListener('click', () => { closeModal(); openNotifySettings(); });
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
     const cb = modalRoot().querySelector('#land-dismiss');
     if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();
