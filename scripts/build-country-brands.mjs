@@ -14,27 +14,46 @@ function mapGeneric(raw){
   return null;
 }
 function splitTop(s, ch){ const out=[]; let d=0,cur=''; for(const c of s){ if(c==='(')d++; else if(c===')')d=Math.max(0,d-1); if(c===ch&&d===0){out.push(cur);cur='';} else cur+=c; } out.push(cur); return out; }
-function cleanBrand(chunk){
-  let b = chunk.split(' (')[0].split(' / ')[0].split(' - ')[0].replace(/[*]+/g,'').trim();
-  b = b.replace(/\s+generics?$/i,'').trim();        // drop trailing "generics"
-  if(!b) return null;
-  if(!/^[A-Z]/.test(b)) return null;                // brands start with an ASCII uppercase letter
-  const low=b.toLowerCase();
-  for(const w of ['generic','various','none','otc','rx','combination','combo','found','widely','no ','not ','in ','also','e.g','available'])
-    if(low===w||low.startsWith(w)) return null;
-  // reject prose / status text rather than a brand
-  if(/\b(only|prescription|available|status|required|note|see|withdrawn|banned|controlled|restricted|sold|limited|imported|various|generique|generics?)\b/i.test(b)) return null;
-  if(b.split(/\s+/).length > 4) return null;         // brands are short
-  if(/^\d/.test(b)) return null;
-  if(b.length>34) return null;
-  if(/[:\[\]]/.test(b)) return null;
+// active-ingredient names that are not brands (drop if a "brand" is just these)
+const ACTIVE = new Set(['asa','acetaminophen','paracetamol','ibuprofen','aspirin','naproxen','salbutamol','albuterol','diclofenac','codeine']);
+function stripNoise(s){
+  return s
+    .replace(/\b\d+(\.\d+)?\s?(mg|mcg|µg|g|iu|ml|%)(\s?\/\s?\d+(\.\d+)?\s?(mg|mcg|g|ml|%))?/gi, '') // strengths "120 mg", "1.16%" (no trailing \b — % at end)
+    .replace(/\s+\d+(\.\d+)?$/, '')                   // dangling trailing strength number ("Helicid 10"); keeps hyphenated "Dolo-650" & "24HR"
+    .replace(/\s{2,}/g, ' ').trim();
+}
+function stripForm(b){
+  let prev;
+  do { prev = b; b = b.replace(/\s+(tablets?|tabs?|caplets?|caps?|capsules?|gel|cream|ointment|syrup|drops?|susp(ension)?|spray|nasal|sachets?|effervescent|liquid|elixir|lozenges?|patch(es)?|oral|soln|solution|sirop|jarabe|gotas|comprimidos?|otc|dispersible|chewable)$/i, '').trim(); } while (b !== prev);
   return b;
 }
-function parseBrands(rest){
-  rest = rest.replace(/^[^0-9A-Za-z(]+/, '');       // strip leading arrow + spaces (encoding-agnostic)
-  let head = rest.split(' [')[0].split(/\.\s/)[0].split('; ')[0];
-  const out=[]; for(const p of splitTop(head, ',')){ const b=cleanBrand(p); if(b&&!out.includes(b)) out.push(b); }
-  return out.slice(0,6);
+function isBrand(b){
+  if(!b) return false;
+  if(!/^[A-Z]/.test(b)) return false;               // brands start with an ASCII uppercase letter
+  if(/^\d/.test(b)) return false;
+  if(b.length > 30) return false;
+  if(/[:\[\]()]/.test(b)) return false;
+  if(b.split(/\s+/).length > 4) return false;       // brands are short
+  // reject prose / status / generic words
+  if(/\b(generi[ck]\w*|générique|various|none|rx|pom|combinations?|combos?|available|prescription|only|status|required|note|see|withdrawn|banned|controlled|restricted|sold|limited|imported|is|are|now|generally|mainly|mostly|usually|via|per|aka|found|widely|not|also|class|schedule)\b/i.test(b)) return false;
+  return true;
+}
+function parseBrands(rest, gen){
+  rest = rest.replace(/^[^0-9A-Za-z(]+/, '');        // strip leading arrow + spaces (encoding-agnostic)
+  const head = rest.split(' [')[0].split(/\.\s/)[0].split('; ')[0];
+  const gl = gen.toLowerCase();
+  const out = [];
+  for(const part of splitTop(head, ',')){
+    const base = part.split(' (')[0].replace(/[*]+/g, ''); // drop the strength parenthetical FIRST
+    for(let q of base.split('/')){                   // then split "Advil/Motrin", "Aspirin/Bayer"
+      let b = stripForm(stripNoise(q.trim()));
+      if(!isBrand(b)) continue;
+      const bl = b.toLowerCase();
+      if(bl === gl || ACTIVE.has(bl)) continue;      // skip the active/generic name itself
+      if(!out.some(x => x.toLowerCase() === bl)) out.push(b);
+    }
+  }
+  return out.slice(0, 6);
 }
 const BULLET = /^-\s+\*\*(.+?)\*\*\s*(.+)$/;
 const HDR = /^##\s+.*\(([A-Z]{2})\)\s*$/;
@@ -47,7 +66,7 @@ for(const f of files){
     if(!iso) continue;
     const m=line.match(BULLET); if(!m) continue;
     const gen=mapGeneric(m[1]); if(!gen) continue;
-    const brands=parseBrands(m[2]); if(!brands.length) continue;
+    const brands=parseBrands(m[2], gen); if(!brands.length) continue;
     result[iso]=result[iso]||{};
     if(!result[iso][gen]) result[iso][gen]=brands;
   }

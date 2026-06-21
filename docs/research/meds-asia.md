@@ -205,7 +205,7 @@
 ### Analgesics / Antipyretics
 - **Paracetamol (acetaminophen)** → Tylenol A (タイレノールA 300 mg — J&J Japan, OTC; 500 mg prescription), Calonal (カロナール 200 mg, 300 mg, 500 mg — Rx only for higher doses), Bufferin Premium (バファリンプレミアム — acetaminophen + ibuprofen combination, 130 mg/130 mg). Note: in Japan OTC acetaminophen capped at 300 mg per tablet; 500 mg is Rx. [PMDA; mhlw.go.jp]
 - **Ibuprofen** → Eve A (イブA — 150 mg tab — SSP), Nurofen (200 mg — Reckitt Japan), Bufferin (バファリン — aspirin brand but also ibuprofen variants). OTC up to 200 mg per dose. [PMDA]
-- **Aspirin** → Bufferin (バファリン 330 mg buffered aspirin — Lion), Baier Aspirin (バイエルアスピリン 500 mg). OTC. [PMDA]
+- **Aspirin** → Bufferin (バファリン 330 mg buffered aspirin — Lion), Bayer Aspirin (バイエルアスピリン 500 mg). OTC. [PMDA]
 - **Loxoprofen** → Loxonin S (ロキソニンS 60 mg — First Sankyo) — NOTE: this is a major Japan-specific NSAID, very widely used OTC. 60 mg tab. [PMDA; loxonin.jp]
 - **Naproxen** → (Rx only in Japan — not OTC). [PMDA]
 - **Diclofenac** → Voltaren gel (ボルタレンゲル — OTC topical), oral diclofenac is Rx. [PMDA]
