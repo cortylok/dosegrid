@@ -77,6 +77,10 @@ app.js (boot)    ── refreshEntitlement ────────────�
 - **Plugin API drift:** the exported `iap.js` surface is fixed; internal plugin method names are confirmed against the installed version during implementation.
 - **Seam discipline preserved:** `iap.js` is the only file touching the purchase plugin; `pro.js` remains the single entitlement seam every other module already uses. Safety + free-tier behavior unaffected.
 
+## Implementation note (2026-06-21, from the installed plugin's `.d.ts`)
+
+`@capgo/native-purchases` **does** expose a non-intrusive ownership query — `getPurchases() → { purchases: Transaction[] }` (StoreKit 2 currentEntitlements / Play queryPurchases; no login prompt). This reverses the earlier "no ownership query" assumption. Final `iap.js` surface: `isAvailable()`, `getProPrice()` (`getProducts → products[0].priceString`), `buyPro()` (`purchaseProduct → Transaction`), `isProOwned()` (`getPurchases` includes `dosegrid_pro`), `restorePro()` (`restorePurchases()` [returns void] then `isProOwned()`). Because `isProOwned()` is non-intrusive, `pro.js` gains `refreshEntitlement()` (= `setPro(await isProOwned())`) called on **boot**, so Pro auto-recovers after reinstall / on the user's other devices; the **Restore** button remains as an explicit fallback.
+
 ## Out of scope
 
 Subscriptions / multiple tiers; promo codes; server-side receipt validation; family sharing config — all future possibilities, not this spec.
