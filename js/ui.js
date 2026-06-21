@@ -4,6 +4,7 @@ import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
+import { checkIngredients, ingredientTotals, INGREDIENT_LIMITS } from './ingredients.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 import { isPro, purchasePro, restorePurchases } from './pro.js';
 import { getProPrice } from './iap.js';
@@ -98,10 +99,21 @@ function openDoseSheet(med) {
   const last = s.lastDoseTime ? fmtTime(s.lastDoseTime) : '—';
   const next = s.state === 'ready' ? 'now' : (s.nextDoseTime ? fmtTime(s.nextDoseTime) : 'now');
   const remaining = Math.max(0, med.maxDailyUnits - s.unitsToday);
+  // For meds that share an active ingredient (e.g. paracetamol in a codeine combo),
+  // show the combined daily total across ALL medicines, not just this one.
+  let ingNote = '';
+  if (med.components && med.components.length) {
+    const totals = ingredientTotals(loadMeds(), doses, Date.now());
+    ingNote = med.components
+      .filter((c) => INGREDIENT_LIMITS[c.ingredient])
+      .map((c) => `<p class="muted ing-note">${c.ingredient.charAt(0).toUpperCase() + c.ingredient.slice(1)} today (all medicines): <b>${Math.round(totals[c.ingredient] || 0)} mg</b> of ${INGREDIENT_LIMITS[c.ingredient]} mg</p>`)
+      .join('');
+  }
   openSheet(
     `<h2>${med.name}${med.strength ? ` <span class="muted">${med.strength}</span>` : ''}</h2>` +
     `<p class="muted">Last taken: ${last}<br>Can take again: ${next}<br>` +
     `Today: ${s.unitsToday} of ${med.maxDailyUnits} tablets (${remaining} left)</p>` +
+    ingNote +
     `<p class="muted">Log tablets taken:</p>` +
     `<div class="btn-row">` +
       `<button class="btn" data-units="0.5">½ tab</button>` +
@@ -116,8 +128,12 @@ function openDoseSheet(med) {
   modalRoot().querySelectorAll('[data-units]').forEach((b) =>
     b.addEventListener('click', () => {
       const units = parseFloat(b.dataset.units);
+      const now = Date.now();
       const commit = () => { addDose(med.id, units); closeModal(); renderGrid(); syncNotifications(); };
-      const info = checkDose(med, loadDoses(), units, Date.now());
+      // A shared-ingredient overdose (e.g. paracetamol across combos) is the most
+      // serious, so it takes precedence over the per-med early/over check.
+      const ing = checkIngredients(med, loadMeds(), loadDoses(), units, now);
+      const info = ing || checkDose(med, loadDoses(), units, now);
       if (info) openDoseWarning(med, units, info, commit); else commit();
     })
   );
@@ -155,21 +171,34 @@ function helpLinesHtml(code) {
 
 function openDoseWarning(med, units, info, onConfirm) {
   const code = getCountry();
-  const over = info.type === 'over';
-  const facts = over
-    ? `This would make <b>${info.resultingUnits}</b> tablet${info.resultingUnits === 1 ? '' : 's'} of <b>${med.name}</b> today — more than your daily max of <b>${info.maxDailyUnits}</b>.`
-    : `You last took <b>${med.name}</b> <b>${fmtGap(info.gapMs)}</b> ago. The minimum gap you set is <b>${info.intervalHours} h</b>.`;
-  const caution = over
-    ? `Going over your daily limit can be harmful. Please double-check the label, and get advice if you're unsure.`
-    : `Taking doses closer together than directed can be unsafe. If you're unsure what to do, it's worth getting advice.`;
+  const type = info.type; // 'over' | 'early' | 'ingredient'
+  const danger = type === 'over' || type === 'ingredient';
+  let icon, title, facts, caution;
+  if (type === 'ingredient') {
+    const ing = info.ingredient;
+    icon = '🛑';
+    title = `That's a lot of ${ing}`;
+    facts = `This would total about <b>${info.totalMg} mg</b> of <b>${ing}</b> today across all your medicines — more than the usual safe daily maximum of <b>${info.limitMg} mg</b>.`;
+    caution = `More than one of your medicines contains ${ing}. Going over the combined daily total can be harmful${ing === 'paracetamol' ? ' (paracetamol can damage the liver)' : ''}. Check the labels and get advice if you're unsure.`;
+  } else if (type === 'over') {
+    icon = '🛑';
+    title = "That's over your daily limit";
+    facts = `This would make <b>${info.resultingUnits}</b> tablet${info.resultingUnits === 1 ? '' : 's'} of <b>${med.name}</b> today — more than your daily max of <b>${info.maxDailyUnits}</b>.`;
+    caution = `Going over your daily limit can be harmful. Please double-check the label, and get advice if you're unsure.`;
+  } else {
+    icon = '⏱';
+    title = "That's sooner than usual";
+    facts = `You last took <b>${med.name}</b> <b>${fmtGap(info.gapMs)}</b> ago. The minimum gap you set is <b>${info.intervalHours} h</b>.`;
+    caution = `Taking doses closer together than directed can be unsafe. If you're unsure what to do, it's worth getting advice.`;
+  }
   openSheet(
-    `<div class="warn-ico ${over ? 'over' : ''}">${over ? '🛑' : '⏱'}</div>` +
-    `<h2>${over ? "That's over your daily limit" : "That's sooner than usual"}</h2>` +
+    `<div class="warn-ico ${danger ? 'over' : ''}">${icon}</div>` +
+    `<h2>${title}</h2>` +
     `<div class="facts">${facts}</div>` +
     `<p class="caution">${caution}</p>` +
     helpLinesHtml(code) +
     `<div class="btn-row"><button class="btn secondary" id="dw-cancel">Cancel</button>` +
-    `<button class="btn ${over ? 'danger' : ''}" id="dw-go">Log it anyway</button></div>` +
+    `<button class="btn ${danger ? 'danger' : ''}" id="dw-go">Log it anyway</button></div>` +
     `<div class="country-note">Help lines for <b>${helpLinesFor(code).country}</b>. ` +
     `<a href="#" id="dw-country">Change country</a></div>`
   );

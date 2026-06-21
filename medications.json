@@ -43,7 +43,13 @@
     "unit": "mg",
     "defaultIntervalHours": 4,
     "defaultMaxPerDay": 8,
-    "form": "tablet"
+    "form": "tablet",
+    "components": [
+      {
+        "ingredient": "paracetamol",
+        "fromStrength": true
+      }
+    ]
   },
   {
     "generic": "Ibuprofen",
@@ -85,7 +91,13 @@
     "unit": "mg",
     "defaultIntervalHours": 6,
     "defaultMaxPerDay": 6,
-    "form": "tablet"
+    "form": "tablet",
+    "components": [
+      {
+        "ingredient": "ibuprofen",
+        "fromStrength": true
+      }
+    ]
   },
   {
     "generic": "Aspirin",
@@ -111,7 +123,13 @@
     "unit": "mg",
     "defaultIntervalHours": 4,
     "defaultMaxPerDay": 8,
-    "form": "tablet"
+    "form": "tablet",
+    "components": [
+      {
+        "ingredient": "aspirin",
+        "fromStrength": true
+      }
+    ]
   },
   {
     "generic": "Naproxen",
@@ -1473,7 +1491,13 @@
     "category": "opioid",
     "defaultIntervalHours": 4,
     "defaultMaxPerDay": 8,
-    "form": "tablet"
+    "form": "tablet",
+    "components": [
+      {
+        "ingredient": "paracetamol",
+        "mg": 500
+      }
+    ]
   },
   {
     "generic": "Ibuprofen; Codeine",
@@ -1483,7 +1507,13 @@
     "category": "opioid",
     "defaultIntervalHours": 6,
     "defaultMaxPerDay": 6,
-    "form": "tablet"
+    "form": "tablet",
+    "components": [
+      {
+        "ingredient": "ibuprofen",
+        "mg": 200
+      }
+    ]
   },
   {
     "generic": "Oxycodone",
@@ -1870,7 +1900,13 @@
     "category": "muscle",
     "defaultIntervalHours": 6,
     "defaultMaxPerDay": 6,
-    "form": "tablet"
+    "form": "tablet",
+    "components": [
+      {
+        "ingredient": "paracetamol",
+        "mg": 450
+      }
+    ]
   },
   {
     "generic": "Diazepam",
@@ -2048,7 +2084,13 @@
     "category": "cough-cold",
     "defaultIntervalHours": 6,
     "defaultMaxPerDay": 4,
-    "form": "tablet"
+    "form": "tablet",
+    "components": [
+      {
+        "ingredient": "paracetamol",
+        "mg": 500
+      }
+    ]
   },
   {
     "generic": "Sterculia",

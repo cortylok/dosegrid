@@ -3,12 +3,12 @@
 // cache; when offline, serve the last-cached copy. This means updates reach the
 // user automatically (no cache-version bump needed) while the app stays usable
 // offline once it has been visited.
-const CACHE = 'dosegrid-v12';
+const CACHE = 'dosegrid-v13';
 const ASSETS = [
   './', './index.html', './css/styles.css',
   './js/app.js', './js/ui.js', './js/dosing.js', './js/storage.js', './js/data.js', './js/categories.js',
   './js/pain.js', './js/painview.js', './js/timeline.js', './js/safety.js', './js/helplines.js',
-  './js/pro.js', './js/gating.js',
+  './js/pro.js', './js/gating.js', './js/ingredients.js',
   './js/notify.js', './js/notify-schedule.js', './js/iap.js',
   './medications.json', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png',
