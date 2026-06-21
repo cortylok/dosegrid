@@ -101,4 +101,13 @@ npx cap open ios       # open in Xcode (iOS builds via Xcode Cloud from Windows)
 - **App id:** `com.cortylok.dosegrid` · **Name:** DoseGrid · **Tagline:** Medication and pain diary
 - iOS pods are resolved in Xcode Cloud (no local CocoaPods needed on Windows).
 - Android `.aab` builds with Gradle (point `ANDROID_HOME` at your Android SDK).
-- In-app purchases (Pro unlock) are wired in a later step; the entitlement seam is `js/pro.js`.
+- In-app purchases (Pro unlock) are wired via `js/iap.js` → `js/pro.js` (see below).
+
+## DoseGrid Pro in-app purchase
+
+Pro is a one-time non-consumable unlock (`dosegrid_pro`) via `@capgo/native-purchases` (no backend — the app trusts the store). Entitlement is stored locally and **auto-recovers** on launch via `getPurchases()`; the paywall's **Restore** button is an explicit fallback. On the web build IAP is a no-op (the `?pro=1` dev toggle still works).
+
+**Before release, in the stores (one-time setup):**
+- **App Store Connect:** Paid Apps agreement active (tax/banking); create a **Non-Consumable** IAP, Product ID **`dosegrid_pro`**, set price + localized name/description, submit with the build; add a **Sandbox tester**.
+- **Google Play Console:** upload to an internal/closed **test track**; create a one-time **in-app product**, Product ID **`dosegrid_pro`**, set price, activate; add a **license tester**.
+- **Verify on a device** (sandbox/test account): purchase unlocks Pro; reinstall → Pro auto-restores (or use **Restore**); the price shows in local currency.
