@@ -7,6 +7,8 @@ import { checkDose } from './safety.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 import { isPro, purchasePro, restorePurchases } from './pro.js';
 import { visibleWindow, hiddenCount } from './gating.js';
+import { defaultReminderTimes } from './notify-schedule.js';
+import { syncNotifications, requestPermission } from './notify.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -259,11 +261,25 @@ function dosingFieldsHtml(med, cur) {
     `<option value="prn"${curType === 'prn' ? ' selected' : ''}>As needed (PRN)</option>` +
     `<option value="scheduled"${curType === 'scheduled' ? ' selected' : ''}>Scheduled / course</option>` +
     `</select></div>`;
+  const pro = isPro();
+  const notifyOn = !!cur.notify;
+  const isScheduled = curType === 'scheduled';
+  const times = (cur.reminderTimes && cur.reminderTimes.length) ? cur.reminderTimes : defaultReminderTimes(cur.intervalHours ?? 6);
+  const timesEditor = `<div class="field" id="f-times-wrap" style="display:${notifyOn && isScheduled ? '' : 'none'}">` +
+    `<label>Reminder times</label><div id="f-times">` +
+    times.map((t) => `<input type="time" class="f-time" value="${t}" />`).join('') +
+    `</div></div>`;
+  const notifyField =
+    `<div class="field"><label>Reminders ${pro ? '' : '<span class="pro-badge">PRO</span>'}</label>` +
+    `<label class="switch"><input type="checkbox" id="f-notify" ${notifyOn ? 'checked' : ''} ${pro ? '' : 'data-locked="1"'} /> ` +
+    `${isScheduled ? 'Remind me at set times' : 'Tell me when I can take another'}</label></div>` +
+    timesEditor;
   return (
     strengthField +
     `<div class="field"><label>Min hours between doses</label><input id="f-int" type="number" min="0" step="0.5" value="${cur.intervalHours ?? 6}" /></div>` +
     `<div class="field"><label>Max tablets per day</label><input id="f-max" type="number" min="0" step="0.5" value="${cur.maxDailyUnits ?? 6}" />${maxNote}</div>` +
-    doseTypeField
+    doseTypeField +
+    notifyField
   );
 }
 
@@ -291,6 +307,16 @@ function wireDosingFields(med, autoInit) {
   };
   sel.addEventListener('change', update);
   if (autoInit) update();
+  const notify = modalRoot().querySelector('#f-notify');
+  if (notify) {
+    notify.addEventListener('change', () => {
+      if (notify.dataset.locked) { notify.checked = false; openPaywall(); return; }
+      const w = modalRoot().querySelector('#f-times-wrap');
+      const scheduled = modalRoot().querySelector('#f-dosetype')?.value === 'scheduled';
+      if (w) w.style.display = notify.checked && scheduled ? '' : 'none';
+      if (notify.checked) requestPermission();
+    });
+  }
 }
 
 // Reads the strength/interval/max values back out of the form.
@@ -310,6 +336,8 @@ function readDosingFields(med) {
     intervalHours: parseFloat(modalRoot().querySelector('#f-int').value) || 0,
     maxDailyUnits: parseFloat(modalRoot().querySelector('#f-max').value) || 0,
     doseType: modalRoot().querySelector('#f-dosetype')?.value === 'scheduled' ? 'scheduled' : 'prn',
+    notify: !!modalRoot().querySelector('#f-notify')?.checked,
+    reminderTimes: Array.from(modalRoot().querySelectorAll('.f-time')).map((i) => i.value).filter(Boolean),
   };
 }
 
@@ -339,11 +367,13 @@ function openConfigForm(picked) {
       maxPerDay: picked.maxPerDay || null,
       category: picked.category || 'custom',
       doseType: vals.doseType,
+      notify: vals.notify, reminderTimes: vals.reminderTimes,
       intervalHours: vals.intervalHours,
       maxDailyUnits: vals.maxDailyUnits,
       order: meds.length,
     });
     saveMeds(meds);
+    syncNotifications();
     closeModal();
     renderGrid();
   });
@@ -367,9 +397,11 @@ function openCustomForm() {
       id: uuid(), name, brands: [], strength: vals.strength,
       strengths: null, unit: null, maxPerDay: null, category: 'custom',
       doseType: vals.doseType,
+      notify: vals.notify, reminderTimes: vals.reminderTimes,
       intervalHours: vals.intervalHours, maxDailyUnits: vals.maxDailyUnits, order: meds.length,
     });
     saveMeds(meds);
+    syncNotifications();
     closeModal();
     renderGrid();
   });
