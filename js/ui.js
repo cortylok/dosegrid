@@ -115,7 +115,7 @@ function openDoseSheet(med) {
   modalRoot().querySelectorAll('[data-units]').forEach((b) =>
     b.addEventListener('click', () => {
       const units = parseFloat(b.dataset.units);
-      const commit = () => { addDose(med.id, units); closeModal(); renderGrid(); };
+      const commit = () => { addDose(med.id, units); closeModal(); renderGrid(); syncNotifications(); };
       const info = checkDose(med, loadDoses(), units, Date.now());
       if (info) openDoseWarning(med, units, info, commit); else commit();
     })
