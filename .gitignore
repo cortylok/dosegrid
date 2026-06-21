@@ -18,5 +18,12 @@ android/local.properties
 android/app/src/main/assets/public/
 android/capacitor-cordova-android-plugins/
 
+# Tooling / caches
+.claude/
+.superpowers/
+
+# Generated, unused PWA icon variants (manifest uses the .png icons)
+icons/*.webp
+
 # misc
 .DS_Store
