@@ -17,6 +17,7 @@
     "@capacitor/ios": "^8.4.1"
   },
   "dependencies": {
-    "@capacitor/local-notifications": "^8.2.0"
+    "@capacitor/local-notifications": "^8.2.0",
+    "@capgo/native-purchases": "^8.4.6"
   }
 }
