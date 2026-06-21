@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DoseGrid</string>
+    <string name="title_activity_main">DoseGrid</string>
+    <string name="package_name">com.cortylok.dosegrid</string>
+    <string name="custom_url_scheme">com.cortylok.dosegrid</string>
+</resources>

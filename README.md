@@ -85,3 +85,19 @@ node --test
 - `service-worker.js` — offline caching (network-first)
 - `icons/` — app icons (192px and 512px)
 - `tests/` — unit tests, run with `node --test`
+
+## Building the native apps (Capacitor)
+
+DoseGrid also ships as native iOS + Android apps via [Capacitor](https://capacitorjs.com/). The web app at the repo root is the source of truth; `www/` is generated.
+
+```bash
+npm install            # one-time: install Capacitor tooling
+npm run sync           # rebuild www/ and copy it into the native projects
+npx cap open android   # open in Android Studio → build .aab
+npx cap open ios       # open in Xcode (iOS builds via Xcode Cloud from Windows)
+```
+
+- **App id:** `com.cortylok.dosegrid` · **Name:** DoseGrid · **Tagline:** Medication and pain diary
+- iOS pods are resolved in Xcode Cloud (no local CocoaPods needed on Windows).
+- Android `.aab` builds with Gradle (point `ANDROID_HOME` at your Android SDK).
+- In-app purchases (Pro unlock) are wired in a later step; the entitlement seam is `js/pro.js`.

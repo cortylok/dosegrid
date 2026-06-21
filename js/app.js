@@ -47,6 +47,10 @@ document.getElementById('about-btn').addEventListener('click', () => showLanding
 setInterval(renderGrid, 30000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) { renderGrid(); renderPainView(); } });
 
-if ('serviceWorker' in navigator) {
+// Register the service worker on the web only. In a Capacitor native build the
+// app is bundled locally (offline already works), and a network-first SW against
+// the capacitor:// scheme can misbehave, so we skip it there.
+const isNativePlatform = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
+if (!isNativePlatform && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));
 }

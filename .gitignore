@@ -1,4 +1,29 @@
+# Node / Capacitor
 node_modules/
-.DS_Store
+www/
+
+# iOS build artifacts (project sources ARE committed)
+ios/App/Pods/
+ios/App/build/
+ios/App/output/
+ios/App/App/public/
+*.xcuserstate
+DerivedData/
+
+# Android build artifacts (project sources ARE committed)
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/app/src/main/assets/public/
+android/capacitor-cordova-android-plugins/
+
+# Tooling / caches
 .claude/
 .superpowers/
+
+# Generated, unused PWA icon variants (manifest uses the .png icons)
+icons/*.webp
+
+# misc
+.DS_Store
