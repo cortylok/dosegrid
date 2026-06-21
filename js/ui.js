@@ -5,6 +5,8 @@ import { loadDataset, searchMeds, groupByCategory } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
+import { isPro, purchasePro, restorePurchases } from './pro.js';
+import { visibleWindow, hiddenCount } from './gating.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -406,19 +408,26 @@ function openEditMed(med) {
 
 function openHistory(med, view = 'graph') {
   const now = Date.now();
+  const pro = isPro();
+  // Free users get the 24h list only (the 14-day graph is a Pro view).
+  if (!pro) view = 'list';
+  const title = pro ? 'last 14 days' : 'last 24 hours';
   const sheetBody = view === 'graph' ? historyGraphHtml(med, now) : historyListHtml(med, now);
   openSheet(
-    `<h2>${med.name} — last 14 days</h2>` +
-    `<div class="hist-toggle">` +
-      `<button data-v="graph" class="${view === 'graph' ? 'active' : ''}">Graph</button>` +
-      `<button data-v="list" class="${view === 'list' ? 'active' : ''}">List</button>` +
-    `</div>` +
+    `<h2>${med.name} — ${title}</h2>` +
+    (pro
+      ? `<div class="hist-toggle">` +
+        `<button data-v="graph" class="${view === 'graph' ? 'active' : ''}">Graph</button>` +
+        `<button data-v="list" class="${view === 'list' ? 'active' : ''}">List</button>` +
+        `</div>`
+      : '') +
     `<div id="hist-body">${sheetBody}</div>` +
     `<div class="btn-row"><button class="btn secondary" id="close">Close</button></div>`
   );
   modalRoot().querySelector('#close').addEventListener('click', closeModal);
   modalRoot().querySelectorAll('.hist-toggle button').forEach((b) =>
     b.addEventListener('click', () => openHistory(med, b.dataset.v)));
+  modalRoot().querySelector('#hist-unlock')?.addEventListener('click', openPaywall);
   if (view === 'list') wireHistoryList(med);
 }
 
@@ -439,15 +448,22 @@ function historyGraphHtml(med, now) {
 }
 
 function historyListHtml(med, now) {
-  const entries = loadDoses()
-    .filter((d) => d.medId === med.id)
-    .sort((a, b) => b.timestamp - a.timestamp);
-  if (!entries.length) return `<ul class="list"><li class="muted">No doses in the last 14 days.</li></ul>`;
+  const pro = isPro();
+  const { fromTs } = visibleWindow(now, pro);
+  const all = loadDoses().filter((d) => d.medId === med.id);
+  const entries = all.filter((d) => d.timestamp >= fromTs).sort((a, b) => b.timestamp - a.timestamp);
+  const hidden = hiddenCount(all, now, pro);
+  const footer = hidden > 0
+    ? `<button class="hist-unlock" id="hist-unlock">🔒 +${hidden} earlier dose${hidden === 1 ? '' : 's'} — Unlock full history</button>`
+    : '';
+  if (!entries.length) {
+    return `<ul class="list"><li class="muted">No doses in the ${pro ? 'last 14 days' : 'last 24 hours'}.</li></ul>${footer}`;
+  }
   return `<ul class="list">` + entries.map((d) =>
     `<li data-id="${d.id}">` +
     `<span>${new Date(d.timestamp).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' })} · ${d.units} tab${d.units === 1 ? '' : 's'}</span>` +
     `<span><button class="btn secondary" data-act="edit">Edit</button> ` +
-    `<button class="btn danger" data-act="del">Del</button></span></li>`).join('') + `</ul>`;
+    `<button class="btn danger" data-act="del">Del</button></span></li>`).join('') + `</ul>${footer}`;
 }
 
 function wireHistoryList(med) {
@@ -476,6 +492,45 @@ function wireHistoryList(med) {
   });
 }
 
+const PRO_PRICE = '$4.99'; // placeholder until the store product is created
+
+function refreshViews() { document.dispatchEvent(new CustomEvent('dosegrid:refresh')); }
+
+export function openPaywall() {
+  if (isPro()) {
+    openSheet(
+      `<h2>DoseGrid Pro ✓</h2>` +
+      `<p class="muted">Pro is active — your full history is unlocked.</p>` +
+      `<div class="btn-row"><button class="btn" id="pw-close">Close</button></div>`
+    );
+    modalRoot().querySelector('#pw-close').addEventListener('click', closeModal);
+    return;
+  }
+  openSheet(
+    `<h2>DoseGrid Pro</h2>` +
+    `<p class="lead">Keep your full medication &amp; pain history — not just the last 24 hours.</p>` +
+    `<div class="pt"><div class="ic">📈</div><div><b>Unlimited history</b>` +
+      `<span>Scroll and chart pain &amp; doses across weeks, months and years.</span></div></div>` +
+    `<div class="pt"><div class="ic">🔓</div><div><b>One-time unlock</b>` +
+      `<span>Pay once. No subscription.</span></div></div>` +
+    `<div class="pt"><div class="ic">🛟</div><div><b>Safety stays free</b>` +
+      `<span>Early-dose and daily-limit warnings are always free.</span></div></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="pw-restore">Restore</button>` +
+      `<button class="btn" id="pw-buy">Unlock — ${PRO_PRICE}</button></div>` +
+    `<p class="disc muted">Your data already stays on your device. Pro only changes how much of it you can see.</p>`
+  );
+  modalRoot().querySelector('#pw-buy').addEventListener('click', async () => {
+    await purchasePro();
+    closeModal();
+    refreshViews();
+  });
+  modalRoot().querySelector('#pw-restore').addEventListener('click', async () => {
+    const ok = await restorePurchases();
+    closeModal();
+    if (ok) refreshViews();
+  });
+}
+
 export function showLanding(opts = {}) {
   const dismissRow = opts.showDismiss
     ? `<label class="dismiss"><input type="checkbox" id="land-dismiss" /> Don't show this again</label>`
@@ -499,6 +554,7 @@ export function showLanding(opts = {}) {
     `<div class="field"><label>Your country (for help lines)</label><select id="land-country">` +
     COUNTRY_OPTIONS.map(([c, name]) => `<option value="${c}"${c === getCountry() ? ' selected' : ''}>${name}</option>`).join('') +
     `</select></div>` +
+    `<div class="btn-row"><button class="btn secondary" id="land-pro">${isPro() ? 'DoseGrid Pro ✓ Active' : 'DoseGrid Pro ✦ — unlock full history'}</button></div>` +
     dismissRow +
     `<div class="btn-row"><button class="btn" id="land-start">Get started →</button></div>` +
     `<p class="disc"><strong>Not medical advice.</strong> DoseGrid is a personal tracking tool. ` +
@@ -507,6 +563,7 @@ export function showLanding(opts = {}) {
     `</div>`
   );
   modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
+  modalRoot().querySelector('#land-pro')?.addEventListener('click', () => { closeModal(); openPaywall(); });
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
     const cb = modalRoot().querySelector('#land-dismiss');
     if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();

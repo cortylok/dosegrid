@@ -1,8 +1,10 @@
 // js/painview.js — the Pain view: current-pain summary, log sheet, and zoomable timeline.
-import { loadPain, savePain, addPain, loadMeds } from './storage.js';
+import { loadPain, savePain, addPain, loadMeds, loadDoses } from './storage.js';
 import { severity, latestPain, painColor, medColor } from './pain.js';
-import { openSheet, closeModal, modalRoot } from './ui.js';
+import { openSheet, closeModal, modalRoot, openPaywall } from './ui.js';
 import { createTimeline } from './timeline.js';
+import { isPro } from './pro.js';
+import { shouldNudge, hiddenCount, usageDayCount, nudgeSeen, markNudgeSeen } from './gating.js';
 
 const painViewEl = () => document.getElementById('pain-view');
 let timeline = null;
@@ -29,7 +31,21 @@ export function renderPainView() {
     ? `<div class="tl-legend">` + meds.map((m) => `<span><i style="background:${medColor(m.order || 0)}"></i>${m.name}</span>`).join('') + `</div>`
     : '';
 
+  const now = Date.now();
+  const allEntries = [...loadPain(), ...loadDoses()];
+  const nudge = shouldNudge({
+    pro: isPro(),
+    hasLockedData: hiddenCount(allEntries, now, isPro()) > 0,
+    usageDays: usageDayCount(),
+    nudgeSeen: nudgeSeen(),
+  })
+    ? `<div class="pro-nudge"><span>You've been building history that's locked to the last 24h. ` +
+      `<a href="#" id="nudge-open">Unlock it with Pro →</a></span>` +
+      `<button id="nudge-dismiss" aria-label="Dismiss">✕</button></div>`
+    : '';
+
   painViewEl().innerHTML =
+    nudge +
     summary +
     `<button class="btn pain-log-btn" id="log-pain">＋ Log pain</button>` +
     `<div class="tl-bar"><span class="tl-hint">Drag · pinch to zoom</span>` +
@@ -38,8 +54,10 @@ export function renderPainView() {
     legend;
 
   painViewEl().querySelector('#log-pain').addEventListener('click', openPainLog);
+  painViewEl().querySelector('#nudge-open')?.addEventListener('click', (e) => { e.preventDefault(); openPaywall(); });
+  painViewEl().querySelector('#nudge-dismiss')?.addEventListener('click', () => { markNudgeSeen(); renderPainView(); });
   const hostEl = painViewEl().querySelector('#tl-host');
-  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail });
+  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail, onUpgrade: openPaywall });
   timeline.render();
   const zoom = (deltaY) => hostEl.dispatchEvent(new WheelEvent('wheel', { deltaY, clientX: hostEl.getBoundingClientRect().left + hostEl.clientWidth / 2, cancelable: true }));
   painViewEl().querySelector('#tl-in').addEventListener('click', () => zoom(-240));
