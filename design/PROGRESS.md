@@ -62,3 +62,9 @@ To add a concept: implement `CONCEPTS.<name> = { label, tagline, notes, meta, sp
 timelineRenderer(view), renderSheet(med) }` in its js, styles scoped under `.theme-<name>` in its css.
 Reuse the engine via the shell (just include a `.tl-host` + `[data-z]` buttons + `[data-med]` tiles).
 Aurora is the reference implementation. Commit after each concept; update this file's checklist.
+
+## Update 2026-06-23: dark variants
+- Aurora + Apothecary tokenised (CSS vars) -> light/dark share structural rules; `.theme-<name>` vs `.theme-<name>-dark` swap only the palette.
+- Added **Aurora Dark** + **Apothecary Dark** (registered from the same JS via mkRenderer(dark)).
+- Removed the soft glow filter from the Aurora graph (flatter, more professional). Apothecary had none.
+- Tab order: aurora, aurora-dark, apothecary, apothecary-dark, ledger, pulse, vital.

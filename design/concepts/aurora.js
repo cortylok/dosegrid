@@ -79,34 +79,39 @@
     return d;
   }
 
-  function timelineRenderer(v) {
+  function mkRenderer(dark) {
+   var P = dark
+     ? { band: 'rgba(255,255,255,.03)', grid: 'rgba(255,255,255,.07)', gtext: '#6b7488', lane: 'rgba(255,255,255,.1)', now: 'rgba(255,255,255,.25)', axis: '#7b8498', ring: '#0c1018' }
+     : { band: 'rgba(16,23,40,.025)', grid: 'rgba(16,23,40,.07)', gtext: '#9aa3b4', lane: 'rgba(16,23,40,.1)', now: 'rgba(16,23,40,.22)', axis: '#8a93a6', ring: '#fff' };
+   return function (v) {
     var b = v.bands, pts = v.painPts, s = '';
     var line = smooth(pts);
     var area = line && pts.length ? line + ' L' + pts[pts.length - 1].x.toFixed(1) + ' ' + b.painBot + ' L' + pts[0].x.toFixed(1) + ' ' + b.painBot + ' Z' : '';
     s += '<defs>' +
-      '<linearGradient id="auArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity=".3"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></linearGradient>' +
-      '<linearGradient id="auLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#15b886"/><stop offset=".55" stop-color="#22d3ee"/><stop offset="1" stop-color="#7c6cf0"/></linearGradient>' +
-      '<filter id="auGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+      '<linearGradient id="auArea' + (dark ? 'D' : '') + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity="' + (dark ? '.34' : '.3') + '"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="auLine' + (dark ? 'D' : '') + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="' + (dark ? '#34e8a8' : '#15b886') + '"/><stop offset=".55" stop-color="#34d6ee"/><stop offset="1" stop-color="' + (dark ? '#9a8bff' : '#7c6cf0') + '"/></linearGradient></defs>';
+    var GA = 'url(#auArea' + (dark ? 'D' : '') + ')', GL = 'url(#auLine' + (dark ? 'D' : '') + ')';
     v.dayTicks.forEach(function (t, i) {
-      if (i % 2 === 0) { var x2 = v.x(t.t + D.DAY), x1 = Math.max(0, t.x); s += '<rect x="' + x1.toFixed(1) + '" y="' + b.painTop + '" width="' + Math.max(0, Math.min(v.W, x2) - x1).toFixed(1) + '" height="' + (b.laneBot - b.painTop).toFixed(1) + '" fill="rgba(16,23,40,.025)"/>'; }
+      if (i % 2 === 0) { var x2 = v.x(t.t + D.DAY), x1 = Math.max(0, t.x); s += '<rect x="' + x1.toFixed(1) + '" y="' + b.painTop + '" width="' + Math.max(0, Math.min(v.W, x2) - x1).toFixed(1) + '" height="' + (b.laneBot - b.painTop).toFixed(1) + '" fill="' + P.band + '"/>'; }
     });
     [[10, b.painTop], [5, (b.painTop + b.painBot) / 2], [0, b.painBot]].forEach(function (g) {
-      s += '<line x1="22" y1="' + g[1].toFixed(1) + '" x2="' + (v.W - 10) + '" y2="' + g[1].toFixed(1) + '" stroke="rgba(16,23,40,.07)"/>' +
-        '<text x="14" y="' + (g[1] + 3).toFixed(1) + '" font-size="9" fill="#9aa3b4" text-anchor="end">' + g[0] + '</text>';
+      s += '<line x1="22" y1="' + g[1].toFixed(1) + '" x2="' + (v.W - 10) + '" y2="' + g[1].toFixed(1) + '" stroke="' + P.grid + '"/>' +
+        '<text x="14" y="' + (g[1] + 3).toFixed(1) + '" font-size="9" fill="' + P.gtext + '" text-anchor="end">' + g[0] + '</text>';
     });
-    if (area) s += '<path d="' + area + '" fill="url(#auArea)"/>';
-    if (line) s += '<path d="' + line + '" fill="none" stroke="url(#auLine)" stroke-width="2.4" stroke-linecap="round" filter="url(#auGlow)"/>';
-    pts.forEach(function (p) { var r = v.detail ? 4.4 : 3; s += '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="' + r + '" fill="' + v.painColor(p.score) + '"' + (p.note ? ' stroke="#fff" stroke-width="2"' : '') + '/>'; });
-    s += '<text x="22" y="' + (b.laneTop - 3).toFixed(1) + '" font-size="8.5" fill="#9aa3b4" letter-spacing=".1em">DOSES</text>';
-    s += '<line x1="22" y1="' + b.laneBot.toFixed(1) + '" x2="' + (v.W - 10) + '" y2="' + b.laneBot.toFixed(1) + '" stroke="rgba(16,23,40,.1)"/>';
+    if (area) s += '<path d="' + area + '" fill="' + GA + '"/>';
+    if (line) s += '<path d="' + line + '" fill="none" stroke="' + GL + '" stroke-width="2.4" stroke-linecap="round"/>';
+    pts.forEach(function (p) { var r = v.detail ? 4.4 : 3; s += '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="' + r + '" fill="' + v.painColor(p.score) + '"' + (p.note ? ' stroke="' + P.ring + '" stroke-width="2"' : '') + '/>'; });
+    s += '<text x="22" y="' + (b.laneTop - 3).toFixed(1) + '" font-size="8.5" fill="' + P.gtext + '" letter-spacing=".1em">DOSES</text>';
+    s += '<line x1="22" y1="' + b.laneBot.toFixed(1) + '" x2="' + (v.W - 10) + '" y2="' + b.laneBot.toFixed(1) + '" stroke="' + P.lane + '"/>';
     v.doseItems.forEach(function (d) {
       var h = (b.laneBot - b.laneTop) * Math.min(1, d.units / 2) * 0.82 + 6, cy = b.laneBot - h, r = d.units >= 2 ? 6 : d.units >= 1 ? 4.6 : 3.4;
       s += '<line x1="' + d.x.toFixed(1) + '" y1="' + b.laneBot.toFixed(1) + '" x2="' + d.x.toFixed(1) + '" y2="' + cy.toFixed(1) + '" stroke="hsl(' + d.hue + ' 80% 60% / .45)" stroke-width="2"/>' +
-        '<circle cx="' + d.x.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r + '" fill="hsl(' + d.hue + ' 85% 62%)" filter="url(#auGlow)"/>';
+        '<circle cx="' + d.x.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r + '" fill="hsl(' + d.hue + ' 85% 62%)"/>';
     });
-    s += '<line x1="' + v.nowX.toFixed(1) + '" y1="' + b.painTop + '" x2="' + v.nowX.toFixed(1) + '" y2="' + b.laneBot.toFixed(1) + '" stroke="rgba(16,23,40,.22)" stroke-dasharray="2 3"/>';
-    v.axisTicks.forEach(function (t) { s += '<text x="' + t.x.toFixed(1) + '" y="' + b.axisY.toFixed(1) + '" font-size="9.5" fill="#8a93a6" text-anchor="middle">' + t.label + '</text>'; });
+    s += '<line x1="' + v.nowX.toFixed(1) + '" y1="' + b.painTop + '" x2="' + v.nowX.toFixed(1) + '" y2="' + b.laneBot.toFixed(1) + '" stroke="' + P.now + '" stroke-dasharray="2 3"/>';
+    v.axisTicks.forEach(function (t) { s += '<text x="' + t.x.toFixed(1) + '" y="' + b.axisY.toFixed(1) + '" font-size="9.5" fill="' + P.axis + '" text-anchor="middle">' + t.label + '</text>'; });
     return s;
+   };
   }
 
   function renderSheet(m) {
@@ -121,10 +126,18 @@
       '<div class="au-row"><button>History</button><button>Edit</button><button data-close>Done</button></div></div>';
   }
 
-  window.CONCEPTS.aurora = {
-    label: 'Aurora', tagline: 'A calm health-OS — your medicines as living dials.',
+  var base = {
+    tagline: 'A calm health-OS — your medicines as living dials.',
     notes: 'Each medicine is a radial dial: the ring fills with today\'s doses, the centre answers “can I take it now?”. Frosted glass over a soft aurora wash keeps clinical data feeling weightless and premium.',
-    meta: { type: 'Fraunces display · Hanken Grotesk', palette: 'Porcelain light · teal→violet aurora', idea: 'Status as a glanceable dial' },
-    span: 3 * D.DAY, renderApp: renderApp, timelineRenderer: timelineRenderer, renderSheet: renderSheet
+    span: 3 * D.DAY, renderApp: renderApp, renderSheet: renderSheet
   };
+  window.CONCEPTS.aurora = Object.assign({}, base, {
+    label: 'Aurora', meta: { type: 'Fraunces display · Hanken Grotesk', palette: 'Porcelain light · teal→violet aurora', idea: 'Status as a glanceable dial' },
+    timelineRenderer: mkRenderer(false)
+  });
+  window.CONCEPTS['aurora-dark'] = Object.assign({}, base, {
+    label: 'Aurora Dark', tagline: 'Aurora, after dark — the same dials on a deep aurora night.',
+    meta: { type: 'Fraunces display · Hanken Grotesk', palette: 'Deep navy · luminous teal→violet', idea: 'Status as a glanceable dial' },
+    timelineRenderer: mkRenderer(true)
+  });
 })();

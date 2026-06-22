@@ -1,23 +1,37 @@
-/* Aurora — calm health-OS. Light, frosted, radial dose dials. */
+/* Aurora — calm health-OS, radial dose dials. Tokenised for light + dark. */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
 
+.theme-aurora, .theme-aurora-dark { color: var(--ink); font-family: 'Hanken Grotesk', sans-serif; }
 .theme-aurora {
-  --bg: #eef2f8; --card: rgba(255, 255, 255, .72); --ink: #101728; --muted: #6a7488;
-  --line: rgba(16, 23, 40, .08); --ok: #15b886; --warn: #e8920c; --bad: #e8556b; --due: #3b82f6;
+  --ink: #101728; --ink-rgb: 16, 23, 40; --muted: #6a7488;
+  --bg: #eef2f8; --card: rgba(255, 255, 255, .72); --card-solid: rgba(255, 255, 255, .88);
+  --line: rgba(16, 23, 40, .08); --track: rgba(16, 23, 40, .09); --soft: rgba(16, 23, 40, .035);
+  --ok: #15b886; --warn: #e8920c; --bad: #e8556b; --due: #3b82f6;
+  --shadow: rgba(16, 23, 40, .45); --invert: #fff;
   background:
     radial-gradient(680px 460px at 84% -8%, #d8f3ff 0%, transparent 62%),
     radial-gradient(620px 520px at -8% 8%, #ece2ff 0%, transparent 58%),
-    radial-gradient(700px 600px at 50% 118%, #d7fbe9 0%, transparent 60%),
-    var(--bg);
-  color: var(--ink); font-family: 'Hanken Grotesk', sans-serif;
+    radial-gradient(700px 600px at 50% 118%, #d7fbe9 0%, transparent 60%), var(--bg);
 }
-.theme-aurora .app { padding: 0 0 40px; }
+.theme-aurora-dark {
+  --ink: #e9eef8; --ink-rgb: 233, 238, 248; --muted: #8a94a9;
+  --bg: #0c1018; --card: rgba(255, 255, 255, .052); --card-solid: rgba(22, 28, 41, .9);
+  --line: rgba(255, 255, 255, .09); --track: rgba(255, 255, 255, .1); --soft: rgba(255, 255, 255, .045);
+  --ok: #3fdca0; --warn: #f0a83a; --bad: #ff6d80; --due: #5b9bff;
+  --shadow: rgba(0, 0, 0, .7); --invert: #0c1018;
+  background:
+    radial-gradient(680px 440px at 84% -6%, rgba(34, 211, 238, .17) 0%, transparent 60%),
+    radial-gradient(620px 520px at -8% 6%, rgba(167, 139, 250, .17) 0%, transparent 58%),
+    radial-gradient(720px 600px at 50% 120%, rgba(21, 184, 134, .12) 0%, transparent 60%), var(--bg);
+}
+.theme-aurora .app, .theme-aurora-dark .app { padding: 0 0 40px; }
+
 .au-top { display: flex; align-items: center; justify-content: space-between; padding: 54px 22px 10px; }
 .au-top .hi { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; letter-spacing: -.01em; }
 .au-top .date { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
-.au-top .gear { width: 38px; height: 38px; border-radius: 50%; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; backdrop-filter: blur(8px); box-shadow: 0 6px 18px -10px rgba(16, 23, 40, .4); }
+.au-top .gear { width: 38px; height: 38px; border-radius: 50%; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; backdrop-filter: blur(8px); box-shadow: 0 6px 18px -10px var(--shadow); }
 
-.au-now { margin: 12px 18px 6px; padding: 18px 20px; border-radius: 26px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(16px); box-shadow: 0 24px 50px -30px rgba(16, 23, 40, .45); display: flex; align-items: center; gap: 18px; }
+.au-now { margin: 12px 18px 6px; padding: 18px 20px; border-radius: 26px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(16px); box-shadow: 0 24px 50px -30px var(--shadow); display: flex; align-items: center; gap: 18px; }
 .au-now .pscore { position: relative; width: 78px; height: 78px; flex: none; }
 .au-now .pscore .pv { position: absolute; inset: 0; display: grid; place-items: center; font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600; }
 .au-now .meta .lab { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
@@ -28,20 +42,20 @@
 .au-section h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; margin: 0; }
 .au-section .more { font-size: 12.5px; color: var(--muted); }
 
-.au-card { margin: 0 18px; padding: 8px 8px 12px; border-radius: 26px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(16px); box-shadow: 0 24px 50px -34px rgba(16, 23, 40, .4); }
+.au-card { margin: 0 18px; padding: 8px 8px 12px; border-radius: 26px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(16px); box-shadow: 0 24px 50px -34px var(--shadow); }
 .au-tlbar { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px 4px; }
 .au-tlbar .ttl { font-size: 11.5px; color: var(--muted); letter-spacing: .04em; padding-left: 4px; }
-.theme-aurora .tl-host { height: 250px; }
-.theme-aurora .zbtn { background: rgba(16, 23, 40, .04); border-color: var(--line); color: var(--ink); }
-.theme-aurora .zbtn.solid { background: var(--ink); color: #fff; border-color: transparent; }
+.theme-aurora .tl-host, .theme-aurora-dark .tl-host { height: 250px; }
+.theme-aurora .zbtn, .theme-aurora-dark .zbtn { background: rgba(var(--ink-rgb), .05); border-color: var(--line); color: var(--ink); }
+.theme-aurora .zbtn.solid, .theme-aurora-dark .zbtn.solid { background: var(--ink); color: var(--invert); border-color: transparent; }
 
 .au-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 18px 0; }
-.au-tile { text-align: center; padding: 16px 12px 14px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(14px); box-shadow: 0 18px 40px -32px rgba(16, 23, 40, .5); cursor: pointer; transition: transform .16s, box-shadow .16s; appearance: none; font: inherit; color: inherit; }
-.au-tile:hover { transform: translateY(-3px); box-shadow: 0 26px 52px -30px rgba(16, 23, 40, .55); }
+.au-tile { text-align: center; padding: 16px 12px 14px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(14px); box-shadow: 0 18px 40px -32px var(--shadow); cursor: pointer; transition: transform .16s, box-shadow .16s; appearance: none; font: inherit; color: inherit; }
+.au-tile:hover { transform: translateY(-3px); box-shadow: 0 26px 52px -30px var(--shadow); }
 .au-tile:active { transform: translateY(0) scale(.99); }
 .dialwrap { position: relative; width: 96px; height: 96px; margin: 0 auto 10px; }
 .dial { width: 100%; height: 100%; transform: rotate(-90deg); }
-.dial .track { fill: none; stroke: rgba(16, 23, 40, .09); stroke-width: 7; }
+.dial .track { fill: none; stroke: var(--track); stroke-width: 7; }
 .dial .prog { fill: none; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset .6s cubic-bezier(.22, 1, .36, 1); }
 .dialc { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
 .dialc .big { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; line-height: 1; }
@@ -49,32 +63,30 @@
 .dialc .top { font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
 .au-tile .nm { font-weight: 600; font-size: 14.5px; letter-spacing: -.01em; }
 .au-tile .st { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
-.au-tile .st b { font-weight: 600; }
-.au-tile.s-ready .accent { color: var(--ok); } .s-ready .dialc .big { color: var(--ok); }
+.s-ready .dialc .big { color: var(--ok); }
 .au-tile.s-wait .dialc .big { color: var(--warn); }
 .au-tile.s-hold .dialc .big, .au-tile.s-daily_max .dialc .big { color: var(--bad); }
 .au-tile.s-due .dialc .big { color: var(--due); }
-.au-tile.s-hold { border-color: rgba(232, 85, 107, .4); box-shadow: 0 18px 40px -30px rgba(232, 85, 107, .5); }
+.au-tile.s-hold { border-color: rgba(232, 85, 107, .4); }
 .au-tile .hold-note { color: var(--bad); font-size: 11px; margin-top: 4px; }
 
 /* sheet */
-.theme-aurora .sheet-card { color: var(--ink); }
-.au-sheet { background: rgba(255, 255, 255, .86); backdrop-filter: blur(24px); border-top-left-radius: 30px; border-top-right-radius: 30px; border: 1px solid var(--line); box-shadow: 0 -30px 80px -30px rgba(16, 23, 40, .5); padding: 4px 22px 30px; }
+.theme-aurora .sheet-card, .theme-aurora-dark .sheet-card { color: var(--ink); }
+.au-sheet { background: var(--card-solid); backdrop-filter: blur(24px); border-top-left-radius: 30px; border-top-right-radius: 30px; border: 1px solid var(--line); box-shadow: 0 -30px 80px -30px var(--shadow); padding: 4px 22px 30px; }
 .au-sheet .sh-head { display: flex; align-items: center; gap: 16px; margin: 10px 0 6px; }
-.au-sheet .sh-head .dialwrap { width: 84px; height: 84px; margin: 0; }
 .au-sheet .sh-name { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; }
 .au-sheet .sh-strength { color: var(--muted); font-size: 13px; }
-.au-avail { margin: 12px 0; padding: 14px 16px; border-radius: 18px; background: rgba(16, 23, 40, .035); border: 1px solid var(--line); font-size: 14px; }
+.au-avail { margin: 12px 0; padding: 14px 16px; border-radius: 18px; background: var(--soft); border: 1px solid var(--line); font-size: 14px; }
 .au-avail .q { color: var(--muted); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
 .au-avail .a { font-family: 'Fraunces', serif; font-size: 19px; margin-top: 3px; }
 .au-avail.warn .a { color: var(--bad); }
 .au-avail.ok .a { color: var(--ok); }
 .au-avail .detail { font-size: 12.5px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
 .au-doses { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 14px 0 6px; }
-.au-doses button { appearance: none; font: inherit; font-weight: 600; padding: 16px 0; border-radius: 18px; border: 1px solid var(--line); background: rgba(16, 23, 40, .03); color: var(--ink); cursor: pointer; transition: .15s; }
+.au-doses button { appearance: none; font: inherit; font-weight: 600; padding: 16px 0; border-radius: 18px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); cursor: pointer; transition: .15s; }
 .au-doses button .u { display: block; font-family: 'Fraunces', serif; font-size: 20px; }
 .au-doses button .l { font-size: 11px; color: var(--muted); }
-.au-doses button:hover { background: var(--ink); color: #fff; } .au-doses button:hover .l { color: rgba(255, 255, 255, .7); }
+.au-doses button:hover { background: var(--ink); color: var(--invert); } .au-doses button:hover .l { color: var(--invert); opacity: .7; }
 .au-row { display: flex; gap: 10px; margin-top: 10px; }
 .au-row button { flex: 1; appearance: none; font: inherit; font-size: 13.5px; font-weight: 600; padding: 12px; border-radius: 16px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
-.au-row button[data-close] { background: var(--ink); color: #fff; border-color: transparent; }
+.au-row button[data-close] { background: var(--ink); color: var(--invert); border-color: transparent; }
