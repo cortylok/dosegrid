@@ -177,9 +177,15 @@ function openDoseWarning(med, units, info, onConfirm) {
   if (type === 'ingredient') {
     const ing = info.ingredient;
     icon = '🛑';
-    title = `That's a lot of ${ing}`;
-    facts = `This would total about <b>${info.totalMg} mg</b> of <b>${ing}</b> today across all your medicines — more than the usual safe daily maximum of <b>${info.limitMg} mg</b>.`;
-    caution = `More than one of your medicines contains ${ing}. Going over the combined daily total can be harmful${ing === 'paracetamol' ? ' (paracetamol can damage the liver)' : ''}. Check the labels and get advice if you're unsure.`;
+    if (info.scope === 'period') {
+      title = `Too much ${ing} too soon`;
+      facts = `This would total about <b>${info.totalMg} mg</b> of <b>${ing}</b> in the last <b>${info.windowHours} h</b> across all your medicines — more than the <b>${info.limitMg} mg</b> usually recommended in that time.`;
+      caution = `More than one of your medicines contains ${ing}. Taking them close together pushes the dose too high${ing === 'paracetamol' ? ' (paracetamol can damage the liver)' : ''}. Check the labels and get advice if you're unsure.`;
+    } else {
+      title = `That's a lot of ${ing}`;
+      facts = `This would total about <b>${info.totalMg} mg</b> of <b>${ing}</b> today across all your medicines — more than the usual safe daily maximum of <b>${info.limitMg} mg</b>.`;
+      caution = `More than one of your medicines contains ${ing}. Going over the combined daily total can be harmful${ing === 'paracetamol' ? ' (paracetamol can damage the liver)' : ''}. Check the labels and get advice if you're unsure.`;
+    }
   } else if (type === 'over') {
     icon = '🛑';
     title = "That's over your daily limit";

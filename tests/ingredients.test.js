@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { unitMg, ingredientTotals, checkIngredients, INGREDIENT_LIMITS } from '../js/ingredients.js';
 
-const now = Date.now();
+const now = new Date('2026-06-22T13:00:00').getTime(); // fixed midday so day-spacing is deterministic
+const HOUR = 3600e3;
 const dose = (medId, units, agoMs = 0) => ({ id: medId + agoMs, medId, units, timestamp: now - agoMs });
 
 const PARA = { id: 'p', name: 'Paracetamol', strength: '500 mg', components: [{ ingredient: 'paracetamol', fromStrength: true }] };
@@ -26,12 +27,14 @@ test('ingredientTotals sums a shared ingredient across different meds', () => {
   assert.equal(t.ibuprofen, 400);
 });
 
-test('checkIngredients warns when a shared ingredient would exceed its ceiling', () => {
+test('checkIngredients warns when a shared ingredient would exceed its daily ceiling', () => {
   const meds = [PARA, PANADEINE];
-  const doses = [dose('p', 6), dose('pc', 2)]; // 3000 + 1000 = 4000 (exactly at limit)
-  assert.equal(checkIngredients(PARA, meds, doses, 0, now), null); // at limit, not over
+  // Spaced beyond the 4h window so only the daily ceiling is in play: 3000 + 1000 = 4000.
+  const doses = [dose('p', 6, 6 * HOUR), dose('pc', 2, 5 * HOUR)];
+  assert.equal(checkIngredients(PARA, meds, doses, 0, now), null); // at daily limit, not over
   const w = checkIngredients(PARA, meds, doses, 1, now); // +500 → 4500
   assert.equal(w.type, 'ingredient');
+  assert.equal(w.scope, 'daily');
   assert.equal(w.ingredient, 'paracetamol');
   assert.equal(w.totalMg, 4500);
   assert.equal(w.limitMg, INGREDIENT_LIMITS.paracetamol);
