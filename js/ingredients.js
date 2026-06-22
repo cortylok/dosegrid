@@ -63,6 +63,56 @@ export function ingredientInWindow(meds, doses, ingredient, windowMs, now) {
   return mg;
 }
 
+function startOfLocalDay(now) { const d = new Date(now); d.setHours(0, 0, 0, 0); return d.getTime(); }
+
+// Earliest time a 1-tablet dose of `ing` would fit the rolling window cap again,
+// as contributing doses age out. Returns `now` if it already fits.
+function windowFreeTime(meds, doses, ing, per, capMg, windowMs, now) {
+  const from = now - windowMs;
+  const contrib = [];
+  for (const med of meds) {
+    const p = unitMg(med, ing);
+    if (!p) continue;
+    for (const d of doses) {
+      if (d.medId === med.id && d.timestamp > from && d.timestamp <= now)
+        contrib.push({ exit: d.timestamp + windowMs, mg: p * d.units });
+    }
+  }
+  const target = capMg - per;
+  let total = contrib.reduce((s, c) => s + c.mg, 0);
+  if (total <= target) return now;
+  contrib.sort((a, b) => a.exit - b.exit);
+  for (const c of contrib) { total -= c.mg; if (total <= target) return c.exit; }
+  return now;
+}
+
+// Whether a 1-tablet dose of `med` would currently breach a shared-ingredient cap
+// (daily or short-window), and the soonest time it would no longer. Used to put a
+// tile "on hold" before the user tries to log. { blocked, until, ingredient }.
+export function ingredientHold(med, meds, doses, now) {
+  const comps = med.components || [];
+  const NONE = { blocked: false, until: null, ingredient: null };
+  if (!comps.length) return NONE;
+  const dayTotals = ingredientTotals(meds, doses, now);
+  let until = 0, which = null;
+  for (const comp of comps) {
+    const ing = comp.ingredient;
+    const per = unitMg(med, ing);
+    if (!per) continue;
+    const dLimit = INGREDIENT_LIMITS[ing];
+    if (dLimit && (dayTotals[ing] || 0) + per > dLimit) {
+      const t = startOfLocalDay(now) + 864e5;
+      if (t > until) { until = t; which = ing; }
+    }
+    const p = INGREDIENT_PERIOD[ing];
+    if (p) {
+      const free = windowFreeTime(meds, doses, ing, per, p.maxMg, p.windowHours * 3600e3, now);
+      if (free > now && free > until) { until = free; which = ing; }
+    }
+  }
+  return until ? { blocked: true, until, ingredient: which } : NONE;
+}
+
 // If adding `addedUnits` of `med` would push a shared ingredient over a safe
 // limit — its daily ceiling OR its short-window cap — return a warning
 // descriptor for the worst overage; else null. Daily ceiling takes precedence.
