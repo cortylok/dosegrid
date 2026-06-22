@@ -57,7 +57,7 @@ export function renderPainView() {
   painViewEl().querySelector('#nudge-open')?.addEventListener('click', (e) => { e.preventDefault(); openPaywall(); });
   painViewEl().querySelector('#nudge-dismiss')?.addEventListener('click', () => { markNudgeSeen(); renderPainView(); });
   const hostEl = painViewEl().querySelector('#tl-host');
-  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail, onUpgrade: openPaywall });
+  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail, onDoseGroup: openDoseGroup, onUpgrade: openPaywall });
   timeline.render();
   const zoom = (deltaY) => hostEl.dispatchEvent(new WheelEvent('wheel', { deltaY, clientX: hostEl.getBoundingClientRect().left + hostEl.clientWidth / 2, cancelable: true }));
   painViewEl().querySelector('#tl-in').addEventListener('click', () => zoom(-240));
