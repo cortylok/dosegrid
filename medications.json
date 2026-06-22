@@ -38,7 +38,8 @@
     ],
     "category": "pain-fever",
     "strengths": [
-      500
+      500,
+      665
     ],
     "unit": "mg",
     "defaultIntervalHours": 4,
@@ -48,6 +49,47 @@
       {
         "ingredient": "paracetamol",
         "fromStrength": true
+      }
+    ]
+  },
+  {
+    "generic": "Paracetamol; Caffeine",
+    "brands": [
+      "Panadol Extra"
+    ],
+    "category": "pain-fever",
+    "defaultIntervalHours": 4,
+    "defaultMaxPerDay": 8,
+    "form": "tablet",
+    "unit": "mg",
+    "kind": "combo",
+    "ingredients": [
+      {
+        "name": "Paracetamol",
+        "key": "paracetamol",
+        "unit": "mg",
+        "strengths": [
+          500,
+          665
+        ],
+        "tallied": true
+      },
+      {
+        "name": "Caffeine",
+        "key": "caffeine",
+        "unit": "mg",
+        "strengths": [
+          65
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "name": "Panadol Extra",
+        "mg": {
+          "paracetamol": 500,
+          "caffeine": 65
+        }
       }
     ]
   },
@@ -118,6 +160,7 @@
     ],
     "category": "pain-fever",
     "strengths": [
+      100,
       300
     ],
     "unit": "mg",
@@ -148,7 +191,8 @@
     "category": "pain-fever",
     "strengths": [
       250,
-      275
+      275,
+      550
     ],
     "unit": "mg",
     "defaultIntervalHours": 8,
@@ -341,7 +385,43 @@
     "category": "antibiotic",
     "defaultIntervalHours": 12,
     "defaultMaxPerDay": 2,
-    "form": "tablet"
+    "form": "tablet",
+    "kind": "combo",
+    "ingredients": [
+      {
+        "name": "Amoxicillin",
+        "key": "amoxicillin",
+        "unit": "mg",
+        "strengths": [
+          500,
+          875
+        ]
+      },
+      {
+        "name": "Clavulanate",
+        "key": "clavulanate",
+        "unit": "mg",
+        "strengths": [
+          125
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "name": "Augmentin",
+        "mg": {
+          "amoxicillin": 500,
+          "clavulanate": 125
+        }
+      },
+      {
+        "name": "Augmentin Duo Forte",
+        "mg": {
+          "amoxicillin": 875,
+          "clavulanate": 125
+        }
+      }
+    ]
   },
   {
     "generic": "Cefalexin",
@@ -1492,10 +1572,67 @@
     "defaultIntervalHours": 4,
     "defaultMaxPerDay": 8,
     "form": "tablet",
-    "components": [
+    "kind": "combo",
+    "ingredients": [
       {
-        "ingredient": "paracetamol",
-        "mg": 500
+        "name": "Paracetamol",
+        "key": "paracetamol",
+        "unit": "mg",
+        "strengths": [
+          500,
+          450,
+          665
+        ],
+        "tallied": true
+      },
+      {
+        "name": "Codeine",
+        "key": "codeine",
+        "unit": "mg",
+        "strengths": [
+          8,
+          9.75,
+          12.8,
+          15,
+          30
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "name": "Panadeine",
+        "mg": {
+          "paracetamol": 500,
+          "codeine": 15
+        }
+      },
+      {
+        "name": "Panamax Co",
+        "mg": {
+          "paracetamol": 500,
+          "codeine": 8
+        }
+      },
+      {
+        "name": "Panadeine Forte",
+        "mg": {
+          "paracetamol": 500,
+          "codeine": 30
+        }
+      },
+      {
+        "name": "Mersyndol",
+        "mg": {
+          "paracetamol": 450,
+          "codeine": 9.75
+        }
+      },
+      {
+        "name": "Mersyndol Forte",
+        "mg": {
+          "paracetamol": 450,
+          "codeine": 30
+        }
       }
     ]
   },
@@ -1508,10 +1645,35 @@
     "defaultIntervalHours": 6,
     "defaultMaxPerDay": 6,
     "form": "tablet",
-    "components": [
+    "kind": "combo",
+    "ingredients": [
       {
-        "ingredient": "ibuprofen",
-        "mg": 200
+        "name": "Ibuprofen",
+        "key": "ibuprofen",
+        "unit": "mg",
+        "strengths": [
+          200,
+          400
+        ],
+        "tallied": true
+      },
+      {
+        "name": "Codeine",
+        "key": "codeine",
+        "unit": "mg",
+        "strengths": [
+          12.8,
+          30
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "name": "Nurofen Plus",
+        "mg": {
+          "ibuprofen": 200,
+          "codeine": 12.8
+        }
       }
     ]
   },
@@ -1569,7 +1731,62 @@
     "defaultIntervalHours": 12,
     "defaultMaxPerDay": 2,
     "form": "tablet",
-    "doseType": "scheduled"
+    "doseType": "scheduled",
+    "kind": "combo",
+    "ingredients": [
+      {
+        "name": "Oxycodone",
+        "key": "oxycodone",
+        "unit": "mg",
+        "strengths": [
+          5,
+          10,
+          20,
+          40
+        ]
+      },
+      {
+        "name": "Naloxone",
+        "key": "naloxone",
+        "unit": "mg",
+        "strengths": [
+          2.5,
+          5,
+          10,
+          20
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "name": "Targin 5/2.5",
+        "mg": {
+          "oxycodone": 5,
+          "naloxone": 2.5
+        }
+      },
+      {
+        "name": "Targin 10/5",
+        "mg": {
+          "oxycodone": 10,
+          "naloxone": 5
+        }
+      },
+      {
+        "name": "Targin 20/10",
+        "mg": {
+          "oxycodone": 20,
+          "naloxone": 10
+        }
+      },
+      {
+        "name": "Targin 40/20",
+        "mg": {
+          "oxycodone": 40,
+          "naloxone": 20
+        }
+      }
+    ]
   },
   {
     "generic": "Tapentadol",
@@ -1747,7 +1964,62 @@
     "defaultIntervalHours": 24,
     "defaultMaxPerDay": 1,
     "form": "wafer",
-    "doseType": "scheduled"
+    "doseType": "scheduled",
+    "kind": "combo",
+    "ingredients": [
+      {
+        "name": "Buprenorphine",
+        "key": "buprenorphine",
+        "unit": "mg",
+        "strengths": [
+          2,
+          8,
+          12,
+          16
+        ]
+      },
+      {
+        "name": "Naloxone",
+        "key": "naloxone",
+        "unit": "mg",
+        "strengths": [
+          0.5,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "name": "Suboxone 2/0.5",
+        "mg": {
+          "buprenorphine": 2,
+          "naloxone": 0.5
+        }
+      },
+      {
+        "name": "Suboxone 8/2",
+        "mg": {
+          "buprenorphine": 8,
+          "naloxone": 2
+        }
+      },
+      {
+        "name": "Suboxone 12/3",
+        "mg": {
+          "buprenorphine": 12,
+          "naloxone": 3
+        }
+      },
+      {
+        "name": "Suboxone 16/4",
+        "mg": {
+          "buprenorphine": 16,
+          "naloxone": 4
+        }
+      }
+    ]
   },
   {
     "generic": "Fentanyl patch",
@@ -1901,10 +2173,34 @@
     "defaultIntervalHours": 6,
     "defaultMaxPerDay": 6,
     "form": "tablet",
-    "components": [
+    "kind": "combo",
+    "ingredients": [
       {
-        "ingredient": "paracetamol",
-        "mg": 450
+        "name": "Orphenadrine",
+        "key": "orphenadrine",
+        "unit": "mg",
+        "strengths": [
+          35
+        ]
+      },
+      {
+        "name": "Paracetamol",
+        "key": "paracetamol",
+        "unit": "mg",
+        "strengths": [
+          450,
+          500
+        ],
+        "tallied": true
+      }
+    ],
+    "variants": [
+      {
+        "name": "Norgesic",
+        "mg": {
+          "orphenadrine": 35,
+          "paracetamol": 450
+        }
       }
     ]
   },
@@ -2024,7 +2320,35 @@
     "category": "migraine",
     "defaultIntervalHours": 4,
     "defaultMaxPerDay": 3,
-    "form": "tablet"
+    "form": "tablet",
+    "kind": "combo",
+    "ingredients": [
+      {
+        "name": "Ergotamine",
+        "key": "ergotamine",
+        "unit": "mg",
+        "strengths": [
+          1
+        ]
+      },
+      {
+        "name": "Caffeine",
+        "key": "caffeine",
+        "unit": "mg",
+        "strengths": [
+          100
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "name": "Cafergot",
+        "mg": {
+          "ergotamine": 1,
+          "caffeine": 100
+        }
+      }
+    ]
   },
   {
     "generic": "Cyclizine",
@@ -2085,10 +2409,42 @@
     "defaultIntervalHours": 6,
     "defaultMaxPerDay": 4,
     "form": "tablet",
-    "components": [
+    "kind": "combo",
+    "ingredients": [
       {
-        "ingredient": "paracetamol",
-        "mg": 500
+        "name": "Codeine",
+        "key": "codeine",
+        "unit": "mg",
+        "strengths": [
+          9.5
+        ]
+      },
+      {
+        "name": "Pseudoephedrine",
+        "key": "pseudoephedrine",
+        "unit": "mg",
+        "strengths": [
+          30
+        ]
+      },
+      {
+        "name": "Paracetamol",
+        "key": "paracetamol",
+        "unit": "mg",
+        "strengths": [
+          500
+        ],
+        "tallied": true
+      }
+    ],
+    "variants": [
+      {
+        "name": "Codral Cold & Flu",
+        "mg": {
+          "codeine": 9.5,
+          "pseudoephedrine": 30,
+          "paracetamol": 500
+        }
       }
     ]
   },
@@ -2257,6 +2613,43 @@
     "category": "antibiotic",
     "defaultIntervalHours": 12,
     "defaultMaxPerDay": 2,
-    "form": "tablet"
+    "form": "tablet",
+    "kind": "combo",
+    "ingredients": [
+      {
+        "name": "Trimethoprim",
+        "key": "trimethoprim",
+        "unit": "mg",
+        "strengths": [
+          80,
+          160
+        ]
+      },
+      {
+        "name": "Sulfamethoxazole",
+        "key": "sulfamethoxazole",
+        "unit": "mg",
+        "strengths": [
+          400,
+          800
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "name": "Bactrim",
+        "mg": {
+          "trimethoprim": 80,
+          "sulfamethoxazole": 400
+        }
+      },
+      {
+        "name": "Bactrim DS",
+        "mg": {
+          "trimethoprim": 160,
+          "sulfamethoxazole": 800
+        }
+      }
+    ]
   }
 ]

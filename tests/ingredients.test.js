@@ -42,11 +42,13 @@ test('checkIngredients returns null for a med with no shared components', () => 
   assert.equal(checkIngredients(plain, [plain], [dose('x', 1)], 5, now), null);
 });
 
-test('real dataset: paracetamol+codeine combo carries a paracetamol component', async () => {
+test('real dataset: paracetamol+codeine combo tallies paracetamol per ingredient', async () => {
   const meds = JSON.parse(await readFile(new URL('../medications.json', import.meta.url)));
   const combo = meds.find((m) => m.generic === 'Paracetamol; Codeine');
   assert.ok(combo, 'combo present');
-  assert.ok((combo.components || []).some((c) => c.ingredient === 'paracetamol'), 'has paracetamol component');
+  const para = (combo.ingredients || []).find((i) => i.key === 'paracetamol');
+  assert.ok(para && para.tallied, 'paracetamol ingredient is tallied');
+  assert.ok(combo.variants.every((v) => typeof v.mg.paracetamol === 'number'), 'each variant has a paracetamol mg');
   const plain = meds.find((m) => m.generic === 'Paracetamol');
   assert.ok((plain.components || []).some((c) => c.ingredient === 'paracetamol'), 'plain paracetamol tagged');
 });
