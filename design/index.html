@@ -59,9 +59,9 @@
     var card = document.getElementById('sheetcard');
     card.innerHTML = c.renderSheet(med);
     wrap.classList.add('open');
-    wrap.querySelectorAll('[data-close],.scrim').forEach(function (el) {
-      el.addEventListener('click', function (e) { if (e.currentTarget.classList.contains('scrim') && e.target !== el) return; wrap.classList.remove('open'); });
-    });
+    var close = function () { wrap.classList.remove('open'); };
+    wrap.querySelector('.scrim').addEventListener('click', close);
+    wrap.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
   }
 
   function select(k) {

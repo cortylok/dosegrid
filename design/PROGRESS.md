@@ -47,11 +47,16 @@ ready · wait(until time) · hold(shared-ingredient, with note) · daily-max · 
 - [x] Concept 3 — Pulse (concepts/pulse.css + .js)
 - [x] Concept 4 — Apothecary (concepts/apothecary.css + .js)
 - [x] Concept 5 — Vital (concepts/vital.css + .js)
-- [ ] Final polish pass + per-concept rationale text in side panel
-- [ ] (optional) push branch for review
+- [x] Final polish pass (load transition, sheet wiring, rationale panel)
+- [x] Pushed branch `design-explorations` for review
+
+## STATUS: COMPLETE — all 5 directions built on branch `design-explorations`.
+Open `design/index.html` in a browser to review. Each concept is isolated in
+`concepts/<name>.{css,js}`; tweak one without touching the rest. Likely next step: user picks
+1–2 favourites to refine, or asks to port a winner into the real app (js/ui.js + css/styles.css).
 
 ## Resume notes
-Last action: **Apothecary done & committed**. Next: Vital (bento SaaS, mono numerics). Final = polish pass.
+Last action: **All 5 concepts + polish done, branch pushed.**
 (concepts/*.css + *.js) that register nothing yet — replace each with the real concept.
 To add a concept: implement `CONCEPTS.<name> = { label, tagline, notes, meta, span, renderApp(),
 timelineRenderer(view), renderSheet(med) }` in its js, styles scoped under `.theme-<name>` in its css.

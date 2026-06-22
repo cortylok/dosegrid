@@ -49,8 +49,10 @@ body::before { /* fine grain */
 .device { width: 408px; max-width: 100%; }
 .phone { position: relative; border-radius: 46px; padding: 12px; background: linear-gradient(150deg, #2a2f3a, #0e1117); box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .8), inset 0 1px 0 rgba(255, 255, 255, .06); }
 .screen { position: relative; border-radius: 36px; overflow: hidden; height: 812px; background: #0c0e13; isolation: isolate; }
-.app { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+.app { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-behavior: smooth; animation: appIn .5s cubic-bezier(.22, 1, .36, 1) both; }
 .app::-webkit-scrollbar { width: 0; }
+@keyframes appIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.app [data-med], .tab, .zbtn, .grabber { user-select: none; -webkit-user-select: none; }
 
 /* timeline host + zoom controls (themed further per concept) */
 .tl-host { width: 100%; height: 290px; touch-action: none; cursor: grab; }
