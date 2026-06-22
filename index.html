@@ -12,17 +12,18 @@
   <header class="app-header">
     <h1>DoseGrid</h1>
     <div class="view-toggle" role="tablist" aria-label="View">
-      <button id="tab-pain">Pain</button>
-      <button id="tab-meds" class="active">Meds</button>
+      <button id="tab-home" class="active">Home</button>
+      <button id="tab-timeline">Timeline</button>
     </div>
     <button id="about-btn" class="icon-btn" aria-label="About / How it works">?</button>
   </header>
 
   <main>
-    <section id="pain-view" aria-label="Pain tracking" hidden></section>
-    <section id="meds-view">
+    <section id="home-view" aria-label="Home">
+      <div id="home-pain"></div>
       <div id="grid" class="grid" aria-label="Medication grid"></div>
     </section>
+    <section id="timeline-view" aria-label="Timeline" hidden></section>
   </main>
 
   <!-- Dialog host; ui.js renders content into this -->

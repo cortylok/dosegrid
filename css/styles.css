@@ -106,7 +106,8 @@ body {
 .view-toggle button { border: none; background: transparent; color: var(--muted); font: inherit; font-weight: 700; font-size: 0.8rem; padding: 4px 12px; border-radius: 999px; cursor: pointer; }
 .view-toggle button.active { background: var(--accent); color: #06222a; }
 /* Pain view */
-#pain-view { padding: 14px; }
+#home-pain { padding: 14px 14px 0; }
+#timeline-view { padding: 14px; }
 .pain-now { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; min-height: 72px; }
 .pain-now.muted { color: var(--muted); }
 .pain-score { font-size: 2.4rem; font-weight: 800; line-height: 1; }

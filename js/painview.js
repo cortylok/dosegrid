@@ -6,8 +6,15 @@ import { createTimeline } from './timeline.js';
 import { isPro } from './pro.js';
 import { shouldNudge, hiddenCount, usageDayCount, nudgeSeen, markNudgeSeen } from './gating.js';
 
-const painViewEl = () => document.getElementById('pain-view');
+const homePainEl = () => document.getElementById('home-pain');
+const timelineViewEl = () => document.getElementById('timeline-view');
 let timeline = null;
+
+// Re-render whatever pain-driven UI is mounted (used after a pain entry changes).
+function afterPainChange() { renderHomePain(); if (timeline) timeline.render(); }
+
+// Cheap re-render of the chart if it exists (used by app.js on refresh ticks).
+export function refreshTimeline() { if (timeline) timeline.render(); }
 
 function fmtRelative(ts) {
   const mins = Math.round((Date.now() - ts) / 60000);
@@ -18,18 +25,13 @@ function fmtRelative(ts) {
   return new Date(ts).toLocaleDateString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' });
 }
 
-export function renderPainView() {
+export function renderHomePain() {
   const pain = loadPain();
   const last = latestPain(pain);
   const summary = last
     ? `<div class="pain-now"><div class="pain-score" style="color:${painColor(last.score)}">${last.score}<span>/10</span></div>` +
       `<div class="pain-meta">${severity(last.score)} · logged ${fmtRelative(last.timestamp)}${last.note ? `<br><span class="muted">“${last.note}”</span>` : ''}</div></div>`
     : `<div class="pain-now muted">No pain logged yet. Tap “Log pain” to start.</div>`;
-
-  const meds = loadMeds().slice().sort((a, b) => (a.order || 0) - (b.order || 0));
-  const legend = meds.length
-    ? `<div class="tl-legend">` + meds.map((m) => `<span><i style="background:${medColor(m.order || 0)}"></i>${m.name}</span>`).join('') + `</div>`
-    : '';
 
   const now = Date.now();
   const allEntries = [...loadPain(), ...loadDoses()];
@@ -44,10 +46,22 @@ export function renderPainView() {
       `<button id="nudge-dismiss" aria-label="Dismiss">✕</button></div>`
     : '';
 
-  painViewEl().innerHTML =
-    nudge +
-    summary +
-    `<button class="btn pain-log-btn" id="log-pain">＋ Log pain</button>` +
+  homePainEl().innerHTML =
+    nudge + summary +
+    `<button class="btn pain-log-btn" id="log-pain">＋ Log pain</button>`;
+
+  homePainEl().querySelector('#log-pain').addEventListener('click', openPainLog);
+  homePainEl().querySelector('#nudge-open')?.addEventListener('click', (e) => { e.preventDefault(); openPaywall(); });
+  homePainEl().querySelector('#nudge-dismiss')?.addEventListener('click', () => { markNudgeSeen(); renderHomePain(); });
+}
+
+export function renderTimelineView() {
+  const meds = loadMeds().slice().sort((a, b) => (a.order || 0) - (b.order || 0));
+  const legend = meds.length
+    ? `<div class="tl-legend">` + meds.map((m) => `<span><i style="background:${medColor(m.order || 0)}"></i>${m.name}</span>`).join('') + `</div>`
+    : '';
+
+  timelineViewEl().innerHTML =
     `<div class="tl-bar"><span class="tl-hint">Drag · pinch to zoom</span>` +
       `<span style="flex:1"></span>` +
       `<button class="zb" id="tl-today">Today</button><button class="zb" id="tl-week">Week</button>` +
@@ -55,16 +69,13 @@ export function renderPainView() {
     `<div class="tl-host" id="tl-host"></div>` +
     legend;
 
-  painViewEl().querySelector('#log-pain').addEventListener('click', openPainLog);
-  painViewEl().querySelector('#nudge-open')?.addEventListener('click', (e) => { e.preventDefault(); openPaywall(); });
-  painViewEl().querySelector('#nudge-dismiss')?.addEventListener('click', () => { markNudgeSeen(); renderPainView(); });
-  const hostEl = painViewEl().querySelector('#tl-host');
+  const hostEl = timelineViewEl().querySelector('#tl-host');
   timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail, onDoseGroup: openDoseGroup, onUpgrade: openPaywall });
   timeline.render();
-  painViewEl().querySelector('#tl-today').addEventListener('click', () => timeline.showToday());
-  painViewEl().querySelector('#tl-week').addEventListener('click', () => timeline.showWeek());
-  painViewEl().querySelector('#tl-in').addEventListener('click', () => timeline.zoomIn());
-  painViewEl().querySelector('#tl-out').addEventListener('click', () => timeline.zoomOut());
+  timelineViewEl().querySelector('#tl-today').addEventListener('click', () => timeline.showToday());
+  timelineViewEl().querySelector('#tl-week').addEventListener('click', () => timeline.showWeek());
+  timelineViewEl().querySelector('#tl-in').addEventListener('click', () => timeline.zoomIn());
+  timelineViewEl().querySelector('#tl-out').addEventListener('click', () => timeline.zoomOut());
 }
 
 export function openPainDetail(id) {
@@ -84,7 +95,7 @@ export function openPainDetail(id) {
     if (!confirm('Delete this pain entry?')) return;
     savePain(loadPain().filter((p) => p.id !== id));
     closeModal();
-    renderPainView();
+    afterPainChange();
   });
 }
 
@@ -156,7 +167,7 @@ export function openPainLog() {
     const note = modalRoot().querySelector('#pain-note').value.trim();
     addPain(selected, note);
     closeModal();
-    renderPainView();
+    afterPainChange();
   });
 }
 
