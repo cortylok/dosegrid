@@ -98,11 +98,28 @@ function attachTileHandlers(tile, med) {
   tile.addEventListener('click', () => { if (longFired) { longFired = false; return; } openDoseSheet(med); });
 }
 
-export function closeModal() { modalRoot().innerHTML = ''; }
+// A single history entry is pushed while a sheet is open so the hardware/browser
+// back button (and the in-sheet ‹ Back) closes the popup instead of leaving the
+// app. Sheets replace each other in place, so only one entry exists per session.
+let modalActive = false;
+export function closeModal() {
+  if (!modalActive && !modalRoot().innerHTML) return;
+  modalActive = false;
+  modalRoot().innerHTML = '';
+  if (typeof history !== 'undefined' && history.state && history.state.dgModal) history.back();
+}
 export function openSheet(html) {
-  modalRoot().innerHTML = `<div class="scrim"><div class="sheet">${html}</div></div>`;
+  modalRoot().innerHTML = `<div class="scrim"><div class="sheet">` +
+    `<button class="sheet-back" aria-label="Back">‹ Back</button>${html}</div></div>`;
   modalRoot().querySelector('.scrim').addEventListener('click', (e) => {
     if (e.target.classList.contains('scrim')) closeModal();
+  });
+  modalRoot().querySelector('.sheet-back').addEventListener('click', () => closeModal());
+  if (!modalActive) { modalActive = true; if (typeof history !== 'undefined') history.pushState({ dgModal: true }, ''); }
+}
+if (typeof window !== 'undefined') {
+  window.addEventListener('popstate', () => {
+    if (modalActive) { modalActive = false; modalRoot().innerHTML = ''; } // back pressed → dismiss
   });
 }
 
@@ -259,8 +276,7 @@ function openCountryPicker(onDone) {
   modalRoot().querySelector('#cp-cancel').addEventListener('click', closeModal);
   modalRoot().querySelector('#cp-save').addEventListener('click', () => {
     setCountry(modalRoot().querySelector('#cp-sel').value);
-    closeModal();
-    if (typeof onDone === 'function') onDone();
+    if (typeof onDone === 'function') onDone(); else closeModal();
   });
 }
 
@@ -789,8 +805,8 @@ export function showLanding(opts = {}) {
     `</div>`
   );
   modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
-  modalRoot().querySelector('#land-pro')?.addEventListener('click', () => { closeModal(); openPaywall(); });
-  modalRoot().querySelector('#land-reminders')?.addEventListener('click', () => { closeModal(); openNotifySettings(); });
+  modalRoot().querySelector('#land-pro')?.addEventListener('click', () => openPaywall());
+  modalRoot().querySelector('#land-reminders')?.addEventListener('click', () => openNotifySettings());
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
     const cb = modalRoot().querySelector('#land-dismiss');
     if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();
