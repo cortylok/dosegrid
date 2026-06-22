@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { checkIngredients, ingredientInWindow, INGREDIENT_PERIOD } from '../js/ingredients.js';
 
-const now = Date.now();
+const now = new Date('2026-06-22T13:00:00').getTime(); // fixed midday so day-spanning doses are deterministic
 const MIN = 60 * 1000, HOUR = 60 * MIN;
 
 // A combo: each tablet = 500 mg paracetamol (+ codeine, untallied for window).
