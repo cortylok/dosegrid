@@ -46,7 +46,7 @@ ready · wait(until time) · hold(shared-ingredient, with note) · daily-max · 
 - [x] Concept 2 — Ledger (concepts/ledger.css + .js)
 - [x] Concept 3 — Pulse (concepts/pulse.css + .js)
 - [x] Concept 4 — Apothecary (concepts/apothecary.css + .js)
-- [ ] Concept 5 — Vital
+- [x] Concept 5 — Vital (concepts/vital.css + .js)
 - [ ] Final polish pass + per-concept rationale text in side panel
 - [ ] (optional) push branch for review
 
