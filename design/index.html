@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DoseGrid · design explorations</title>
+<link rel="stylesheet" href="shared.css" />
+<link rel="stylesheet" href="concepts/aurora.css" />
+<link rel="stylesheet" href="concepts/ledger.css" />
+<link rel="stylesheet" href="concepts/pulse.css" />
+<link rel="stylesheet" href="concepts/apothecary.css" />
+<link rel="stylesheet" href="concepts/vital.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div>
+      <h1>DoseGrid — Design Explorations</h1>
+      <div class="sub">Five distinct directions for the med grid, dose sheet & zoomable timeline. Same data, same function.</div>
+    </div>
+    <div class="tabs" id="tabs"></div>
+  </div>
+
+  <div class="stage">
+    <aside class="rationale" id="rationale"></aside>
+    <div class="device-col">
+      <div class="device">
+        <div class="phone">
+          <div class="screen" id="frame"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="creditline" id="credit"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="timeline.js"></script>
+<script src="concepts/aurora.js"></script>
+<script src="concepts/ledger.js"></script>
+<script src="concepts/pulse.js"></script>
+<script src="concepts/apothecary.js"></script>
+<script src="concepts/vital.js"></script>
+<script>
+(function () {
+  var ORDER = ['aurora', 'aurora-dark', 'apothecary', 'apothecary-dark', 'ledger', 'pulse', 'vital'];
+  var CONCEPTS = window.CONCEPTS || {};
+  var keys = ORDER.filter(function (k) { return CONCEPTS[k]; });
+  var current = null, tl = null;
+
+  var tabs = document.getElementById('tabs');
+  tabs.innerHTML = keys.map(function (k) {
+    return '<button class="tab" data-k="' + k + '">' + CONCEPTS[k].label + '</button>';
+  }).join('');
+
+  function openSheet(c, medId) {
+    var med = DEMO.medById(medId); if (!med || !c.renderSheet) return;
+    var wrap = document.getElementById('sheetwrap');
+    var card = document.getElementById('sheetcard');
+    card.innerHTML = c.renderSheet(med);
+    wrap.classList.add('open');
+    var close = function () { wrap.classList.remove('open'); };
+    wrap.querySelector('.scrim').addEventListener('click', close);
+    wrap.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
+  }
+
+  function select(k) {
+    var c = CONCEPTS[k]; if (!c) return; current = k;
+    tabs.querySelectorAll('.tab').forEach(function (b) { b.classList.toggle('active', b.dataset.k === k); });
+
+    var r = document.getElementById('rationale');
+    var meta = c.meta || {};
+    r.innerHTML =
+      '<div class="badge">Direction ' + (keys.indexOf(k) + 1) + ' / ' + keys.length + '</div>' +
+      '<h2>' + c.label + '</h2>' +
+      '<p class="tagline">' + (c.tagline || '') + '</p>' +
+      '<p class="notes">' + (c.notes || '') + '</p>' +
+      '<div class="meta">' +
+        (meta.type ? '<div><b>Type</b><span>' + meta.type + '</span></div>' : '') +
+        (meta.palette ? '<div><b>Palette</b><span>' + meta.palette + '</span></div>' : '') +
+        (meta.idea ? '<div><b>Idea</b><span>' + meta.idea + '</span></div>' : '') +
+      '</div>' +
+      '<div class="hint">Drag to pan · scroll / pinch to zoom · <kbd>+</kbd><kbd>−</kbd> · tap a tile for the dose sheet.</div>';
+
+    var frame = document.getElementById('frame');
+    frame.className = 'screen theme-' + k;
+    frame.innerHTML =
+      '<div class="app" id="app"></div>' +
+      '<div class="sheetwrap" id="sheetwrap"><div class="scrim"></div><div class="sheet-card" id="sheetcard"></div></div>';
+    var app = frame.querySelector('#app');
+    app.innerHTML = c.renderApp ? c.renderApp() : '';
+
+    // timeline
+    var host = app.querySelector('.tl-host');
+    if (host && c.timelineRenderer) {
+      tl = TL.create(host, { renderer: c.timelineRenderer, span: c.span || 3 * DEMO.DAY });
+      app.querySelectorAll('[data-z]').forEach(function (b) {
+        b.addEventListener('click', function () { var f = tl[b.dataset.z]; if (f) f(); });
+      });
+    }
+    // tile → sheet
+    app.querySelectorAll('[data-med]').forEach(function (el) {
+      el.addEventListener('click', function () { openSheet(c, el.dataset.med); });
+    });
+    if (c.onMount) c.onMount(app);
+  }
+
+  tabs.addEventListener('click', function (e) { var b = e.target.closest('.tab'); if (b) select(b.dataset.k); });
+  document.getElementById('credit').textContent = 'DoseGrid — medication & pain diary · design study';
+  if (keys.length) select(keys[0]);
+})();
+</script>
+</body>
+</html>

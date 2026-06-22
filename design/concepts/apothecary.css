@@ -1,0 +1,87 @@
+/* Apothecary — warm tactile, blister-pack dose dots. Tokenised for light + dark. */
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Figtree:wght@400;500;600;700&display=swap');
+
+.theme-apothecary, .theme-apothecary-dark { color: var(--ink); font-family: 'Figtree', sans-serif; }
+.theme-apothecary {
+  --ink: #2b2118; --ink-rgb: 43, 33, 24; --muted: #8a7c69;
+  --bg: #efe6d6; --card: #fbf6ec; --line: rgba(43, 33, 24, .1);
+  --sage: #5e8a57; --amber: #cf8b3c; --clay: #bf5b39; --slate: #5e7c98;
+  --sh: 0 18px 36px -22px rgba(43, 33, 24, .45), inset 0 1px 0 rgba(255, 255, 255, .7);
+  --btn-grad: linear-gradient(180deg, #fff, #f3ead9); --zbtn-bg: #f0e7d6; --inset: rgba(255, 255, 255, .6);
+  background:
+    radial-gradient(620px 420px at 84% -6%, #f6ecd6 0%, transparent 60%),
+    radial-gradient(560px 480px at -6% 100%, #ecdcc4 0%, transparent 58%), var(--bg);
+}
+.theme-apothecary-dark {
+  --ink: #f1e8d8; --ink-rgb: 241, 232, 216; --muted: #a3927b;
+  --bg: #16120e; --card: #221b14; --line: rgba(255, 255, 255, .085);
+  --sage: #7eb06f; --amber: #e0a44e; --clay: #df7d54; --slate: #84a2bf;
+  --sh: 0 18px 40px -22px rgba(0, 0, 0, .72), inset 0 1px 0 rgba(255, 255, 255, .05);
+  --btn-grad: linear-gradient(180deg, #2d251b, #211a12); --zbtn-bg: #251e15; --inset: rgba(255, 255, 255, .05);
+  background:
+    radial-gradient(640px 430px at 84% -6%, rgba(224, 164, 78, .14) 0%, transparent 60%),
+    radial-gradient(560px 480px at -6% 100%, rgba(223, 125, 84, .12) 0%, transparent 58%), var(--bg);
+}
+.theme-apothecary .app, .theme-apothecary-dark .app { padding: 0 0 40px; }
+
+.ap-top { padding: 52px 22px 8px; display: flex; align-items: flex-end; justify-content: space-between; }
+.ap-top .hi { font-family: 'Spectral', serif; font-size: 27px; font-weight: 500; }
+.ap-top .date { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.ap-top .pill-now { text-align: center; background: var(--card); border-radius: 16px; padding: 8px 14px; box-shadow: var(--sh); }
+.ap-top .pill-now b { font-family: 'Spectral', serif; font-size: 22px; display: block; }
+.ap-top .pill-now span { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+.ap-sec { display: flex; align-items: baseline; justify-content: space-between; padding: 24px 22px 10px; }
+.ap-sec h3 { font-family: 'Spectral', serif; font-weight: 600; font-size: 19px; margin: 0; }
+.ap-sec .m { font-size: 12px; color: var(--muted); }
+
+.ap-card { margin: 0 18px; background: var(--card); border-radius: 22px; box-shadow: var(--sh); padding: 8px 10px 10px; }
+.ap-tlbar { display: flex; align-items: center; justify-content: space-between; padding: 8px 8px 4px; }
+.ap-tlbar .t { font-size: 11.5px; color: var(--muted); padding-left: 4px; }
+.theme-apothecary .tl-host, .theme-apothecary-dark .tl-host { height: 244px; }
+.theme-apothecary .zbtn, .theme-apothecary-dark .zbtn { background: var(--zbtn-bg); border: 1px solid var(--line); color: var(--ink); border-radius: 11px; box-shadow: inset 0 1px 0 var(--inset); }
+.theme-apothecary .zbtn.solid, .theme-apothecary-dark .zbtn.solid { background: var(--clay); color: #fff; border-color: transparent; }
+
+.ap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; padding: 12px 18px 0; }
+.ap-tile { text-align: left; width: 100%; appearance: none; font: inherit; color: inherit; cursor: pointer; background: var(--card); border: 0; border-radius: 20px; padding: 14px 15px; box-shadow: var(--sh); transition: transform .15s, box-shadow .15s; }
+.ap-tile:hover { transform: translateY(-2px); }
+.ap-tile:active { transform: translateY(1px); box-shadow: 0 8px 18px -14px var(--shadow, rgba(0, 0, 0, .5)), inset 0 1px 0 var(--inset); }
+.ap-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.ap-head > div:first-child { min-width: 0; }
+.ap-name { font-family: 'Spectral', serif; font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ap-strength { font-size: 11px; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ap-icon { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; flex: none; background: rgba(var(--ink-rgb), .06); }
+.ap-blister { display: flex; gap: 5px; margin: 12px 0 10px; flex-wrap: wrap; }
+.ap-blister i { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid rgba(var(--ink-rgb), .24); background: transparent; box-shadow: inset 0 1px 2px rgba(var(--ink-rgb), .08); }
+.ap-blister i.on { background: radial-gradient(circle at 35% 30%, #f3bd72, var(--amber)); border-color: transparent; box-shadow: 0 2px 5px -1px rgba(191, 91, 57, .45), inset 0 1px 1px rgba(255, 255, 255, .45); }
+.ap-status { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 12.5px; font-weight: 600; line-height: 1.3; }
+.ap-status .d { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.ap-status small { color: var(--muted); font-weight: 400; flex-basis: 100%; padding-left: 15px; margin-top: 1px; }
+.s-ready .ap-status { color: var(--sage); } .s-ready .ap-status .d { background: var(--sage); }
+.s-wait .ap-status { color: var(--amber); } .s-wait .ap-status .d { background: var(--amber); }
+.s-hold .ap-status, .s-daily_max .ap-status { color: var(--clay); } .s-hold .ap-status .d, .s-daily_max .ap-status .d { background: var(--clay); }
+.s-due .ap-status { color: var(--slate); } .s-due .ap-status .d { background: var(--slate); }
+.s-done .ap-status { color: var(--muted); } .s-done .ap-status .d { background: var(--muted); }
+.ap-tile.s-hold { box-shadow: 0 18px 38px -22px rgba(191, 91, 57, .5), inset 0 1px 0 var(--inset); }
+
+/* sheet */
+.ap-sheet { background: var(--card); border-radius: 28px 28px 0 0; box-shadow: 0 -28px 70px -26px var(--shadow, rgba(0, 0, 0, .55)); padding: 4px 22px 30px; color: var(--ink); }
+.ap-sheet .grabber { color: var(--ink); }
+.ap-sh-name { font-family: 'Spectral', serif; font-size: 26px; font-weight: 600; margin-top: 8px; }
+.ap-sh-strength { font-size: 12.5px; color: var(--muted); }
+.ap-sh-blister { margin: 16px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.ap-sh-blister i { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(var(--ink-rgb), .22); }
+.ap-sh-blister i.on { background: radial-gradient(circle at 35% 30%, #f3bd72, var(--amber)); border-color: transparent; box-shadow: 0 2px 6px -1px rgba(191, 91, 57, .45), inset 0 1px 1px rgba(255, 255, 255, .45); }
+.ap-avail { padding: 15px 16px; border-radius: 18px; background: rgba(var(--ink-rgb), .04); border: 1px solid var(--line); }
+.ap-avail .q { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.ap-avail .a { font-family: 'Spectral', serif; font-size: 21px; margin-top: 3px; }
+.ap-avail.warn .a { color: var(--clay); } .ap-avail.ok .a { color: var(--sage); }
+.ap-avail .d { font-size: 12.5px; color: var(--muted); margin-top: 5px; line-height: 1.5; }
+.ap-doses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; margin: 16px 0 0; }
+.ap-doses button { appearance: none; font: inherit; cursor: pointer; padding: 15px 0; border-radius: 18px; border: 1px solid var(--line); background: var(--btn-grad); box-shadow: var(--sh); color: var(--ink); transition: .14s; }
+.ap-doses button b { font-family: 'Spectral', serif; font-size: 21px; font-weight: 600; display: block; }
+.ap-doses button small { font-size: 10.5px; color: var(--muted); }
+.ap-doses button:hover { background: var(--clay); color: #fff; } .ap-doses button:hover small { color: rgba(255, 255, 255, .75); }
+.ap-srow { display: flex; gap: 10px; margin-top: 12px; }
+.ap-srow button { flex: 1; appearance: none; font: inherit; font-weight: 600; font-size: 13.5px; padding: 13px; border-radius: 15px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.ap-srow button[data-close] { background: var(--ink); color: var(--card); border-color: transparent; }

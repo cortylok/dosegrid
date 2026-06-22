@@ -1,0 +1,69 @@
+/* Vital — data-dense bento, SaaS precision. Mono numerics, sparklines. */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+.theme-vital {
+  --bg: #0a0c10; --cell: #11141a; --cell2: #141821; --ink: #e8ecf4; --muted: #717c8e;
+  --line: rgba(255, 255, 255, .07); --accent: #6e8bff; --cyan: #34d6c4;
+  --ok: #3ee08b; --warn: #ffb13d; --bad: #ff5d6e;
+  background: var(--bg); color: var(--ink); font-family: 'Hanken Grotesk', sans-serif;
+}
+.theme-vital .app { padding: 0 0 36px; }
+.vt-top { display: flex; align-items: center; justify-content: space-between; padding: 50px 18px 14px; }
+.vt-brand { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 15px; letter-spacing: -.01em; }
+.vt-brand .logo { width: 22px; height: 22px; border-radius: 7px; background: linear-gradient(135deg, var(--accent), var(--cyan)); }
+.vt-chips { display: flex; gap: 7px; }
+.vt-chip { background: var(--cell); border: 1px solid var(--line); border-radius: 9px; padding: 5px 9px; font-size: 11px; color: var(--muted); }
+.vt-chip b { color: var(--ink); font-family: 'JetBrains Mono', monospace; font-weight: 600; margin-left: 3px; }
+
+.vt-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 14px; grid-auto-flow: row dense; }
+.vt-cell { position: relative; background: var(--cell); border: 1px solid var(--line); border-radius: 16px; padding: 13px 14px; text-align: left; appearance: none; font: inherit; color: var(--ink); cursor: pointer; transition: border-color .15s, background .15s; overflow: hidden; }
+button.vt-cell:hover { border-color: rgba(255, 255, 255, .18); background: var(--cell2); }
+.vt-span2 { grid-column: span 2; }
+.vt-tl { grid-column: span 2; padding: 12px 8px 6px; cursor: default; }
+.vt-tlhead { display: flex; align-items: center; justify-content: space-between; padding: 0 6px 8px; }
+.vt-tlhead .ttl { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.vt-tlhead .ttl span { color: var(--muted); font-weight: 400; margin-left: 6px; }
+.theme-vital .tl-host { height: 280px; }
+.theme-vital .zbtn { background: var(--cell2); border: 1px solid var(--line); color: var(--ink); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+.theme-vital .zbtn.solid { background: var(--accent); color: #0a0c10; border-color: transparent; font-weight: 700; }
+
+.vt-h { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.vt-nm { font-weight: 600; font-size: 14px; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vt-tag { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: .1em; color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; flex: none; }
+.vt-strength { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 3px; }
+.vt-big { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 24px; letter-spacing: -.02em; margin: 12px 0 9px; line-height: 1; }
+.s-ready .vt-big { color: var(--ok); } .s-wait .vt-big { color: var(--warn); }
+.s-hold .vt-big, .s-daily_max .vt-big { color: var(--bad); } .s-due .vt-big { color: var(--cyan); } .s-done .vt-big { color: var(--muted); }
+.vt-foot { display: flex; align-items: center; gap: 8px; }
+.vt-prog { flex: 1; height: 4px; border-radius: 99px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+.vt-prog i { display: block; height: 100%; border-radius: 99px; }
+.vt-spark { width: 46px; height: 18px; flex: none; }
+.vt-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 9px; letter-spacing: .01em; }
+.vt-cell.s-hold { border-color: rgba(255, 93, 110, .35); }
+.vt-cell.s-hold .vt-note { color: var(--bad); font-size: 11px; margin-top: 8px; }
+.vt-corner { position: absolute; top: 12px; right: 12px; width: 7px; height: 7px; border-radius: 50%; }
+.s-ready .vt-corner { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+.s-wait .vt-corner { background: var(--warn); } .s-hold .vt-corner, .s-daily_max .vt-corner { background: var(--bad); box-shadow: 0 0 8px var(--bad); }
+.s-due .vt-corner { background: var(--cyan); } .s-done .vt-corner { background: var(--muted); }
+
+/* sheet */
+.vt-sheet { background: #0e1118; border: 1px solid var(--line); border-bottom: 0; border-radius: 18px 18px 0 0; box-shadow: 0 -30px 70px -20px rgba(0, 0, 0, .8); padding: 4px 18px 28px; color: var(--ink); }
+.vt-sheet .grabber { color: #fff; }
+.vt-sh-head { display: flex; align-items: baseline; justify-content: space-between; margin: 8px 0 14px; }
+.vt-sh-name { font-weight: 700; font-size: 19px; letter-spacing: -.01em; }
+.vt-sh-strength { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
+.vt-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.vt-stat { background: var(--cell); border: 1px solid var(--line); border-radius: 12px; padding: 11px; }
+.vt-stat .l { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.vt-stat .v { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 16px; margin-top: 5px; }
+.vt-stat.full { grid-column: span 3; }
+.vt-stat.full .v { font-size: 15px; font-weight: 500; }
+.vt-stat.warn .v { color: var(--bad); } .vt-stat.ok .v { color: var(--ok); }
+.vt-stat .v small { display: block; font-family: 'Hanken Grotesk', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 5px; font-weight: 400; line-height: 1.45; }
+.vt-doses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.vt-doses button { appearance: none; font: inherit; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 17px; padding: 14px 0; border-radius: 12px; border: 1px solid var(--line); background: var(--cell); color: var(--ink); cursor: pointer; transition: .14s; }
+.vt-doses button small { display: block; font-family: 'Hanken Grotesk', sans-serif; font-weight: 500; font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+.vt-doses button:hover { background: var(--accent); color: #0a0c10; border-color: transparent; } .vt-doses button:hover small { color: rgba(10, 12, 16, .65); }
+.vt-srow { display: flex; gap: 8px; margin-top: 10px; }
+.vt-srow button { flex: 1; appearance: none; font: inherit; font-weight: 600; font-size: 13px; padding: 11px; border-radius: 11px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.vt-srow button[data-close] { background: #fff; color: #0a0c10; border-color: transparent; }
