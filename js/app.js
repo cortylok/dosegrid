@@ -4,6 +4,8 @@ import { renderPainView } from './painview.js';
 import { setPro, refreshEntitlement } from './pro.js';
 import { recordUsageDay } from './gating.js';
 import { syncNotifications } from './notify.js';
+import { loadDataset, backfillComponents } from './data.js';
+import { loadMeds, saveMeds } from './storage.js';
 
 const ONBOARD_KEY = 'dosegrid.onboarded';
 
@@ -28,6 +30,14 @@ document.addEventListener('dosegrid:refresh', () => { renderGrid(); renderPainVi
 // Render both views (Meds view starts hidden; Pain is the default focus)
 renderGrid();
 renderPainView();
+
+// Backfill ingredient components onto meds saved before per-ingredient tracking
+// existed, so the cross-med overdose tally counts them. One-time: once a med has
+// components it's skipped, so this is a no-op on later boots.
+loadDataset().then((ds) => {
+  const meds = loadMeds();
+  if (backfillComponents(meds, ds)) { saveMeds(meds); renderGrid(); renderPainView(); }
+});
 
 function setView(view) {
   const pain = view === 'pain';

@@ -482,6 +482,7 @@ function openConfigForm(picked, variant) {
     meds.push({
       id: uuid(),
       name: modalRoot().querySelector('#f-name').value.trim() || title,
+      generic: picked.generic || null,
       brands: picked.brands || [],
       strength: vals.strength,
       strengths: isCombo ? null : (picked.strengths || null),
