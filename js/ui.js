@@ -128,8 +128,10 @@ function openDoseSheet(med) {
   const now = Date.now();
   const s = computeStatus(med, doses, now);
   const last = s.lastDoseTime ? fmtTime(s.lastDoseTime) : '—';
-  let next = s.state === 'ready' ? 'now' : (s.nextDoseTime ? fmtTime(s.nextDoseTime) : 'now');
-  // If a shared active is capped, explain the hold instead of saying "now".
+  let next = s.state === 'daily_max' ? "Not today — you've reached the daily max"
+    : (s.state === 'wait' && s.nextDoseTime) ? `Not until ${fmtTime(s.nextDoseTime)}`
+    : 'Yes';
+  // If a shared active is capped, explain the hold instead of saying "Yes".
   const hold = ingredientHold(med, loadMeds(), doses, now);
   const medWaitMs = s.nextDoseTime && now < s.nextDoseTime ? s.nextDoseTime - now : 0;
   if (hold.blocked && hold.until - now >= medWaitMs) {
@@ -139,8 +141,7 @@ function openDoseSheet(med) {
       const p = INGREDIENT_PERIOD[ing];
       const rd = recentIngredientDose(loadMeds(), doses, ing, now);
       const took = rd ? `you took ${rd.units} ${rd.medName} ${fmtGap(now - rd.timestamp)} ago. ` : '';
-      next = `Not yet — ${took}Max dose within ${p.windowHours} h is ${p.maxMg} mg of ${ing}${harm}.` +
-        (ing === 'paracetamol' ? ` <span class="muted">(Modified-release like Panadol Osteo is dosed differently — follow its label.)</span>` : '');
+      next = `Not yet — ${took}Max dose within ${p.windowHours} h is ${p.maxMg} mg of ${ing}${harm}.`;
     } else {
       next = `Not yet — you've reached today's ${INGREDIENT_LIMITS[ing]} mg of ${ing}${harm}.`;
     }
@@ -158,7 +159,7 @@ function openDoseSheet(med) {
   }
   openSheet(
     `<h2>${med.name}${med.strength ? ` <span class="muted">${med.strength}</span>` : ''}</h2>` +
-    `<p class="muted">Last taken: ${last}<br>Can take again: ${next}<br>` +
+    `<p class="muted">Last taken: ${last}<br>OK to take now? ${next}<br>` +
     `Today: ${s.unitsToday} of ${med.maxDailyUnits} tablets (${remaining} left)</p>` +
     ingNote +
     `<p class="muted">Log tablets taken:</p>` +
