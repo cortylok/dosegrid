@@ -43,7 +43,7 @@ ready · wait(until time) · hold(shared-ingredient, with note) · daily-max · 
 ## Checklist  (update + commit after each)
 - [x] Scaffold: shared.css, data.js, timeline.js engine, index.html shell
 - [x] Concept 1 — Aurora (concepts/aurora.css + .js)
-- [ ] Concept 2 — Ledger
+- [x] Concept 2 — Ledger (concepts/ledger.css + .js)
 - [ ] Concept 3 — Pulse
 - [ ] Concept 4 — Apothecary
 - [ ] Concept 5 — Vital
@@ -51,7 +51,7 @@ ready · wait(until time) · hold(shared-ingredient, with note) · daily-max · 
 - [ ] (optional) push branch for review
 
 ## Resume notes
-Last action: **Aurora done & committed**. ledger/pulse/apothecary/vital are placeholder stubs
+Last action: **Ledger done & committed**. Next: Pulse (dark, timeline-first hero). Pattern proven across 2 concepts.
 (concepts/*.css + *.js) that register nothing yet — replace each with the real concept.
 To add a concept: implement `CONCEPTS.<name> = { label, tagline, notes, meta, span, renderApp(),
 timelineRenderer(view), renderSheet(med) }` in its js, styles scoped under `.theme-<name>` in its css.
