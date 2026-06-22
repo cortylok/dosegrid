@@ -4,7 +4,7 @@ import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, pickerItems, groupByCategory, loadCountryBrands, regionalBrands } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
-import { checkIngredients, ingredientTotals, ingredientHold, INGREDIENT_LIMITS } from './ingredients.js';
+import { checkIngredients, ingredientTotals, ingredientHold, recentIngredientDose, INGREDIENT_LIMITS, INGREDIENT_PERIOD } from './ingredients.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 import { isPro, purchasePro, restorePurchases } from './pro.js';
 import { getProPrice } from './iap.js';
@@ -108,9 +108,26 @@ export function openSheet(html) {
 
 function openDoseSheet(med) {
   const doses = loadDoses();
-  const s = computeStatus(med, doses, Date.now());
+  const now = Date.now();
+  const s = computeStatus(med, doses, now);
   const last = s.lastDoseTime ? fmtTime(s.lastDoseTime) : '—';
-  const next = s.state === 'ready' ? 'now' : (s.nextDoseTime ? fmtTime(s.nextDoseTime) : 'now');
+  let next = s.state === 'ready' ? 'now' : (s.nextDoseTime ? fmtTime(s.nextDoseTime) : 'now');
+  // If a shared active is capped, explain the hold instead of saying "now".
+  const hold = ingredientHold(med, loadMeds(), doses, now);
+  const medWaitMs = s.nextDoseTime && now < s.nextDoseTime ? s.nextDoseTime - now : 0;
+  if (hold.blocked && hold.until - now >= medWaitMs) {
+    const ing = hold.ingredient;
+    const harm = ing === 'paracetamol' ? ' — excess paracetamol can damage the liver' : '';
+    if (hold.reason === 'window') {
+      const p = INGREDIENT_PERIOD[ing];
+      const rd = recentIngredientDose(loadMeds(), doses, ing, now);
+      const took = rd ? `you took ${rd.units} ${rd.medName} ${fmtGap(now - rd.timestamp)} ago. ` : '';
+      next = `Not yet — ${took}Max dose within ${p.windowHours} h is ${p.maxMg} mg of ${ing}${harm}.` +
+        (ing === 'paracetamol' ? ` <span class="muted">(Modified-release like Panadol Osteo is dosed differently — follow its label.)</span>` : '');
+    } else {
+      next = `Not yet — you've reached today's ${INGREDIENT_LIMITS[ing]} mg of ${ing}${harm}.`;
+    }
+  }
   const remaining = Math.max(0, med.maxDailyUnits - s.unitsToday);
   // For meds that share an active ingredient (e.g. paracetamol in a codeine combo),
   // show the combined daily total across ALL medicines, not just this one.

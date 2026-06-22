@@ -91,10 +91,10 @@ function windowFreeTime(meds, doses, ing, per, capMg, windowMs, now) {
 // tile "on hold" before the user tries to log. { blocked, until, ingredient }.
 export function ingredientHold(med, meds, doses, now) {
   const comps = med.components || [];
-  const NONE = { blocked: false, until: null, ingredient: null };
+  const NONE = { blocked: false, until: null, ingredient: null, reason: null };
   if (!comps.length) return NONE;
   const dayTotals = ingredientTotals(meds, doses, now);
-  let until = 0, which = null;
+  let until = 0, which = null, reason = null;
   for (const comp of comps) {
     const ing = comp.ingredient;
     const per = unitMg(med, ing);
@@ -102,15 +102,29 @@ export function ingredientHold(med, meds, doses, now) {
     const dLimit = INGREDIENT_LIMITS[ing];
     if (dLimit && (dayTotals[ing] || 0) + per > dLimit) {
       const t = startOfLocalDay(now) + 864e5;
-      if (t > until) { until = t; which = ing; }
+      if (t > until) { until = t; which = ing; reason = 'daily'; }
     }
     const p = INGREDIENT_PERIOD[ing];
     if (p) {
       const free = windowFreeTime(meds, doses, ing, per, p.maxMg, p.windowHours * 3600e3, now);
-      if (free > now && free > until) { until = free; which = ing; }
+      if (free > now && free > until) { until = free; which = ing; reason = 'window'; }
     }
   }
-  return until ? { blocked: true, until, ingredient: which } : NONE;
+  return until ? { blocked: true, until, ingredient: which, reason } : NONE;
+}
+
+// The most recent dose (across all meds) that contributes `ingredient`, for
+// explaining a hold ("you took 2 Panadol 2 h ago"). Null if none.
+export function recentIngredientDose(meds, doses, ingredient, now) {
+  let best = null;
+  for (const med of meds) {
+    if (!unitMg(med, ingredient)) continue;
+    for (const d of doses) {
+      if (d.medId === med.id && d.timestamp <= now && (!best || d.timestamp > best.timestamp))
+        best = { medName: med.name, units: d.units, timestamp: d.timestamp };
+    }
+  }
+  return best;
 }
 
 // If adding `addedUnits` of `med` would push a shared ingredient over a safe
