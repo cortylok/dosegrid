@@ -40,6 +40,39 @@ export function searchMeds(query, dataset) {
   );
 }
 
+// Text for a combo variant's recipe, e.g. "paracetamol 500 + codeine 30 mg".
+export function recipeText(med, variant) {
+  const body = (med.ingredients || [])
+    .map((ing) => `${ing.name.toLowerCase()} ${variant.mg[ing.key]}`)
+    .join(' + ');
+  return `${body} ${med.unit || 'mg'}`;
+}
+
+// Flat list of pickable rows for the add-med picker. Combos expand into one row
+// per product variant; everything else is a single row. Each item:
+// { med, variant|null, label, sublabel|null, category }.
+export function pickerItems(dataset, query) {
+  const q = (query || '').trim().toLowerCase();
+  const matchText = (m) =>
+    m.generic.toLowerCase().includes(q) ||
+    (m.brands || []).some((b) => b.toLowerCase().includes(q)) ||
+    (m.ingredients || []).some((i) => i.name.toLowerCase().includes(q));
+  const items = [];
+  for (const m of dataset) {
+    if (m.kind === 'combo' && m.variants && m.variants.length) {
+      const medMatches = !q || matchText(m);
+      for (const v of m.variants) {
+        if (q && !medMatches && !v.name.toLowerCase().includes(q)) continue;
+        items.push({ med: m, variant: v, label: v.name, sublabel: recipeText(m, v), category: m.category });
+      }
+    } else {
+      if (q && !matchText(m)) continue;
+      items.push({ med: m, variant: null, label: m.generic, sublabel: null, category: m.category });
+    }
+  }
+  return items;
+}
+
 export function groupByCategory(meds) {
   const known = new Set(CATEGORY_ORDER);
   const byId = new Map();
