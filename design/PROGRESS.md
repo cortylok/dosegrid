@@ -68,3 +68,4 @@ Aurora is the reference implementation. Commit after each concept; update this f
 - Added **Aurora Dark** + **Apothecary Dark** (registered from the same JS via mkRenderer(dark)).
 - Removed the soft glow filter from the Aurora graph (flatter, more professional). Apothecary had none.
 - Tab order: aurora, aurora-dark, apothecary, apothecary-dark, ledger, pulse, vital.
+- 2026-06-23: Apothecary (+dark) med list -> **two-column grid** (keeps the "grid"); tiles tightened, blister strip wraps into rows (reads like a real blister card).
