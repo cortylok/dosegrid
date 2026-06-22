@@ -51,8 +51,8 @@
 .ap-name { font-family: 'Spectral', serif; font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ap-strength { font-size: 11px; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ap-icon { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; flex: none; background: rgba(var(--ink-rgb), .06); }
-.ap-blister { display: flex; gap: 5px; margin: 12px 0 10px; flex-wrap: wrap; }
-.ap-blister i { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid rgba(var(--ink-rgb), .24); background: transparent; box-shadow: inset 0 1px 2px rgba(var(--ink-rgb), .08); }
+.ap-blister { display: flex; gap: 4px; margin: 12px 0 10px; flex-wrap: wrap; max-width: 100%; }
+.ap-blister i { flex: none; width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid rgba(var(--ink-rgb), .24); background: transparent; box-shadow: inset 0 1px 2px rgba(var(--ink-rgb), .08); }
 .ap-blister i.on { background: radial-gradient(circle at 35% 30%, #f3bd72, var(--amber)); border-color: transparent; box-shadow: 0 2px 5px -1px rgba(191, 91, 57, .45), inset 0 1px 1px rgba(255, 255, 255, .45); }
 .ap-status { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 12.5px; font-weight: 600; line-height: 1.3; }
 .ap-status .d { width: 8px; height: 8px; border-radius: 50%; flex: none; }
@@ -69,8 +69,8 @@
 .ap-sheet .grabber { color: var(--ink); }
 .ap-sh-name { font-family: 'Spectral', serif; font-size: 26px; font-weight: 600; margin-top: 8px; }
 .ap-sh-strength { font-size: 12.5px; color: var(--muted); }
-.ap-sh-blister { margin: 16px 0; display: flex; gap: 8px; flex-wrap: wrap; }
-.ap-sh-blister i { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(var(--ink-rgb), .22); }
+.ap-sh-blister { margin: 16px 0; display: flex; gap: 8px; flex-wrap: wrap; max-width: 100%; }
+.ap-sh-blister i { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(var(--ink-rgb), .22); }
 .ap-sh-blister i.on { background: radial-gradient(circle at 35% 30%, #f3bd72, var(--amber)); border-color: transparent; box-shadow: 0 2px 6px -1px rgba(191, 91, 57, .45), inset 0 1px 1px rgba(255, 255, 255, .45); }
 .ap-avail { padding: 15px 16px; border-radius: 18px; background: rgba(var(--ink-rgb), .04); border: 1px solid var(--line); }
 .ap-avail .q { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
