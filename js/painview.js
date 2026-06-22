@@ -49,7 +49,9 @@ export function renderPainView() {
     summary +
     `<button class="btn pain-log-btn" id="log-pain">＋ Log pain</button>` +
     `<div class="tl-bar"><span class="tl-hint">Drag · pinch to zoom</span>` +
-      `<span style="flex:1"></span><button class="zb" id="tl-out">–</button><button class="zb" id="tl-in">+</button></div>` +
+      `<span style="flex:1"></span>` +
+      `<button class="zb" id="tl-today">Today</button><button class="zb" id="tl-week">Week</button>` +
+      `<button class="zb" id="tl-out">–</button><button class="zb" id="tl-in">+</button></div>` +
     `<div class="tl-host" id="tl-host"></div>` +
     legend;
 
@@ -57,11 +59,12 @@ export function renderPainView() {
   painViewEl().querySelector('#nudge-open')?.addEventListener('click', (e) => { e.preventDefault(); openPaywall(); });
   painViewEl().querySelector('#nudge-dismiss')?.addEventListener('click', () => { markNudgeSeen(); renderPainView(); });
   const hostEl = painViewEl().querySelector('#tl-host');
-  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail, onUpgrade: openPaywall });
+  timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail, onDoseGroup: openDoseGroup, onUpgrade: openPaywall });
   timeline.render();
-  const zoom = (deltaY) => hostEl.dispatchEvent(new WheelEvent('wheel', { deltaY, clientX: hostEl.getBoundingClientRect().left + hostEl.clientWidth / 2, cancelable: true }));
-  painViewEl().querySelector('#tl-in').addEventListener('click', () => zoom(-240));
-  painViewEl().querySelector('#tl-out').addEventListener('click', () => zoom(240));
+  painViewEl().querySelector('#tl-today').addEventListener('click', () => timeline.showToday());
+  painViewEl().querySelector('#tl-week').addEventListener('click', () => timeline.showWeek());
+  painViewEl().querySelector('#tl-in').addEventListener('click', () => timeline.zoomIn());
+  painViewEl().querySelector('#tl-out').addEventListener('click', () => timeline.zoomOut());
 }
 
 export function openPainDetail(id) {
@@ -97,6 +100,36 @@ export function openDoseDetail(dose) {
     `<div class="btn-row"><button class="btn" id="dd-close">Close</button></div>`
   );
   modalRoot().querySelector('#dd-close').addEventListener('click', closeModal);
+}
+
+export function openDoseGroup(doses) {
+  if (!doses || !doses.length) return;
+  if (doses.length === 1) return openDoseDetail(doses[0]);
+  const meds = loadMeds();
+  const medOf = (id) => meds.find((m) => m.id === id);
+  const dayLabel = new Date(doses[0].timestamp)
+    .toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' });
+  const rows = doses.map((d) => {
+    const m = medOf(d.medId);
+    const time = new Date(d.timestamp).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    const color = m ? medColor(m.order || 0) : '#94a3b8';
+    const name = m ? m.name : 'Dose';
+    return `<li data-dose-id="${d.id}"><i class="sw" style="background:${color}"></i>` +
+      `<span>${name}</span>` +
+      `<span class="muted">${time} · ${d.units} tablet${d.units === 1 ? '' : 's'}</span></li>`;
+  }).join('');
+  openSheet(
+    `<h2>${doses.length} doses · ${dayLabel}</h2>` +
+    `<ul class="list dose-group">${rows}</ul>` +
+    `<div class="btn-row"><button class="btn" id="dg-close">Close</button></div>`
+  );
+  modalRoot().querySelector('#dg-close').addEventListener('click', closeModal);
+  modalRoot().querySelectorAll('li[data-dose-id]').forEach((li) =>
+    li.addEventListener('click', () => {
+      const dose = doses.find((d) => d.id === li.dataset.doseId);
+      closeModal();
+      openDoseDetail(dose);
+    }));
 }
 
 export function openPainLog() {
