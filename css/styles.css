@@ -48,6 +48,8 @@ body {
 .status.hold { color: var(--max); background: rgba(248,113,113,.18); box-shadow: 0 0 0 1px rgba(248,113,113,.4); }
 .status.wait .count, .status.hold .count { font-size: 1.05rem; }
 .hold-note { color: var(--max); }
+.sheet-back { display: inline-flex; align-items: center; background: none; border: none; color: var(--muted); font-size: 15px; padding: 4px 8px 8px 0; margin: 0 0 2px -2px; cursor: pointer; }
+.sheet-back:hover { color: var(--text); }
 .tile.add {
   align-items: center; justify-content: center; color: var(--accent);
   border: 2px dashed var(--line); background: transparent; font-size: 1rem;

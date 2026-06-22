@@ -4,7 +4,7 @@ import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, pickerItems, groupByCategory, loadCountryBrands, regionalBrands } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
-import { checkIngredients, ingredientTotals, ingredientHold, INGREDIENT_LIMITS } from './ingredients.js';
+import { checkIngredients, ingredientTotals, ingredientHold, recentIngredientDose, INGREDIENT_LIMITS, INGREDIENT_PERIOD } from './ingredients.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 import { isPro, purchasePro, restorePurchases } from './pro.js';
 import { getProPrice } from './iap.js';
@@ -98,19 +98,53 @@ function attachTileHandlers(tile, med) {
   tile.addEventListener('click', () => { if (longFired) { longFired = false; return; } openDoseSheet(med); });
 }
 
-export function closeModal() { modalRoot().innerHTML = ''; }
+// A single history entry is pushed while a sheet is open so the hardware/browser
+// back button (and the in-sheet ‹ Back) closes the popup instead of leaving the
+// app. Sheets replace each other in place, so only one entry exists per session.
+let modalActive = false;
+export function closeModal() {
+  if (!modalActive && !modalRoot().innerHTML) return;
+  modalActive = false;
+  modalRoot().innerHTML = '';
+  if (typeof history !== 'undefined' && history.state && history.state.dgModal) history.back();
+}
 export function openSheet(html) {
-  modalRoot().innerHTML = `<div class="scrim"><div class="sheet">${html}</div></div>`;
+  modalRoot().innerHTML = `<div class="scrim"><div class="sheet">` +
+    `<button class="sheet-back" aria-label="Back">‹ Back</button>${html}</div></div>`;
   modalRoot().querySelector('.scrim').addEventListener('click', (e) => {
     if (e.target.classList.contains('scrim')) closeModal();
+  });
+  modalRoot().querySelector('.sheet-back').addEventListener('click', () => closeModal());
+  if (!modalActive) { modalActive = true; if (typeof history !== 'undefined') history.pushState({ dgModal: true }, ''); }
+}
+if (typeof window !== 'undefined') {
+  window.addEventListener('popstate', () => {
+    if (modalActive) { modalActive = false; modalRoot().innerHTML = ''; } // back pressed → dismiss
   });
 }
 
 function openDoseSheet(med) {
   const doses = loadDoses();
-  const s = computeStatus(med, doses, Date.now());
+  const now = Date.now();
+  const s = computeStatus(med, doses, now);
   const last = s.lastDoseTime ? fmtTime(s.lastDoseTime) : '—';
-  const next = s.state === 'ready' ? 'now' : (s.nextDoseTime ? fmtTime(s.nextDoseTime) : 'now');
+  let next = s.state === 'ready' ? 'now' : (s.nextDoseTime ? fmtTime(s.nextDoseTime) : 'now');
+  // If a shared active is capped, explain the hold instead of saying "now".
+  const hold = ingredientHold(med, loadMeds(), doses, now);
+  const medWaitMs = s.nextDoseTime && now < s.nextDoseTime ? s.nextDoseTime - now : 0;
+  if (hold.blocked && hold.until - now >= medWaitMs) {
+    const ing = hold.ingredient;
+    const harm = ing === 'paracetamol' ? ' — excess paracetamol can damage the liver' : '';
+    if (hold.reason === 'window') {
+      const p = INGREDIENT_PERIOD[ing];
+      const rd = recentIngredientDose(loadMeds(), doses, ing, now);
+      const took = rd ? `you took ${rd.units} ${rd.medName} ${fmtGap(now - rd.timestamp)} ago. ` : '';
+      next = `Not yet — ${took}Max dose within ${p.windowHours} h is ${p.maxMg} mg of ${ing}${harm}.` +
+        (ing === 'paracetamol' ? ` <span class="muted">(Modified-release like Panadol Osteo is dosed differently — follow its label.)</span>` : '');
+    } else {
+      next = `Not yet — you've reached today's ${INGREDIENT_LIMITS[ing]} mg of ${ing}${harm}.`;
+    }
+  }
   const remaining = Math.max(0, med.maxDailyUnits - s.unitsToday);
   // For meds that share an active ingredient (e.g. paracetamol in a codeine combo),
   // show the combined daily total across ALL medicines, not just this one.
@@ -242,8 +276,7 @@ function openCountryPicker(onDone) {
   modalRoot().querySelector('#cp-cancel').addEventListener('click', closeModal);
   modalRoot().querySelector('#cp-save').addEventListener('click', () => {
     setCountry(modalRoot().querySelector('#cp-sel').value);
-    closeModal();
-    if (typeof onDone === 'function') onDone();
+    if (typeof onDone === 'function') onDone(); else closeModal();
   });
 }
 
@@ -772,8 +805,8 @@ export function showLanding(opts = {}) {
     `</div>`
   );
   modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
-  modalRoot().querySelector('#land-pro')?.addEventListener('click', () => { closeModal(); openPaywall(); });
-  modalRoot().querySelector('#land-reminders')?.addEventListener('click', () => { closeModal(); openNotifySettings(); });
+  modalRoot().querySelector('#land-pro')?.addEventListener('click', () => openPaywall());
+  modalRoot().querySelector('#land-reminders')?.addEventListener('click', () => openNotifySettings());
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
     const cb = modalRoot().querySelector('#land-dismiss');
     if (cb && cb.checked && typeof opts.onDismiss === 'function') opts.onDismiss();

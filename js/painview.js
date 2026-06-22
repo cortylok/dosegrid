@@ -127,8 +127,7 @@ export function openDoseGroup(doses) {
   modalRoot().querySelectorAll('li[data-dose-id]').forEach((li) =>
     li.addEventListener('click', () => {
       const dose = doses.find((d) => d.id === li.dataset.doseId);
-      closeModal();
-      openDoseDetail(dose);
+      openDoseDetail(dose); // replaces the list sheet in place (back/close still works)
     }));
 }
 

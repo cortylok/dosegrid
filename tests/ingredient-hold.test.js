@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ingredientHold } from '../js/ingredients.js';
+import { ingredientHold, recentIngredientDose } from '../js/ingredients.js';
 
 const now = new Date('2026-06-22T13:00:00').getTime();
 const HOUR = 3600e3, MIN = 60e3;
@@ -39,4 +39,14 @@ test('blocks via the daily ceiling and frees at midnight', () => {
 test('no block when nothing shares the ingredient recently', () => {
   assert.equal(ingredientHold(panadeine, meds, [], now).blocked, false);
   assert.equal(ingredientHold(ibu, meds, [{ id: 'a', medId: 'p', units: 2, timestamp: now }], now).blocked, false);
+});
+
+test('hold reports reason; recentIngredientDose names the contributing dose', () => {
+  const doses = [{ id: 'a', medId: 'p', units: 2, timestamp: now - 10 * MIN }];
+  assert.equal(ingredientHold(panadeine, meds, doses, now).reason, 'window');
+  const rd = recentIngredientDose(meds, doses, 'paracetamol', now);
+  assert.equal(rd.medName, 'Paracetamol');
+  assert.equal(rd.units, 2);
+  assert.equal(rd.timestamp, now - 10 * MIN);
+  assert.equal(recentIngredientDose(meds, [], 'paracetamol', now), null);
 });
