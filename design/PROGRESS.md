@@ -44,14 +44,14 @@ ready · wait(until time) · hold(shared-ingredient, with note) · daily-max · 
 - [x] Scaffold: shared.css, data.js, timeline.js engine, index.html shell
 - [x] Concept 1 — Aurora (concepts/aurora.css + .js)
 - [x] Concept 2 — Ledger (concepts/ledger.css + .js)
-- [ ] Concept 3 — Pulse
+- [x] Concept 3 — Pulse (concepts/pulse.css + .js)
 - [ ] Concept 4 — Apothecary
 - [ ] Concept 5 — Vital
 - [ ] Final polish pass + per-concept rationale text in side panel
 - [ ] (optional) push branch for review
 
 ## Resume notes
-Last action: **Ledger done & committed**. Next: Pulse (dark, timeline-first hero). Pattern proven across 2 concepts.
+Last action: **Pulse done & committed**. Next: Apothecary (warm tactile serif, blister-pack dose dots).
 (concepts/*.css + *.js) that register nothing yet — replace each with the real concept.
 To add a concept: implement `CONCEPTS.<name> = { label, tagline, notes, meta, span, renderApp(),
 timelineRenderer(view), renderSheet(med) }` in its js, styles scoped under `.theme-<name>` in its css.
