@@ -99,6 +99,36 @@ export function openDoseDetail(dose) {
   modalRoot().querySelector('#dd-close').addEventListener('click', closeModal);
 }
 
+export function openDoseGroup(doses) {
+  if (!doses || !doses.length) return;
+  if (doses.length === 1) return openDoseDetail(doses[0]);
+  const meds = loadMeds();
+  const medOf = (id) => meds.find((m) => m.id === id);
+  const dayLabel = new Date(doses[0].timestamp)
+    .toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' });
+  const rows = doses.map((d) => {
+    const m = medOf(d.medId);
+    const time = new Date(d.timestamp).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    const color = m ? medColor(m.order || 0) : '#94a3b8';
+    const name = m ? m.name : 'Dose';
+    return `<li data-dose-id="${d.id}"><i class="sw" style="background:${color}"></i>` +
+      `<span>${name}</span>` +
+      `<span class="muted">${time} · ${d.units} tablet${d.units === 1 ? '' : 's'}</span></li>`;
+  }).join('');
+  openSheet(
+    `<h2>${doses.length} doses · ${dayLabel}</h2>` +
+    `<ul class="list dose-group">${rows}</ul>` +
+    `<div class="btn-row"><button class="btn" id="dg-close">Close</button></div>`
+  );
+  modalRoot().querySelector('#dg-close').addEventListener('click', closeModal);
+  modalRoot().querySelectorAll('li[data-dose-id]').forEach((li) =>
+    li.addEventListener('click', () => {
+      const dose = doses.find((d) => d.id === li.dataset.doseId);
+      closeModal();
+      openDoseDetail(dose);
+    }));
+}
+
 export function openPainLog() {
   let selected = null;
   const scale = Array.from({ length: 11 }, (_, n) =>
