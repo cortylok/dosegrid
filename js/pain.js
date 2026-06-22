@@ -51,3 +51,25 @@ export function medDayTotals(doses) {
   }
   return map;
 }
+
+const MS_DAY = 864e5;
+
+// Doses within ±toleranceMs of centerTs, sorted ascending by timestamp.
+export function dosesInCluster(doses, centerTs, toleranceMs) {
+  return (doses || [])
+    .filter((d) => Math.abs(d.timestamp - centerTs) <= toleranceMs)
+    .sort((a, b) => a.timestamp - b.timestamp);
+}
+
+// Doses whose calendar day equals dayStartMs, sorted ascending by timestamp.
+export function dayDoses(doses, dayStartMs) {
+  return (doses || [])
+    .filter((d) => startOfDay(d.timestamp) === dayStartMs)
+    .sort((a, b) => a.timestamp - b.timestamp);
+}
+
+// Desired {start,end} time window for a range preset; pixel-independent.
+export function rangeForPreset(preset, now) {
+  if (preset === 'week') return { start: now - 7 * MS_DAY, end: now };
+  return { start: startOfDay(now), end: now };
+}

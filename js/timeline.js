@@ -1,6 +1,6 @@
 // js/timeline.js — zoomable, scrollable pain + dose timeline with level-of-detail.
 import { loadPain, loadDoses, loadMeds } from './storage.js';
-import { painColor, medColor, lodMode, startOfDay, isEarlyDose, medDayTotals } from './pain.js';
+import { painColor, medColor, lodMode, startOfDay, isEarlyDose, medDayTotals, dosesInCluster, dayDoses, rangeForPreset } from './pain.js';
 import { isPro } from './pro.js';
 import { FREE_WINDOW_MS, hiddenCount } from './gating.js';
 
@@ -14,11 +14,12 @@ const effMaxSpan = () => (isPro() ? MAX_SPAN : Math.min(MAX_SPAN, FREE_WINDOW_MS
 
 const startOfHour = t => { const d = new Date(t); d.setMinutes(0, 0, 0); return d.getTime(); };
 
-export function createTimeline(host, { onPainClick, onDoseClick, onUpgrade } = {}) {
+export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, onUpgrade } = {}) {
   let scale = 1, t0 = 0, W = 600;
   let dragging = false, dragMoved = false, lastX = 0;
   const pointers = new Map(); let pinchDist = 0;
   let doseById = new Map();
+  let allDoses = [];
 
   function range() {
     const now = Date.now();
@@ -55,6 +56,7 @@ export function createTimeline(host, { onPainClick, onDoseClick, onUpgrade } = {
     const meds = medLookup();
     const pain = loadPain(), doses = loadDoses().slice().sort((a, b) => a.timestamp - b.timestamp);
     doseById = new Map(doses.map(d => [d.id, d]));
+    allDoses = doses;
     const vis = pain.filter(p => p.timestamp >= t0 - DAY && p.timestamp <= tR() + DAY).sort((a, b) => a.timestamp - b.timestamp);
     const visDoses = doses.filter(d => d.timestamp >= t0 - DAY && d.timestamp <= tR() + DAY);
     const Y = v => painBot - (v / 10) * (painBot - painTop);
@@ -137,6 +139,12 @@ export function createTimeline(host, { onPainClick, onDoseClick, onUpgrade } = {
           bx += BW;
         }
       }
+      // whole-day tap targets (over the bars) so any tap in a day opens its dose list
+      for (const [ds] of totals) {
+        const x1 = Math.max(padL, X(ds)), x2 = Math.min(W - padR, X(ds + DAY));
+        if (x2 > x1)
+          s += `<rect x="${x1.toFixed(1)}" y="${laneTop}" width="${(x2 - x1).toFixed(1)}" height="${(laneBot - laneTop).toFixed(1)}" fill="transparent" data-day-hit="${ds}" style="cursor:pointer"/>`;
+      }
     }
 
     // ---- time axis ----
@@ -163,6 +171,41 @@ export function createTimeline(host, { onPainClick, onDoseClick, onUpgrade } = {
 
   // ---- interaction ----
   function zoomAt(px, factor) { const tf = t0 + (px - padL) / scale; scale *= factor; clamp(); t0 = tf - (px - padL) / scale; clamp(); render(); }
+  function easeInOutCubic(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+  let rafId = 0;
+  function animateTo(targetScale, targetT0, ms = 350) {
+    if (rafId) cancelAnimationFrame(rafId);
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      scale = targetScale; t0 = targetT0; clamp(); render(); return;
+    }
+    const s0 = scale, p0 = t0, start = performance.now();
+    const stepFn = (nowT) => {
+      const p = easeInOutCubic(Math.min(1, (nowT - start) / ms));
+      scale = s0 * Math.pow(targetScale / s0, p);
+      t0 = p0 + (targetT0 - p0) * p;
+      render();
+      if (p < 1) { rafId = requestAnimationFrame(stepFn); }
+      else { rafId = 0; scale = targetScale; t0 = targetT0; clamp(); render(); }
+    };
+    rafId = requestAnimationFrame(stepFn);
+  }
+  function zoomStep(factor) {
+    W = host.clientWidth;
+    const mid = (W - padL - padR) / 2;
+    const center = t0 + mid / scale;
+    const targetScale = scale * factor;
+    animateTo(targetScale, center - mid / targetScale);
+  }
+  function zoomIn() { zoomStep(1.6); }
+  function zoomOut() { zoomStep(1 / 1.6); }
+  function viewRange({ start, end }) {
+    W = host.clientWidth;
+    const span = Math.max(MIN_SPAN, end - start);
+    const targetScale = (W - padL - padR) / span;
+    animateTo(targetScale, end - (W - padL - padR) / targetScale);
+  }
+  function showToday() { viewRange(rangeForPreset('today', Date.now())); }
+  function showWeek() { if (!isPro()) { onUpgrade && onUpgrade(); return; } viewRange(rangeForPreset('week', Date.now())); }
   host.addEventListener('wheel', e => { e.preventDefault(); const r = host.getBoundingClientRect(); zoomAt(e.clientX - r.left, e.deltaY < 0 ? 1.15 : 1 / 1.15); }, { passive: false });
   host.addEventListener('pointerdown', e => { host.setPointerCapture(e.pointerId); pointers.set(e.pointerId, e.clientX); if (pointers.size === 1) { dragging = true; dragMoved = false; lastX = e.clientX; } if (pointers.size === 2) { const xs = [...pointers.values()]; pinchDist = Math.abs(xs[0] - xs[1]); } });
   host.addEventListener('pointermove', e => {
@@ -177,10 +220,19 @@ export function createTimeline(host, { onPainClick, onDoseClick, onUpgrade } = {
     if (dragMoved) return;
     const upg = e.target.closest('[data-upgrade]'); if (upg) { onUpgrade && onUpgrade(); return; }
     const pa = e.target.closest('[data-pain]'); if (pa) { onPainClick && onPainClick(pa.dataset.pain); return; }
-    const dz = e.target.closest('[data-dose]'); if (dz) { onDoseClick && onDoseClick(doseById.get(dz.dataset.dose)); return; }
+    const day = e.target.closest('[data-day-hit]');
+    if (day) { onDoseGroup && onDoseGroup(dayDoses(allDoses, +day.dataset.dayHit)); return; }
+    const dz = e.target.closest('[data-dose]');
+    if (dz) {
+      const dose = doseById.get(dz.dataset.dose);
+      const cluster = dosesInCluster(allDoses, dose.timestamp, 18 / scale);
+      if (cluster.length > 1) { onDoseGroup && onDoseGroup(cluster); }
+      else { onDoseClick && onDoseClick(dose); }
+      return;
+    }
   });
   window.addEventListener('resize', () => { fit(); render(); });
 
   fit();
-  return { render };
+  return { render, showToday, showWeek, zoomIn, zoomOut };
 }
