@@ -49,7 +49,9 @@ export function renderPainView() {
     summary +
     `<button class="btn pain-log-btn" id="log-pain">＋ Log pain</button>` +
     `<div class="tl-bar"><span class="tl-hint">Drag · pinch to zoom</span>` +
-      `<span style="flex:1"></span><button class="zb" id="tl-out">–</button><button class="zb" id="tl-in">+</button></div>` +
+      `<span style="flex:1"></span>` +
+      `<button class="zb" id="tl-today">Today</button><button class="zb" id="tl-week">Week</button>` +
+      `<button class="zb" id="tl-out">–</button><button class="zb" id="tl-in">+</button></div>` +
     `<div class="tl-host" id="tl-host"></div>` +
     legend;
 
@@ -59,9 +61,10 @@ export function renderPainView() {
   const hostEl = painViewEl().querySelector('#tl-host');
   timeline = createTimeline(hostEl, { onPainClick: openPainDetail, onDoseClick: openDoseDetail, onDoseGroup: openDoseGroup, onUpgrade: openPaywall });
   timeline.render();
-  const zoom = (deltaY) => hostEl.dispatchEvent(new WheelEvent('wheel', { deltaY, clientX: hostEl.getBoundingClientRect().left + hostEl.clientWidth / 2, cancelable: true }));
-  painViewEl().querySelector('#tl-in').addEventListener('click', () => zoom(-240));
-  painViewEl().querySelector('#tl-out').addEventListener('click', () => zoom(240));
+  painViewEl().querySelector('#tl-today').addEventListener('click', () => timeline.showToday());
+  painViewEl().querySelector('#tl-week').addEventListener('click', () => timeline.showWeek());
+  painViewEl().querySelector('#tl-in').addEventListener('click', () => timeline.zoomIn());
+  painViewEl().querySelector('#tl-out').addEventListener('click', () => timeline.zoomOut());
 }
 
 export function openPainDetail(id) {

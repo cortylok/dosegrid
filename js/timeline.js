@@ -171,6 +171,41 @@ export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, on
 
   // ---- interaction ----
   function zoomAt(px, factor) { const tf = t0 + (px - padL) / scale; scale *= factor; clamp(); t0 = tf - (px - padL) / scale; clamp(); render(); }
+  function easeInOutCubic(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+  let rafId = 0;
+  function animateTo(targetScale, targetT0, ms = 350) {
+    if (rafId) cancelAnimationFrame(rafId);
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      scale = targetScale; t0 = targetT0; clamp(); render(); return;
+    }
+    const s0 = scale, p0 = t0, start = performance.now();
+    const stepFn = (nowT) => {
+      const p = easeInOutCubic(Math.min(1, (nowT - start) / ms));
+      scale = s0 * Math.pow(targetScale / s0, p);
+      t0 = p0 + (targetT0 - p0) * p;
+      render();
+      if (p < 1) { rafId = requestAnimationFrame(stepFn); }
+      else { rafId = 0; scale = targetScale; t0 = targetT0; clamp(); render(); }
+    };
+    rafId = requestAnimationFrame(stepFn);
+  }
+  function zoomStep(factor) {
+    W = host.clientWidth;
+    const mid = (W - padL - padR) / 2;
+    const center = t0 + mid / scale;
+    const targetScale = scale * factor;
+    animateTo(targetScale, center - mid / targetScale);
+  }
+  function zoomIn() { zoomStep(1.6); }
+  function zoomOut() { zoomStep(1 / 1.6); }
+  function viewRange({ start, end }) {
+    W = host.clientWidth;
+    const span = Math.max(MIN_SPAN, end - start);
+    const targetScale = (W - padL - padR) / span;
+    animateTo(targetScale, end - (W - padL - padR) / targetScale);
+  }
+  function showToday() { viewRange(rangeForPreset('today', Date.now())); }
+  function showWeek() { if (!isPro()) { onUpgrade && onUpgrade(); return; } viewRange(rangeForPreset('week', Date.now())); }
   host.addEventListener('wheel', e => { e.preventDefault(); const r = host.getBoundingClientRect(); zoomAt(e.clientX - r.left, e.deltaY < 0 ? 1.15 : 1 / 1.15); }, { passive: false });
   host.addEventListener('pointerdown', e => { host.setPointerCapture(e.pointerId); pointers.set(e.pointerId, e.clientX); if (pointers.size === 1) { dragging = true; dragMoved = false; lastX = e.clientX; } if (pointers.size === 2) { const xs = [...pointers.values()]; pinchDist = Math.abs(xs[0] - xs[1]); } });
   host.addEventListener('pointermove', e => {
@@ -199,5 +234,5 @@ export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, on
   window.addEventListener('resize', () => { fit(); render(); });
 
   fit();
-  return { render };
+  return { render, showToday, showWeek, zoomIn, zoomOut };
 }
