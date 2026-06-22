@@ -1,0 +1,1 @@
+/* vital concept — placeholder */
