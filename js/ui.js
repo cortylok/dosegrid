@@ -1,7 +1,7 @@
 // js/ui.js
 import { loadMeds, saveMeds, loadDoses, saveDoses, addDose, pruneDoses, uuid, loadNotifySettings, saveNotifySettings } from './storage.js';
 import { computeStatus, dailyDoseTotals } from './dosing.js';
-import { loadDataset, searchMeds, groupByCategory, loadCountryBrands, regionalBrands } from './data.js';
+import { loadDataset, searchMeds, pickerItems, groupByCategory, loadCountryBrands, regionalBrands } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
 import { checkIngredients, ingredientTotals, INGREDIENT_LIMITS } from './ingredients.js';
@@ -243,17 +243,21 @@ async function openPicker() {
   const input = modalRoot().querySelector('#med-search');
   const results = modalRoot().querySelector('#med-results');
   const render = () => {
-    const matches = searchMeds(input.value, dataset).slice(0, 80);
-    const groups = groupByCategory(matches);
+    const items = pickerItems(dataset, input.value).slice(0, 80);
+    const groups = groupByCategory(items);
     results.innerHTML = groups.map((g) =>
       `<li class="cat">${g.label}</li>` +
-      g.meds.map((m) =>
-        `<li data-gen="${m.generic}"><span>${m.generic}</span>` +
-        `<span class="muted">${brandsFor(m).join(', ')}</span></li>`).join('')
+      g.meds.map((it) => {
+        const idx = items.indexOf(it);
+        const sub = it.sublabel || brandsFor(it.med).join(', ');
+        return `<li data-idx="${idx}"><span>${it.label}</span><span class="muted">${sub}</span></li>`;
+      }).join('')
     ).join('') || `<li class="muted">No matches — use “Add a medication not listed”.</li>`;
-    results.querySelectorAll('li[data-gen]').forEach((li) =>
-      li.addEventListener('click', () =>
-        openConfigForm(matches.find((m) => m.generic === li.dataset.gen))));
+    results.querySelectorAll('li[data-idx]').forEach((li) =>
+      li.addEventListener('click', () => {
+        const it = items[+li.dataset.idx];
+        openConfigForm(it.med, it.variant ? it.variant.name : null);
+      }));
   };
   input.addEventListener('input', render);
   modalRoot().querySelector('#add-custom').addEventListener('click', () => openCustomForm());
@@ -456,14 +460,17 @@ function readDosingFields(med) {
   return { ...common, strength, components: med.components || null };
 }
 
-function openConfigForm(picked) {
+function openConfigForm(picked, variant) {
+  const isCombo = picked.kind === 'combo' && picked.ingredients;
+  const title = variant || picked.generic;
   openSheet(
-    `<h2>${picked.generic}</h2>` +
-    `<div class="field"><label>Display name</label><input id="f-name" value="${picked.generic}" /></div>` +
+    `<h2>${title}</h2>` +
+    `<div class="field"><label>Display name</label><input id="f-name" value="${title}" /></div>` +
     dosingFieldsHtml(picked, {
       intervalHours: picked.defaultIntervalHours,
       maxDailyUnits: picked.defaultMaxPerDay,
       doseType: resolveDoseType(picked),
+      variant: variant || null,
     }) +
     `<div class="btn-row"><button class="btn secondary" id="cancel">Cancel</button><button class="btn" id="save">Save</button></div>`
   );
@@ -474,13 +481,16 @@ function openConfigForm(picked) {
     const vals = readDosingFields(picked);
     meds.push({
       id: uuid(),
-      name: modalRoot().querySelector('#f-name').value.trim() || picked.generic,
+      name: modalRoot().querySelector('#f-name').value.trim() || title,
       brands: picked.brands || [],
       strength: vals.strength,
-      strengths: picked.strengths || null,
+      strengths: isCombo ? null : (picked.strengths || null),
       unit: picked.unit || null,
       maxPerDay: picked.maxPerDay || null,
       category: picked.category || 'custom',
+      kind: isCombo ? 'combo' : null,
+      ingredients: isCombo ? picked.ingredients : null,
+      components: vals.components,
       doseType: vals.doseType,
       notify: vals.notify, reminderTimes: vals.reminderTimes,
       intervalHours: vals.intervalHours,
@@ -511,6 +521,7 @@ function openCustomForm() {
     meds.push({
       id: uuid(), name, brands: [], strength: vals.strength,
       strengths: null, unit: null, maxPerDay: null, category: 'custom',
+      kind: null, components: vals.components,
       doseType: vals.doseType,
       notify: vals.notify, reminderTimes: vals.reminderTimes,
       intervalHours: vals.intervalHours, maxDailyUnits: vals.maxDailyUnits, order: meds.length,
@@ -526,7 +537,7 @@ function openEditMed(med) {
   openSheet(
     `<h2>Edit ${med.name}</h2>` +
     `<div class="field"><label>Display name</label><input id="f-name" value="${med.name}" /></div>` +
-    dosingFieldsHtml(med, { strength: med.strength, intervalHours: med.intervalHours, maxDailyUnits: med.maxDailyUnits, doseType: resolveDoseType(med) }) +
+    dosingFieldsHtml(med, { strength: med.strength, components: med.components, intervalHours: med.intervalHours, maxDailyUnits: med.maxDailyUnits, doseType: resolveDoseType(med) }) +
     `<div class="btn-row"><button class="btn danger" id="del">Delete tile</button><button class="btn" id="save">Save</button></div>`
   );
   wireDosingFields(med, false);
@@ -537,6 +548,7 @@ function openEditMed(med) {
       const vals = readDosingFields(med);
       m.name = modalRoot().querySelector('#f-name').value.trim() || m.name;
       m.strength = vals.strength;
+      if (vals.components) m.components = vals.components;
       m.intervalHours = vals.intervalHours;
       m.maxDailyUnits = vals.maxDailyUnits;
       m.doseType = vals.doseType;
