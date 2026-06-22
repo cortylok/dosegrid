@@ -45,13 +45,13 @@ ready · wait(until time) · hold(shared-ingredient, with note) · daily-max · 
 - [x] Concept 1 — Aurora (concepts/aurora.css + .js)
 - [x] Concept 2 — Ledger (concepts/ledger.css + .js)
 - [x] Concept 3 — Pulse (concepts/pulse.css + .js)
-- [ ] Concept 4 — Apothecary
+- [x] Concept 4 — Apothecary (concepts/apothecary.css + .js)
 - [ ] Concept 5 — Vital
 - [ ] Final polish pass + per-concept rationale text in side panel
 - [ ] (optional) push branch for review
 
 ## Resume notes
-Last action: **Pulse done & committed**. Next: Apothecary (warm tactile serif, blister-pack dose dots).
+Last action: **Apothecary done & committed**. Next: Vital (bento SaaS, mono numerics). Final = polish pass.
 (concepts/*.css + *.js) that register nothing yet — replace each with the real concept.
 To add a concept: implement `CONCEPTS.<name> = { label, tagline, notes, meta, span, renderApp(),
 timelineRenderer(view), renderSheet(med) }` in its js, styles scoped under `.theme-<name>` in its css.
