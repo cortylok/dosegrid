@@ -4,7 +4,7 @@ import { computeStatus, dailyDoseTotals } from './dosing.js';
 import { loadDataset, searchMeds, pickerItems, groupByCategory, loadCountryBrands, regionalBrands } from './data.js';
 import { resolveDoseType } from './categories.js';
 import { checkDose } from './safety.js';
-import { checkIngredients, ingredientTotals, INGREDIENT_LIMITS } from './ingredients.js';
+import { checkIngredients, ingredientTotals, ingredientHold, INGREDIENT_LIMITS } from './ingredients.js';
 import { helpLinesFor, getCountry, setCountry, COUNTRY_OPTIONS, WHO_DIRECTORY } from './helplines.js';
 import { isPro, purchasePro, restorePurchases } from './pro.js';
 import { getProPrice } from './iap.js';
@@ -41,22 +41,35 @@ export function renderGrid() {
 
   for (const med of meds) {
     const s = computeStatus(med, doses, now);
+    // A shared active (e.g. paracetamol in a combo + plain paracetamol) may be
+    // capped even when this med's own timing says "ready" — reflect that on the
+    // tile instead of only warning at log time.
+    let state = s.state, msRemaining = s.msRemaining, holdIng = null;
+    if (state !== 'daily_max') {
+      const hold = ingredientHold(med, meds, doses, now);
+      if (hold.blocked) {
+        const hms = hold.until - now;
+        if (state === 'ready' || hms > msRemaining) { msRemaining = Math.max(msRemaining, hms); state = 'hold'; holdIng = hold.ingredient; }
+      }
+    }
     const tile = document.createElement('button');
     tile.className = 'tile';
     tile.dataset.medId = med.id;
     const lastLine = fmtLastTaken(s.lastDoseTime);
     const scheduled = resolveDoseType(med) === 'scheduled';
-    const count = `<span class="count">${fmtRemaining(s.msRemaining)}</span>`;
+    const count = `<span class="count">${fmtRemaining(msRemaining)}</span>`;
     const statusInner =
-      s.state === 'ready' ? (scheduled ? 'Due to take' : 'Ready when needed')
-      : s.state === 'wait' ? (scheduled ? `Due in&nbsp;${count}` : `${count}&nbsp;until next`)
+      state === 'ready' ? (scheduled ? 'Due to take' : 'Ready when needed')
+      : state === 'wait' ? (scheduled ? `Due in&nbsp;${count}` : `${count}&nbsp;until next`)
+      : state === 'hold' ? `Hold&nbsp;${count}`
       : (scheduled ? 'Done for today' : 'Daily max');
     tile.innerHTML =
       `<div><h2>${med.name}</h2>` +
       `<div class="dose-label">${med.strength ? med.strength + ' · ' : ''}max ${med.maxDailyUnits}/day</div>` +
-      (lastLine ? `<div class="last">${lastLine}</div>` : '') +
+      (holdIng ? `<div class="last hold-note">Contains ${holdIng} — shared limit reached</div>`
+        : (lastLine ? `<div class="last">${lastLine}</div>` : '')) +
       `</div>` +
-      `<div class="status ${s.state}">${statusInner}</div>`;
+      `<div class="status ${state}">${statusInner}</div>`;
     attachTileHandlers(tile, med);
     grid.appendChild(tile);
   }

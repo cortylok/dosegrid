@@ -45,7 +45,9 @@ body {
 .status.ready { color: var(--ready); background: rgba(74,222,128,.16); box-shadow: 0 0 0 1px rgba(74,222,128,.4); }
 .status.wait  { color: var(--wait);  background: rgba(251,191,36,.16); box-shadow: 0 0 0 1px rgba(251,191,36,.4); }
 .status.daily_max { color: var(--max); background: rgba(248,113,113,.18); box-shadow: 0 0 0 1px rgba(248,113,113,.4); }
-.status.wait .count { font-size: 1.05rem; }
+.status.hold { color: var(--max); background: rgba(248,113,113,.18); box-shadow: 0 0 0 1px rgba(248,113,113,.4); }
+.status.wait .count, .status.hold .count { font-size: 1.05rem; }
+.hold-note { color: var(--max); }
 .tile.add {
   align-items: center; justify-content: center; color: var(--accent);
   border: 2px dashed var(--line); background: transparent; font-size: 1rem;
