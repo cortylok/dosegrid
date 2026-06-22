@@ -32,10 +32,12 @@ existing cross-med overdose tally so the paracetamol total is exactly what the u
 ## Scope
 
 In scope (decided with user):
-- **9 tablet combos** get product variants + per-ingredient editable strength dropdowns:
-  Paracetamol;Codeine, Ibuprofen;Codeine, Orphenadrine;Paracetamol,
+- **10 tablet combos** get product variants + per-ingredient editable strength dropdowns:
+  Paracetamol;Codeine, Paracetamol;Caffeine, Ibuprofen;Codeine, Orphenadrine;Paracetamol,
   Codeine;Pseudoephedrine;Paracetamol, Oxycodone;Naloxone, Buprenorphine;Naloxone,
   Ergotamine;Caffeine, Amoxicillin with clavulanate, Trimethoprim;Sulfamethoxazole.
+  Of these, **Paracetamol;Caffeine is a new med to create** (not in the dataset today); the other
+  9 already exist and are modified in place.
 - **Single-ingredient meds** get expanded common-strength dropdowns (data only — the dropdown UI
   already exists). Persist their `components` so the tally works.
 - **Persist `components` on save** for every med (single + combo).
@@ -51,7 +53,7 @@ Out of scope:
 
 ## Data model
 
-### Combo meds (medications.json) — the 9 tablet combos
+### Combo meds (medications.json) — the 10 tablet combos
 
 Each combo gains `kind: "combo"`, an `ingredients` array (defines the fields + dropdown options),
 and a `variants` array (named products with their recipe). The old single `components` value on
@@ -68,7 +70,7 @@ these combos is removed (superseded by `ingredients` + per-save persistence).
     { "name": "Codeine",     "key": "codeine",     "unit": "mg", "strengths": [8, 9.75, 12.8, 15, 30] }
   ],
   "variants": [
-    { "name": "Panadeine",       "mg": { "paracetamol": 500, "codeine": 8 } },
+    { "name": "Panadeine",       "mg": { "paracetamol": 500, "codeine": 15 } },
     { "name": "Panamax Co",      "mg": { "paracetamol": 500, "codeine": 8 } },
     { "name": "Panadeine Forte", "mg": { "paracetamol": 500, "codeine": 30 } },
     { "name": "Mersyndol",       "mg": { "paracetamol": 450, "codeine": 9.75 } },
@@ -90,27 +92,29 @@ Field rules:
 - `variants[].mg` keys MUST match `ingredients[].key` values (every ingredient present).
 - The first variant is the default pre-fill when a combo is opened without a chosen variant.
 
-### Full variant / recipe tables (all 9 tablet combos)
+### Full variant / recipe tables (all 10 tablet combos)
 
 Strengths listed are the dropdown options per ingredient; **bold** marks the tallied active.
 
 1. **Paracetamol; Codeine** — **Paracetamol** [500, 450, 665] · Codeine [8, 9.75, 12.8, 15, 30]
-   - Panadeine 500/8 · Panamax Co 500/8 · Panadeine Forte 500/30 · Mersyndol 450/9.75 · Mersyndol Forte 450/30
-2. **Ibuprofen; Codeine** — **Ibuprofen** [200, 400] · Codeine [12.8, 30]
+   - Panadeine 500/15 · Panamax Co 500/8 · Panadeine Forte 500/30 · Mersyndol 450/9.75 · Mersyndol Forte 450/30
+2. **Paracetamol; Caffeine** *(new med)* — **Paracetamol** [500, 665] · Caffeine [65]
+   - Panadol Extra 500/65 (Optizorb same recipe)
+3. **Ibuprofen; Codeine** — **Ibuprofen** [200, 400] · Codeine [12.8, 30]
    - Nurofen Plus 200/12.8
-3. **Orphenadrine; Paracetamol** — Orphenadrine [35] · **Paracetamol** [450, 500]
+4. **Orphenadrine; Paracetamol** — Orphenadrine [35] · **Paracetamol** [450, 500]
    - Norgesic 35/450
-4. **Codeine; Pseudoephedrine; Paracetamol** — Codeine [9.5] · Pseudoephedrine [30] · **Paracetamol** [500]
+5. **Codeine; Pseudoephedrine; Paracetamol** — Codeine [9.5] · Pseudoephedrine [30] · **Paracetamol** [500]
    - Codral Original Cold & Flu 9.5/30/500
-5. **Oxycodone; Naloxone** — Oxycodone [5, 10, 20, 40] · Naloxone [2.5, 5, 10, 20]
+6. **Oxycodone; Naloxone** — Oxycodone [5, 10, 20, 40] · Naloxone [2.5, 5, 10, 20]
    - Targin 5/2.5 · Targin 10/5 · Targin 20/10 · Targin 40/20
-6. **Buprenorphine; Naloxone** — Buprenorphine [2, 8, 12, 16] · Naloxone [0.5, 2, 3, 4]
+7. **Buprenorphine; Naloxone** — Buprenorphine [2, 8, 12, 16] · Naloxone [0.5, 2, 3, 4]
    - Suboxone 2/0.5 · Suboxone 8/2 · Suboxone 12/3 · Suboxone 16/4
-7. **Ergotamine; Caffeine** — Ergotamine [1] · Caffeine [100]
+8. **Ergotamine; Caffeine** — Ergotamine [1] · Caffeine [100]
    - Cafergot 1/100
-8. **Amoxicillin with clavulanate** — Amoxicillin [500, 875] · Clavulanate [125]
+9. **Amoxicillin with clavulanate** — Amoxicillin [500, 875] · Clavulanate [125]
    - Augmentin 500/125 · Augmentin Duo Forte 875/125
-9. **Trimethoprim; Sulfamethoxazole** — Trimethoprim [80, 160] · Sulfamethoxazole [400, 800]
+10. **Trimethoprim; Sulfamethoxazole** — Trimethoprim [80, 160] · Sulfamethoxazole [400, 800]
    - Bactrim 80/400 · Bactrim DS (Forte) 160/800
 
 ### Single-ingredient strength dropdowns (data only)
@@ -215,7 +219,8 @@ Headless / manual smoke (documented, run in browser):
 
 ## Files touched
 
-- `medications.json` — add `kind`/`ingredients`/`variants` to 9 combos; expand single `strengths`.
+- `medications.json` — add `kind`/`ingredients`/`variants` to 9 existing combos, create the new
+  `Paracetamol; Caffeine` (Panadol Extra) combo; expand single `strengths`.
 - `js/data.js` — add `pickerItems` (+ `recipeText` helper); extend search matching.
 - `js/ui.js` — combo branch in `dosingFieldsHtml`/`wireDosingFields`/`readDosingFields`; variant
   param + `components` persistence in `openConfigForm`/`openCustomForm`; edit fallback.
