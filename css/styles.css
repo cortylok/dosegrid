@@ -1,22 +1,16 @@
 :root {
-  --bg: #0b1220;
-  --field: #0f172a;
-  --surface: #1e293b;
-  --line: #334155;
-  --accent: #22d3ee;
-  --text: #e2e8f0;
-  --muted: #94a3b8;
-  --ready: #4ade80;
-  --wait: #fbbf24;
-  --max: #f87171;
   --radius: 16px;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-body: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-body);
+  --shadow: rgba(0, 0, 0, .4);
+  font-family: var(--font-body);
 }
 * { box-sizing: border-box; }
 body {
-  margin: 0; background: var(--bg); color: var(--text);
+  margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body);
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
+h1, h2, h3 { font-family: var(--font-display); }
 .app-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 16px 18px; background: var(--field); border-bottom: 1px solid var(--line);
