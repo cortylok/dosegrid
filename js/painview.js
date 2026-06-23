@@ -5,6 +5,7 @@ import { openSheet, closeModal, modalRoot, openPaywall } from './ui.js';
 import { createTimeline } from './timeline.js';
 import { isPro } from './pro.js';
 import { shouldNudge, hiddenCount, usageDayCount, nudgeSeen, markNudgeSeen } from './gating.js';
+import { painCardHtml } from './theme-render.js';
 
 const homePainEl = () => document.getElementById('home-pain');
 const timelineViewEl = () => document.getElementById('timeline-view');
@@ -28,10 +29,9 @@ function fmtRelative(ts) {
 export function renderHomePain() {
   const pain = loadPain();
   const last = latestPain(pain);
-  const summary = last
-    ? `<div class="pain-now"><div class="pain-score" style="color:${painColor(last.score)}">${last.score}<span>/10</span></div>` +
-      `<div class="pain-meta">${severity(last.score)} · logged ${fmtRelative(last.timestamp)}${last.note ? `<br><span class="muted">“${last.note}”</span>` : ''}</div></div>`
-    : `<div class="pain-now muted">No pain logged yet. Tap “Log pain” to start.</div>`;
+  const summary = painCardHtml(last
+    ? { score: last.score, color: painColor(last.score), severity: severity(last.score), relative: fmtRelative(last.timestamp), note: last.note || '' }
+    : null);
 
   const now = Date.now();
   const allEntries = [...loadPain(), ...loadDoses()];

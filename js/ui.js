@@ -11,6 +11,8 @@ import { getProPrice } from './iap.js';
 import { visibleWindow, hiddenCount } from './gating.js';
 import { defaultReminderTimes } from './notify-schedule.js';
 import { syncNotifications, requestPermission } from './notify.js';
+import { medColor } from './pain.js';
+import { tileHtml, doseHeaderHtml } from './theme-render.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -55,21 +57,18 @@ export function renderGrid() {
     const tile = document.createElement('button');
     tile.className = 'tile';
     tile.dataset.medId = med.id;
-    const lastLine = fmtLastTaken(s.lastDoseTime);
-    const scheduled = resolveDoseType(med) === 'scheduled';
-    const count = `<span class="count">${fmtRemaining(msRemaining)}</span>`;
-    const statusInner =
-      state === 'ready' ? (scheduled ? 'Due to take' : 'Ready when needed')
-      : state === 'wait' ? (scheduled ? `Due in&nbsp;${count}` : `${count}&nbsp;until next`)
-      : state === 'hold' ? `Hold&nbsp;${count}`
-      : (scheduled ? 'Done for today' : 'Daily max');
-    tile.innerHTML =
-      `<div><h2>${med.name}</h2>` +
-      `<div class="dose-label">${med.strength ? med.strength + ' · ' : ''}max ${med.maxDailyUnits}/day</div>` +
-      (holdIng ? `<div class="last hold-note">Contains ${holdIng} — shared limit reached</div>`
-        : (lastLine ? `<div class="last">${lastLine}</div>` : '')) +
-      `</div>` +
-      `<div class="status ${state}">${statusInner}</div>`;
+    tile.innerHTML = tileHtml({
+      name: med.name,
+      strength: med.strength || '',
+      maxDay: med.maxDailyUnits,
+      takenToday: s.unitsToday,
+      state,
+      scheduled: resolveDoseType(med) === 'scheduled',
+      remainingText: fmtRemaining(msRemaining),
+      holdIng,
+      lastLine: fmtLastTaken(s.lastDoseTime),
+      color: medColor(med.order || 0),
+    });
     attachTileHandlers(tile, med);
     grid.appendChild(tile);
   }
@@ -158,7 +157,7 @@ function openDoseSheet(med) {
       .join('');
   }
   openSheet(
-    `<h2>${med.name}${med.strength ? ` <span class="muted">${med.strength}</span>` : ''}</h2>` +
+    doseHeaderHtml({ name: med.name, strength: med.strength || '', maxDay: med.maxDailyUnits, takenToday: s.unitsToday, state: med.state, color: medColor(med.order || 0) }) +
     `<p class="muted">Last taken: ${last}<br>OK to take now? ${next}<br>` +
     `Today: ${s.unitsToday} of ${med.maxDailyUnits} tablets (${remaining} left)</p>` +
     ingNote +
