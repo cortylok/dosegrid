@@ -3,7 +3,7 @@
 // cache; when offline, serve the last-cached copy. This means updates reach the
 // user automatically (no cache-version bump needed) while the app stays usable
 // offline once it has been visited.
-const CACHE = 'dosegrid-v24';
+const CACHE = 'dosegrid-v25';
 const ASSETS = [
   './', './index.html', './css/styles.css',
   './css/theme-classic.css', './css/theme-aurora.css', './css/theme-apothecary.css',
