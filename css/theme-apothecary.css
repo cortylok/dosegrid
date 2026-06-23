@@ -1,0 +1,63 @@
+/* Apothecary — warm tactile. Blister-pack dose dots. Light + dark. */
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Figtree:wght@400;500;600;700&display=swap');
+
+.theme-apothecary {
+  --bg: #efe6d6; --field: #fbf6ec; --surface: #fbf6ec; --line: rgba(43, 33, 24, .1);
+  --accent: #bf5b39; --on-accent: #ffffff; --text: #2b2118; --muted: #8a7c69;
+  --ready: #5e8a57; --wait: #cf8b3c; --max: #bf5b39; --shadow: rgba(43, 33, 24, .45);
+  --font-body: 'Figtree', system-ui, sans-serif; --font-display: 'Spectral', Georgia, serif;
+  --inset: rgba(255, 255, 255, .7); --amber: #cf8b3c;
+}
+.theme-apothecary.is-dark {
+  --bg: #16120e; --field: #221b14; --surface: #221b14; --line: rgba(255, 255, 255, .085);
+  --accent: #df7d54; --on-accent: #1a120c; --text: #f1e8d8; --muted: #a3927b;
+  --ready: #7eb06f; --wait: #e0a44e; --max: #df7d54; --shadow: rgba(0, 0, 0, .7);
+  --inset: rgba(255, 255, 255, .05); --amber: #e0a44e;
+}
+.theme-apothecary body {
+  background:
+    radial-gradient(640px 430px at 84% -6%, color-mix(in srgb, var(--wait) 16%, transparent) 0%, transparent 60%),
+    radial-gradient(560px 480px at -6% 100%, color-mix(in srgb, var(--max) 14%, transparent) 0%, transparent 58%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+/* blister tiles */
+.theme-apothecary .tile {
+  display: block; text-align: left; padding: 14px 15px; border: 0; border-radius: 20px;
+  background: var(--surface); box-shadow: 0 18px 36px -22px var(--shadow), inset 0 1px 0 var(--inset);
+}
+.theme-apothecary .tile:active { transform: translateY(1px); }
+.theme-apothecary .ap-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.theme-apothecary .ap-head > div:first-child { min-width: 0; }
+.theme-apothecary .ap-name { font-family: var(--font-display); font-size: 16.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.theme-apothecary .ap-strength { font-size: 11px; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.theme-apothecary .ap-icon { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; flex: none; background: color-mix(in srgb, var(--text) 6%, transparent); }
+.theme-apothecary .ap-blister { display: flex; gap: 4px; margin: 12px 0 10px; flex-wrap: wrap; max-width: 100%; }
+.theme-apothecary .ap-blister i { flex: none; width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--text) 24%, transparent); box-shadow: inset 0 1px 2px color-mix(in srgb, var(--text) 8%, transparent); }
+.theme-apothecary .ap-blister i.on { background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--amber) 70%, #fff), var(--amber)); border-color: transparent; box-shadow: 0 2px 5px -1px color-mix(in srgb, var(--max) 45%, transparent), inset 0 1px 1px rgba(255, 255, 255, .45); }
+.theme-apothecary .ap-status { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 12.5px; font-weight: 600; line-height: 1.3; }
+.theme-apothecary .ap-status .d { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--muted); }
+.theme-apothecary .ap-status small { color: var(--muted); font-weight: 400; flex-basis: 100%; padding-left: 15px; margin-top: 1px; }
+.theme-apothecary .tile.s-ready .ap-status { color: var(--ready); } .theme-apothecary .tile.s-ready .ap-status .d { background: var(--ready); }
+.theme-apothecary .tile.s-wait .ap-status { color: var(--wait); } .theme-apothecary .tile.s-wait .ap-status .d { background: var(--wait); }
+.theme-apothecary .tile.s-hold .ap-status, .theme-apothecary .tile.s-daily_max .ap-status { color: var(--max); }
+.theme-apothecary .tile.s-hold .ap-status .d, .theme-apothecary .tile.s-daily_max .ap-status .d { background: var(--max); }
+
+/* pain card */
+.theme-apothecary .ap-paincard { display: flex; align-items: center; gap: 16px; padding: 14px 16px; border-radius: 20px; background: var(--surface); box-shadow: 0 18px 36px -22px var(--shadow), inset 0 1px 0 var(--inset); }
+.theme-apothecary .ap-pill { text-align: center; flex: none; }
+.theme-apothecary .ap-pill b { font-family: var(--font-display); font-size: 28px; display: block; line-height: 1; }
+.theme-apothecary .ap-pill span { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.theme-apothecary .ap-pmeta { font-size: 13px; color: var(--muted); }
+
+/* sheet */
+.theme-apothecary .sheet { background: var(--field); border-radius: 28px 28px 0 0; box-shadow: 0 -28px 70px -26px var(--shadow); }
+@media (min-width: 620px) { .theme-apothecary .sheet { border-radius: 28px; } }
+.theme-apothecary .ap-sname { font-family: var(--font-display); font-size: 24px; font-weight: 600; margin-top: 4px; }
+.theme-apothecary .ap-sstrength { font-size: 12.5px; color: var(--muted); }
+.theme-apothecary .ap-sh-blister { display: flex; gap: 8px; flex-wrap: wrap; max-width: 100%; margin: 14px 0; }
+.theme-apothecary .ap-sh-blister i { flex: none; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--text) 22%, transparent); }
+.theme-apothecary .ap-sh-blister i.on { background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--amber) 70%, #fff), var(--amber)); border-color: transparent; }
+
+.theme-apothecary .tile.add { border-radius: 20px; border: 2px dashed var(--line); box-shadow: none; }

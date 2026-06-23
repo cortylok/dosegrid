@@ -1,0 +1,14 @@
+/* Classic — the original slate/cyan dark, plus a light variant. */
+.theme-classic {
+  --bg: #0b1220; --field: #0f172a; --surface: #1e293b; --line: #334155;
+  --accent: #22d3ee; --text: #e2e8f0; --muted: #94a3b8;
+  --ready: #4ade80; --wait: #fbbf24; --max: #f87171; --shadow: rgba(0, 0, 0, .5);
+  --on-accent: #06222a;
+  --font-body: Inter, system-ui, sans-serif; --font-display: Inter, system-ui, sans-serif;
+}
+.theme-classic:not(.is-dark) {
+  --bg: #f4f7fb; --field: #ffffff; --surface: #ffffff; --line: #dfe6ef;
+  --accent: #0e9bb8; --text: #16202e; --muted: #5b6676;
+  --ready: #15a05f; --wait: #c47d0a; --max: #d4493f; --shadow: rgba(16, 32, 46, .18);
+  --on-accent: #ffffff;
+}

@@ -6,6 +6,9 @@ import { recordUsageDay } from './gating.js';
 import { syncNotifications } from './notify.js';
 import { loadDataset, backfillComponents } from './data.js';
 import { loadMeds, saveMeds } from './storage.js';
+import { applyTheme } from './theme.js';
+
+applyTheme();
 
 const ONBOARD_KEY = 'dosegrid.onboarded';
 
