@@ -43,7 +43,7 @@
 .theme-apothecary .zbtn.solid, .theme-apothecary-dark .zbtn.solid { background: var(--clay); color: #fff; border-color: transparent; }
 
 .ap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; padding: 12px 18px 0; }
-.ap-tile { text-align: left; width: 100%; appearance: none; font: inherit; color: inherit; cursor: pointer; background: var(--card); border: 0; border-radius: 20px; padding: 14px 15px; box-shadow: var(--sh); transition: transform .15s, box-shadow .15s; }
+.ap-tile { text-align: left; width: 100%; min-width: 0; appearance: none; font: inherit; color: inherit; cursor: pointer; background: var(--card); border: 0; border-radius: 20px; padding: 14px 15px; box-shadow: var(--sh); transition: transform .15s, box-shadow .15s; }
 .ap-tile:hover { transform: translateY(-2px); }
 .ap-tile:active { transform: translateY(1px); box-shadow: 0 8px 18px -14px var(--shadow, rgba(0, 0, 0, .5)), inset 0 1px 0 var(--inset); }
 .ap-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
