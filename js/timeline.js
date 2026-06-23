@@ -3,6 +3,8 @@ import { loadPain, loadDoses, loadMeds } from './storage.js';
 import { painColor, medColor, lodMode, startOfDay, isEarlyDose, medDayTotals, dosesInCluster, dayDoses, rangeForPreset } from './pain.js';
 import { isPro } from './pro.js';
 import { FREE_WINDOW_MS, hiddenCount } from './gating.js';
+import { timelinePalette } from './theme-render.js';
+import { getTheme, getMode, resolvedDark } from './theme.js';
 
 const DAY = 864e5, HOUR = 36e5;
 const padL = 30, padR = 12;
@@ -54,6 +56,7 @@ export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, on
     const span = tR() - t0;
     const detail = lodMode(pxDay()) === 'detail';
     const meds = medLookup();
+    const PAL = timelinePalette(getTheme(), resolvedDark(getMode(), typeof matchMedia !== 'undefined' && matchMedia('(prefers-color-scheme: dark)').matches));
     const pain = loadPain(), doses = loadDoses().slice().sort((a, b) => a.timestamp - b.timestamp);
     doseById = new Map(doses.map(d => [d.id, d]));
     allDoses = doses;
@@ -67,10 +70,10 @@ export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, on
     for (let dd = startOfDay(t0); dd < tR(); dd += DAY) {
       const x1 = Math.max(padL, X(dd)), x2 = Math.min(W - padR, X(dd + DAY));
       if (x2 > x1 && Math.round((dd - ref) / DAY) % 2 === 0)
-        s += `<rect x="${x1.toFixed(1)}" y="${painTop}" width="${(x2 - x1).toFixed(1)}" height="${bandH}" fill="rgba(148,163,184,0.05)"/>`;
+        s += `<rect x="${x1.toFixed(1)}" y="${painTop}" width="${(x2 - x1).toFixed(1)}" height="${bandH}" fill="${PAL.band}"/>`;
       const mx = X(dd);
       if (mx >= padL && mx <= W - padR)
-        s += `<line x1="${mx.toFixed(1)}" y1="${painTop}" x2="${mx.toFixed(1)}" y2="${laneBot}" stroke="rgba(148,163,184,0.22)" stroke-width="1"/>`;
+        s += `<line x1="${mx.toFixed(1)}" y1="${painTop}" x2="${mx.toFixed(1)}" y2="${laneBot}" stroke="${PAL.grid}" stroke-width="1"/>`;
     }
     const hourAlpha = Math.max(0, Math.min(1, (scale * HOUR - 7) / 22));
     if (hourAlpha > 0.02) for (let hh = startOfHour(t0); hh < tR(); hh += HOUR) {
@@ -81,7 +84,7 @@ export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, on
 
     // ---- pain gridlines ----
     for (const [v, y] of [[10, painTop], [5, (painTop + painBot) / 2], [0, painBot]]) {
-      s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#334155"/><text x="${padL - 4}" y="${y + 3}" font-size="9" fill="#94a3b8" text-anchor="end">${v}</text>`;
+      s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="${PAL.grid}"/><text x="${padL - 4}" y="${y + 3}" font-size="9" fill="${PAL.gtext}" text-anchor="end">${v}</text>`;
     }
 
     // ---- pain ----
@@ -89,7 +92,7 @@ export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, on
       if (vis.length > 1) s += `<polyline points="${vis.map(p => `${X(p.timestamp).toFixed(1)},${Y(p.score).toFixed(1)}`).join(' ')}" fill="none" stroke="rgba(34,211,238,.45)" stroke-width="1.5"/>`;
       for (const p of vis) {
         const cx = X(p.timestamp).toFixed(1), cy = Y(p.score).toFixed(1);
-        const ring = p.note ? ' stroke="#f8fafc" stroke-width="2"' : '';
+        const ring = p.note ? ` stroke="${PAL.ring}" stroke-width="2"` : '';
         s += `<circle cx="${cx}" cy="${cy}" r="4.5" fill="${painColor(p.score)}"${ring}/>`;
         s += `<circle cx="${cx}" cy="${cy}" r="17" fill="transparent" data-pain="${p.id}" style="cursor:pointer"/>`;
       }
@@ -100,15 +103,15 @@ export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, on
       }
       for (const p of vis) if (p.note) {
         const cx = X(p.timestamp).toFixed(1), cy = Y(p.score).toFixed(1);
-        s += `<circle cx="${cx}" cy="${cy}" r="3.2" fill="#f8fafc"/><circle cx="${cx}" cy="${cy}" r="17" fill="transparent" data-pain="${p.id}" style="cursor:pointer"/>`;
+        s += `<circle cx="${cx}" cy="${cy}" r="3.2" fill="${PAL.ring}"/><circle cx="${cx}" cy="${cy}" r="17" fill="transparent" data-pain="${p.id}" style="cursor:pointer"/>`;
       }
     }
 
     // ---- dose lane ----
     const laneH = laneBot - laneTop;
-    s += `<text x="${padL}" y="${laneTop - 6}" font-size="8" fill="#64748b">DOSES — ${detail ? 'each dose, height = share of daily limit' : 'per-med daily totals vs each med’s max'}</text>`;
+    s += `<text x="${padL}" y="${laneTop - 6}" font-size="8" fill="${PAL.gtext}">DOSES — ${detail ? 'each dose, height = share of daily limit' : 'per-med daily totals vs each med’s max'}</text>`;
     s += `<line x1="${padL}" y1="${laneTop}" x2="${W - padR}" y2="${laneTop}" stroke="#f87171" stroke-width="1" stroke-dasharray="3 3"/><text x="${padL - 4}" y="${laneTop + 3}" font-size="7" fill="#f87171" text-anchor="end">max</text>`;
-    s += `<line x1="${padL}" y1="${laneBot}" x2="${W - padR}" y2="${laneBot}" stroke="#475569"/>`;
+    s += `<line x1="${padL}" y1="${laneBot}" x2="${W - padR}" y2="${laneBot}" stroke="${PAL.lane}"/>`;
     if (detail) {
       const cum = {}, lastTs = {};
       for (const d of visDoses) {
@@ -153,7 +156,7 @@ export function createTimeline(host, { onPainClick, onDoseClick, onDoseGroup, on
       const label = span <= 2 * DAY ? new Date(t).toLocaleTimeString([], { hour: 'numeric' })
         : span <= 9 * DAY ? new Date(t).toLocaleDateString([], { weekday: 'short', day: 'numeric' })
         : new Date(t).getDate() + '/' + (new Date(t).getMonth() + 1);
-      s += `<text x="${x.toFixed(1)}" y="${axisY}" font-size="9" fill="#94a3b8" text-anchor="middle">${label}</text>`;
+      s += `<text x="${x.toFixed(1)}" y="${axisY}" font-size="9" fill="${PAL.gtext}" text-anchor="middle">${label}</text>`;
     }
     // ---- free-tier lock cap (older history hidden) ----
     if (!isPro()) {
