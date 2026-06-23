@@ -55,7 +55,7 @@ export function renderGrid() {
       }
     }
     const tile = document.createElement('button');
-    tile.className = 'tile';
+    tile.className = 'tile s-' + state;
     tile.dataset.medId = med.id;
     tile.innerHTML = tileHtml({
       name: med.name,
