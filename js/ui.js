@@ -13,6 +13,7 @@ import { defaultReminderTimes } from './notify-schedule.js';
 import { syncNotifications, requestPermission } from './notify.js';
 import { medColor } from './pain.js';
 import { tileHtml, doseHeaderHtml } from './theme-render.js';
+import { THEMES, MODES, THEME_LABELS, getTheme, getMode, setTheme, setMode } from './theme.js';
 
 const gridEl = () => document.getElementById('grid');
 export const modalRoot = () => document.getElementById('modal-root');
@@ -795,6 +796,13 @@ export function showLanding(opts = {}) {
     `<div class="field"><label>Your country (for help lines)</label><select id="land-country">` +
     COUNTRY_OPTIONS.map(([c, name]) => `<option value="${c}"${c === getCountry() ? ' selected' : ''}>${name}</option>`).join('') +
     `</select></div>` +
+    `<div class="field"><label>Appearance</label>` +
+    `<div class="theme-chips" id="theme-chips">` +
+      THEMES.map((t) => `<button class="theme-chip${t === getTheme() ? ' sel' : ''}" data-theme="${t}">${THEME_LABELS[t]}</button>`).join('') +
+    `</div>` +
+    `<div class="mode-seg" id="mode-seg">` +
+      MODES.map((m) => `<button class="mode-opt${m === getMode() ? ' sel' : ''}" data-mode="${m}">${m[0].toUpperCase() + m.slice(1)}</button>`).join('') +
+    `</div></div>` +
     `<div class="btn-row"><button class="btn secondary" id="land-pro">${isPro() ? 'DoseGrid Pro ✓ Active' : 'DoseGrid Pro ✦ — unlock full history'}</button></div>` +
     `<div class="btn-row"><button class="btn secondary" id="land-reminders">Reminder settings</button></div>` +
     dismissRow +
@@ -805,6 +813,8 @@ export function showLanding(opts = {}) {
     `</div>`
   );
   modalRoot().querySelector('#land-country')?.addEventListener('change', (e) => setCountry(e.target.value));
+  modalRoot().querySelectorAll('#theme-chips .theme-chip').forEach((b) => b.addEventListener('click', () => { setTheme(b.dataset.theme); showLanding(opts); }));
+  modalRoot().querySelectorAll('#mode-seg .mode-opt').forEach((b) => b.addEventListener('click', () => { setMode(b.dataset.mode); showLanding(opts); }));
   modalRoot().querySelector('#land-pro')?.addEventListener('click', () => openPaywall());
   modalRoot().querySelector('#land-reminders')?.addEventListener('click', () => openNotifySettings());
   modalRoot().querySelector('#land-start').addEventListener('click', () => {
